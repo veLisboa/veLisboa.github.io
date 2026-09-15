@@ -1,0 +1,26 @@
+---
+/**
+ * /labs/<slug> — a single lab write-up.
+ */
+import { getCollection, render } from "astro:content";
+import EntryLayout from "../../layouts/EntryLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("labs");
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<EntryLayout
+  title={entry.data.title}
+  eyebrow="Labs"
+  standfirst={entry.data.summary}
+  status={entry.data.status}
+  section="Labs"
+  backHref="/labs/"
+  backLabel="All labs">
+  <Content />
+</EntryLayout>

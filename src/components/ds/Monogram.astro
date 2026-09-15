@@ -1,0 +1,57 @@
+---
+/**
+ * VL monogram — cursive, a signature shorthand of the name. Petit Formal Script 400.
+ * Port of components/brand/Monogram.jsx.
+ *
+ * The fallback mark, used only where the wordmark has < 96px of width: favicon, profile photo,
+ * slide corner, carousel stamp, email-signature avatar.
+ */
+type Variant = "filled" | "boxed" | "plain";
+
+export interface Props {
+  /** Square edge in px. Never below 20. */
+  size?: number;
+  variant?: Variant;
+  tone?: "ink" | "inverse";
+  style?: Record<string, string | number>;
+  [key: string]: unknown;
+}
+
+const { size = 64, variant = "filled", tone = "ink", style, ...rest } = Astro.props;
+
+const inverse = tone === "inverse";
+const fg = inverse ? "var(--ink-inverse)" : "var(--ink)";
+const bg = inverse ? "var(--paper-inverse)" : "var(--paper)";
+
+// Typed explicitly: Props carries an index signature so the destructured `variant` widens to
+// any, and an unchecked lookup would silently return undefined for a typo'd variant.
+const boxes: Record<Variant, { background: string; color: string; border: string }> = {
+  filled: {
+    background: inverse ? "var(--paper-inverse)" : "var(--ink)",
+    color: inverse ? "var(--ink)" : "var(--ink-inverse)",
+    border: "none",
+  },
+  boxed: { background: bg, color: fg, border: "1px solid var(--rule-strong)" },
+  plain: { background: "transparent", color: fg, border: "none" },
+};
+const box = boxes[variant as Variant];
+---
+
+<span
+  {...rest}
+  style={{
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    // px explicit: Astro adds no unit to bare numbers.
+    width: `${size}px`,
+    height: `${size}px`,
+    fontFamily: "var(--font-script)",
+    fontWeight: 400,
+    fontSize: `${size * 0.56}px`,
+    letterSpacing: "0.01em",
+    lineHeight: 1,
+    borderRadius: 0,
+    ...box,
+    ...style,
+  }}><span style="transform:translateY(-4%)">VL</span></span>

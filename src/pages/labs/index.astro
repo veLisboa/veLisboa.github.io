@@ -1,0 +1,139 @@
+---
+/**
+ * /labs — the merged proof page.
+ *
+ * /work is gone from the nav; this is the one page carrying work. The agentic PBIP workflow
+ * anchors it, the two dashboard renders prove it produced something, and the write-up says what
+ * the build actually taught.
+ *
+ * Every figure states its data provenance. None of this is client work and the page says so.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import Figure from "../../components/Figure.astro";
+import Todo from "../../components/Todo.astro";
+import Callout from "../../components/ds/Callout.astro";
+import { getCollection } from "astro:content";
+import { byOrder } from "../../content.config";
+import { labs as labsConfig, isTodo } from "../../config";
+
+const entries = (await getCollection("labs")).sort(byOrder);
+const repoUnpublished = isTodo(labsConfig.pbipPortfolioRepo);
+---
+
+<BaseLayout
+  title="Labs"
+  section="Labs"
+  description="Power BI projects authored as text and generated rather than drawn, and the agentic development workflow behind them.">
+  <section class="container" style="margin-top:var(--space-9)">
+    <div class="opener"></div>
+    <h1 style="max-width:16em">Labs</h1>
+    <p class="lead" style="margin-top:var(--space-6)">
+      Tooling I have built to make Power BI delivery faster and more verifiable, published so it
+      can be used and argued with. None of it is client work — the data is synthetic or public,
+      deliberately, so the projects can be shown in full.
+    </p>
+  </section>
+
+  <!-- 01 · The workflow -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <SectionHeader
+      num="01"
+      eyebrow="Method"
+      title="Agents inside a PBIP workflow, with a gate"
+      lede="A .pbix is a binary and cannot be diffed. A PBIP project is text — TMDL plus PBIR — so it can be read, reviewed and generated. This is the loop that does it, and the approval gate that keeps a human on every change."
+    />
+    <Figure
+      src="/powerbi-dev/powerbi-ai-driven-dev.jpeg"
+      alt="Eight-step agentic PBIP development workflow: understand, improve behind an approval gate, then build and prove"
+      width={1280}
+      height={1080}
+      caption="Read-only review produces evidence-backed plans; nothing is applied until it is approved, per finding."
+      meta="Delivery workflow"
+      loading="eager"
+    />
+  </section>
+
+  <!-- 02 · What it produced -->
+  <section class="band band--tint" style="margin-top:var(--space-10)">
+    <div class="container">
+      <SectionHeader
+        num="02"
+        eyebrow="Output"
+        title="Three reports, one generator, three skins"
+        lede="Report JSON and TMDL emitted by committed Python. One module holds every visual structure and another holds three Style objects, so re-skinning a report touches no visual code at all."
+      />
+
+      <div class="bento">
+        <Figure
+          src="/powerbi-dev/dashboard-1.jpeg"
+          alt="Performance Overview report — revenue, gross margin and category scorecard"
+          width={1527}
+          height={855}
+          caption="Executive reporting, flat design. Descriptive mode."
+          meta="Synthetic data · seeded generator"
+        />
+        <Figure
+          src="/powerbi-dev/dashboard-2.jpeg"
+          alt="What Lateness Costs report — review score against delivery lag"
+          width={1277}
+          height={716}
+          caption="Delivery diagnostics, neumorphic design. Review score falls monotonically as an order runs later."
+          meta="Olist public dataset · CC BY-NC-SA"
+        />
+      </div>
+
+      <div style="margin-top:var(--space-8);max-width:var(--measure)">
+        <Callout label="Data provenance">
+          Neither report contains client data. The first runs on a seeded synthetic generator; the
+          second on the public Olist Brazilian e-commerce dataset, which is already anonymised and
+          is licensed CC BY-NC-SA. A third project, on Our World in Data, is not shown here.
+        </Callout>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · The write-up -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <SectionHeader num="03" eyebrow="Write-ups" title="What the build actually taught" />
+    <div class="specs">
+      {
+        entries.map((e) => (
+          <div class="spec-row">
+            <div class="spec-row__meta">
+              <span class="num">01</span>
+              Project
+            </div>
+            <div class="spec-row__body">
+              <h3 style="font-size:var(--step-2)">
+                <a href={`/labs/${e.id}/`}>{e.data.title}</a>
+              </h3>
+              <p style="color:var(--ink-secondary);margin-top:var(--space-4)">{e.data.summary}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    {
+      repoUnpublished && (
+        <Todo
+          what="The repository behind this is not public yet, so there is nothing to link to. Before it is published it needs a confidentiality pass: it references two other Power BI projects that read as real internal work, bakes absolute local paths into every model, and carries a cached copy of its source data. The Olist dataset is CC BY-NC-SA and is not attributed anywhere in the repo."
+          source="Sanitise, publish, then set labs.pbipPortfolioRepo in src/config.ts."
+        />
+      )
+    }
+  </section>
+
+  <!-- 04 · Case studies -->
+  <section class="band band--tint" style="margin-top:var(--space-10)">
+    <div class="container">
+      <SectionHeader
+        num="04"
+        eyebrow="Client work"
+        title="Why there are no case studies here"
+        lede="The delivery work is under client confidentiality and no client is named without written permission. A case study appears only once it has been cleared and anonymised — rounded numbers, industry descriptors rather than names, and any visual rebuilt with synthetic data rather than blurred."
+      />
+    </div>
+  </section>
+</BaseLayout>

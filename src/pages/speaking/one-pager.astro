@@ -1,0 +1,319 @@
+---
+/**
+ * Speaker one-pager — US Letter, print-ready.
+ *
+ * Port of vinicius-lisboa-design-system/project/ui_kits/speaker/index.html. Organizers ask for a
+ * bio, topics and requirements in one file; this is that file, generated from the browser's
+ * print stylesheet rather than from a design tool.
+ *
+ * Renders bare — no site header or footer — so what is on screen is what prints.
+ *
+ * The header carries the portrait rather than a mark — organizers ask for a headshot, and a
+ * photograph is not a mark, so it does not collide with the wordmark/monogram rule. The name
+ * beside it is set type, not the Wordmark component, so no second mark appears in the block.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { byOrder } from "../../content.config";
+import { contact, portrait } from "../../config";
+
+const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
+---
+
+<BaseLayout title="Speaker one-pager" bare>
+  <div class="desk">
+    <a class="back no-print" href="/speaking/">Back to speaking</a>
+
+    <article class="sheet">
+      <div class="opener"></div>
+
+      <header class="head">
+        <div>
+          <div class="sec">Speaker one-pager · 2026</div>
+          <div class="name">Vinicius Lisboa</div>
+          <div class="strap">
+            Data architecture and governance for Fabric and Databricks estates. Microsoft
+            Certified Trainer.
+          </div>
+        </div>
+        <img class="sheet-portrait" src={portrait} alt="Vinicius Lisboa" width="1242" height="1242" />
+      </header>
+
+      <div class="rule2"></div>
+
+      <div class="grid2">
+        <div>
+          <p class="pos">
+            I design and govern Microsoft Fabric, Power BI and Databricks estates, and train the
+            teams that run them. I speak about what actually holds up in production — governance
+            people can operate, capacity decisions made before the invoice, and the delivery
+            tooling around both.
+          </p>
+
+          <div class="sec mt">Talks</div>
+          <div class="talks">
+            {
+              talks.map((t) => (
+                <div class="row">
+                  <div class="t-title">{t.data.title}</div>
+                  <div class="t-meta">
+                    {[t.data.level, t.data.duration].filter(Boolean).join(" · ") ||
+                      "Session, workshop or webinar"}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <aside class="aside">
+          <div>
+            <div class="sec">Roles</div>
+            <div class="row sm">Microsoft Certified Trainer, since 2022</div>
+            <div class="row sm">Mentor — Great Learning, Generative AI and Azure</div>
+            <div class="row sm">Mentor — UT Austin McCombs, PGP in AI Agents &amp; GenAI</div>
+            <div class="row sm">Data architecture and governance, Curitiba, Brazil</div>
+          </div>
+
+          <div>
+            <div class="sec">Reach</div>
+            <div class="row">
+              <div class="fig accent">~5,000</div>
+              <div class="fig-label">Students trained worldwide</div>
+            </div>
+            <div class="row">
+              <div class="fig">3</div>
+              <div class="fig-label">Languages: English, Portuguese, Spanish</div>
+            </div>
+            <div class="row">
+              <div class="fig">2022</div>
+              <div class="fig-label">Training and speaking since</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="rule2 last"></div>
+
+      <div class="grid3">
+        <div>
+          <div class="sec">Contact</div>
+          <div class="b">{contact.email}</div>
+        </div>
+        <div>
+          <div class="sec">LinkedIn</div>
+          <div class="b">linkedin.com/in/vini-lisboa</div>
+        </div>
+        <div>
+          <div class="sec">Requirements</div>
+          <div class="b s">Projector or screen share. Handheld or lapel mic. No other setup.</div>
+        </div>
+      </div>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Grey desk on screen; the sheet itself is what prints. */
+  .desk {
+    background: var(--paper-sunken);
+    min-height: 100vh;
+    padding: var(--space-8) var(--space-5);
+  }
+  .back {
+    display: block;
+    max-width: 816px;
+    margin: 0 auto var(--space-5);
+    font-size: var(--step--1);
+    color: var(--ink-secondary);
+    border-bottom: none;
+  }
+
+  .sheet {
+    width: 816px; /* US Letter at 96dpi */
+    min-height: 1056px;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: var(--margin-page);
+    box-sizing: border-box;
+  }
+
+  .opener {
+    height: var(--rule-heavy);
+    background: var(--ink);
+    margin-bottom: var(--space-7);
+  }
+  .rule2 {
+    height: var(--rule-medium);
+    background: var(--ink);
+    margin: var(--space-7) 0 var(--space-6);
+  }
+  .rule2.last {
+    margin: var(--space-8) 0 var(--space-6);
+  }
+
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-7);
+  }
+  .sheet-portrait {
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    display: block;
+    border: var(--rule-hairline) solid var(--rule);
+    flex: none;
+  }
+  .name {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: var(--wt-semibold);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-top: var(--space-3);
+  }
+  .strap {
+    font-size: 15px;
+    color: var(--ink-secondary);
+    margin-top: var(--space-4);
+    max-width: 30em;
+  }
+
+  /* A hand-rolled .eyebrow at 12px — the section label used throughout the sheet. */
+  .sec {
+    font-family: var(--font-body);
+    font-size: var(--step--2);
+    font-weight: var(--wt-medium);
+    letter-spacing: var(--ls-eyebrow);
+    text-transform: uppercase;
+    color: var(--ink-secondary);
+  }
+  .sec.mt {
+    margin-top: var(--space-7);
+  }
+
+  .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: var(--space-8);
+    align-items: start;
+  }
+  .grid3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+  .aside {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .pos {
+    font-size: 16px;
+    line-height: 1.55;
+    max-width: 34em;
+  }
+
+  /* The universal item pattern: a hairline above, never a container. */
+  .row {
+    border-top: var(--rule-hairline) solid var(--rule);
+    padding-top: var(--space-4);
+    margin-top: var(--space-4);
+  }
+  .row.sm {
+    font-size: var(--step--1);
+    color: var(--ink-secondary);
+  }
+  .talks {
+    margin-top: var(--space-2);
+  }
+  .t-title {
+    font-weight: var(--wt-medium);
+    line-height: 1.35;
+  }
+  .t-meta {
+    font-size: var(--step--1);
+    color: var(--ink-secondary);
+    margin-top: var(--space-2);
+  }
+
+  .fig {
+    font-family: var(--font-display);
+    font-size: 30px;
+    font-weight: var(--wt-semibold);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  /* Exactly one accent figure on the sheet. */
+  .fig.accent {
+    color: var(--accent);
+  }
+  .fig-label {
+    font-size: var(--step--2);
+    color: var(--ink-secondary);
+    margin-top: var(--space-3);
+    line-height: var(--lh-caption);
+  }
+
+  .b {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: var(--space-3);
+  }
+  .b.s {
+    color: var(--ink-secondary);
+  }
+
+  @media print {
+    @page {
+      size: letter;
+      margin: 0;
+    }
+    /* Without this Chrome drops the 6px ink opener and the filled monogram square from the
+       PDF — it strips backgrounds by default, and both of those ARE backgrounds. */
+    * {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .desk {
+      background: none;
+      padding: 0;
+      min-height: 0;
+    }
+    .sheet {
+      width: auto;
+      min-height: 0;
+      margin: 0;
+      padding: 14mm;
+    }
+    .row,
+    .grid3 > div {
+      break-inside: avoid;
+    }
+  }
+
+  @media (max-width: 880px) {
+    .sheet {
+      width: 100%;
+      padding: var(--margin-page-tight);
+    }
+    .grid2,
+    .grid3 {
+      grid-template-columns: 1fr;
+      gap: var(--space-7);
+    }
+    .sheet-portrait {
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    display: block;
+    border: var(--rule-hairline) solid var(--rule);
+    flex: none;
+  }
+  .name {
+      font-size: var(--step-3);
+    }
+  }
+</style>

@@ -1,0 +1,30 @@
+:root{
+  /* scale — 1.28 ratio, 17px body root */
+  --step--2:0.75rem;   /* 12 micro caption */
+  --step--1:0.8125rem; /* 13 caption / eyebrow */
+  --step-0:1.0625rem;  /* 17 body */
+  --step-1:1.3125rem;  /* 21 lead */
+  --step-2:1.625rem;   /* 26 h3 */
+  --step-3:2.125rem;   /* 34 h2 */
+  --step-4:2.875rem;   /* 46 h1 */
+  --step-5:4rem;       /* 64 display */
+  --step-6:5.5rem;     /* 88 display-xl */
+
+  --lh-display:1.02; /* @kind other */
+  --lh-heading:1.14; /* @kind other */
+  --lh-body:1.62; /* @kind other */
+  --lh-caption:1.45; /* @kind other */
+
+  --ls-display:-0.022em;
+  --ls-heading:-0.014em;
+  --ls-body:0; /* @kind other */
+  --ls-eyebrow:0.16em;
+
+  --wt-light:300; /* @kind font */
+  --wt-regular:400; /* @kind font */
+  --wt-medium:500; /* @kind font */
+  --wt-semibold:600; /* @kind font */
+
+  --measure:34em;      /* ~66 characters */
+  --measure-narrow:26em;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<!-- @template name="LinkedIn carousel" description="Three 1080×1080 slides — cover, content, closing — in the Vinicius Lisboa editorial system." -->
+<helmet><script src="./ds-base.js"></script><style>body{margin:0}</style></helmet>
+<div data-theme="{{ theme }}" data-direction="{{ direction }}" style="background:var(--paper-sunken);padding:40px;display:flex;flex-direction:column;gap:40px;align-items:flex-start;font-family:var(--font-body)">
+
+<div data-screen-label="01 Cover" style="width:1080px;height:1080px;background:var(--paper);box-sizing:border-box;padding:88px;position:relative;display:flex;flex-direction:column;border:1px solid var(--rule)">
+<div style="position:absolute;left:0;right:0;top:0;height:12px;background:var(--rule-strong)"></div>
+<div style="font-size:26px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-secondary)">Governança no Fabric</div>
+<h1 style="font-family:var(--font-display);font-weight:600;font-size:124px;line-height:1;letter-spacing:-0.022em;margin:56px 0 0;color:var(--ink)">Domínios não são pastas</h1>
+<p style="font-size:34px;line-height:1.45;color:var(--ink-secondary);margin:48px 0 0;max-width:22em">Três níveis que sustentam operação — e o erro que aparece no sexto mês.</p>
+<div style="margin-top:auto;display:flex;align-items:center;gap:24px;padding-bottom:96px"><div style="width:88px;height:4px;background:var(--accent)"></div><x-import component-from-global-scope="ViniciusLisboaDesignSystem_249f05.Wordmark" size="44" hint-size="320px,52px"></x-import></div>
+<div style="position:absolute;left:88px;right:88px;bottom:64px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--rule);padding-top:20px">
+<x-import component-from-global-scope="ViniciusLisboaDesignSystem_249f05.Monogram" size="40" variant="plain" hint-size="40px,40px"></x-import>
+<span style="font-family:var(--font-mono);font-size:22px;color:var(--ink-tertiary)">1/7</span></div>
+</div>
+
+<div data-screen-label="02 Content" style="width:1080px;height:1080px;background:var(--paper);box-sizing:border-box;padding:88px;position:relative;display:flex;flex-direction:column;border:1px solid var(--rule)">
+<div style="display:flex;align-items:center;gap:20px"><div style="width:56px;height:2px;background:var(--accent)"></div><span style="font-size:24px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-secondary)">O desenho que funciona</span></div>
+<h2 style="font-family:var(--font-display);font-weight:600;font-size:78px;line-height:1.1;letter-spacing:-0.018em;margin:44px 0 0;color:var(--ink)">Responsabilidade, entrega, consumo</h2>
+<div style="margin-top:64px;display:flex;flex-direction:column;gap:40px">
+<div style="border-top:1px solid var(--rule);padding-top:24px"><div style="font-family:var(--font-display);font-size:44px;font-weight:600;color:var(--ink)">Domínio</div><div style="font-size:30px;line-height:1.45;color:var(--ink-secondary);margin-top:12px">Área de responsabilidade do negócio. Um dono nomeado.</div></div>
+<div style="border-top:1px solid var(--rule);padding-top:24px"><div style="font-family:var(--font-display);font-size:44px;font-weight:600;color:var(--ink)">Workspace</div><div style="font-size:30px;line-height:1.45;color:var(--ink-secondary);margin-top:12px">Estágio de entrega: dev, teste, produção.</div></div>
+<div style="border-top:1px solid var(--rule);padding-top:24px"><div style="font-family:var(--font-display);font-size:44px;font-weight:600;color:var(--ink)">Item</div><div style="font-size:30px;line-height:1.45;color:var(--ink-secondary);margin-top:12px">Contrato de consumo publicado junto do modelo.</div></div>
+</div>
+<div style="position:absolute;left:88px;right:88px;bottom:64px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--rule);padding-top:20px">
+<x-import component-from-global-scope="ViniciusLisboaDesignSystem_249f05.Monogram" size="40" variant="plain" hint-size="40px,40px"></x-import>
+<span style="font-family:var(--font-mono);font-size:22px;color:var(--ink-tertiary)">4/7</span></div>
+</div>
+
+<div data-screen-label="03 Closing" style="width:1080px;height:1080px;background:var(--paper-inverse);box-sizing:border-box;padding:88px;display:flex;flex-direction:column;border:1px solid var(--rule)">
+<h2 style="font-family:var(--font-display);font-weight:600;font-size:96px;line-height:1.06;letter-spacing:-0.022em;color:var(--ink-inverse);margin:40px 0 0;max-width:13em">Se a governança não é operável, é documentação.</h2>
+<div style="margin-top:auto;display:flex;flex-direction:column;gap:28px">
+<div style="height:2px;background:var(--accent);width:120px"></div>
+<p style="font-size:32px;line-height:1.4;color:var(--ink-secondary-inverse);max-width:20em;margin:0">Escrevo sobre Fabric, Power BI e governança toda semana. Newsletter no link do perfil.</p>
+<div style="display:flex;align-items:center;gap:28px;margin-top:12px">
+<span style="width:88px;height:88px;background:var(--ink-inverse);color:var(--paper-inverse);font-family:var(--font-script);font-size:50px;display:flex;align-items:center;justify-content:center">VL</span>
+<div><div style="font-family:var(--font-display);font-weight:600;font-size:46px;letter-spacing:-0.014em;color:var(--ink-inverse)">Vinicius Lisboa</div><div style="font-size:24px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-tertiary-inverse);margin-top:8px">Data &amp; AI · Curitiba, BR</div></div>
+</div></div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1160,&quot;height&quot;:1160},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;\&quot;light\&quot; | \&quot;dark\&quot;&quot;},&quot;direction&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;accent&quot;,&quot;mono&quot;],&quot;default&quot;:&quot;accent&quot;,&quot;tsType&quot;:&quot;\&quot;accent\&quot; | \&quot;mono\&quot;&quot;,&quot;section&quot;:&quot;Direction&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      theme: this.props.theme ?? "light",
+      direction: this.props.direction ?? "accent",
+    };
+  }
+}
+
+</script>
+</body>
+</html>

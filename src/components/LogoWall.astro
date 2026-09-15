@@ -1,0 +1,34 @@
+---
+/**
+ * Vendor marks in a row, unstyled, at their own proportions.
+ *
+ * The design system says there is deliberately no icon set and none should be added — but it
+ * also says that where an external platform has its own glyph, use that glyph unstyled rather
+ * than commissioning a matching set. These are those glyphs. See DESIGN-DECISIONS.md.
+ *
+ * Heights are set by `shape` rather than uniformly: a wordmark and a square mark at the same
+ * pixel height read at very different weights.
+ */
+export interface Props {
+  logos: ReadonlyArray<{ src: string; alt: string; shape?: string }>;
+  class?: string;
+}
+
+const { logos, class: className = "" } = Astro.props;
+---
+
+<ul class={`logo-wall ${className}`} role="list">
+  {
+    logos.map((logo) => (
+      <li>
+        <img
+          src={logo.src}
+          alt={logo.alt}
+          data-shape={logo.shape ?? "mark"}
+          loading="lazy"
+          decoding="async"
+        />
+      </li>
+    ))
+  }
+</ul>

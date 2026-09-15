@@ -1,0 +1,158 @@
+---
+/**
+ * Home — portrait-led, six bands.
+ *
+ * Round 1 was a headline, three text links and a contact line on white. The fix is structure,
+ * not decoration: a split hero, a logo wall, an inverted stat strip, a diagram grid, the writing
+ * themes, and affiliations. Inversion appears exactly once, which is also where the accent goes.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import LogoWall from "../components/LogoWall.astro";
+import StatStrip from "../components/StatStrip.astro";
+import { getCollection } from "astro:content";
+import { byOrder } from "../content.config";
+import { contact, platformLogos, affiliations, portrait, writingThemes } from "../config";
+
+const featured = (await getCollection("architecture"))
+  .sort(byOrder)
+  .filter((a) => ["01", "02", "04"].includes(a.data.num));
+
+const stats = [
+  { value: "~5,000", label: "Students trained worldwide" },
+  { value: "2022", label: "Microsoft Certified Trainer since" },
+  { value: "3", label: "Languages delivered in: English, Portuguese, Spanish" },
+  { value: "7", label: "Reference architectures published" },
+];
+---
+
+<BaseLayout section="Home">
+  <!-- 01 · Hero -->
+  <section class="container">
+    <div class="hero">
+      <div>
+        <h1 class="hero__statement">
+          Data architecture and governance for Fabric and Databricks estates.
+        </h1>
+        <p class="hero__sub">
+          Microsoft Certified Trainer. Roughly 5,000 students. I design platforms that survive
+          contact with the organisations that have to run them.
+        </p>
+        <div class="hero__meta">
+          <span>Curitiba, Brazil</span>
+          <span>English · Português · Español</span>
+        </div>
+      </div>
+      <img
+        class="hero__portrait"
+        src={portrait}
+        alt="Vinicius Lisboa"
+        width="1242"
+        height="1242"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <!-- 02 · Platforms -->
+  <section class="band band--tint">
+    <div class="container">
+      <SectionHeader num="01" eyebrow="Platforms" />
+      <LogoWall logos={platformLogos} />
+    </div>
+  </section>
+
+  <!-- 03 · Track record, inverted. The one accent band on the page. -->
+  <section class="band band--invert">
+    <div class="container">
+      <SectionHeader num="02" eyebrow="Track record" />
+      <StatStrip stats={stats} />
+    </div>
+  </section>
+
+  <!-- 04 · Reference architectures -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <SectionHeader
+      num="03"
+      eyebrow="Reference architectures"
+      title="How I'd architect it, and the trade-offs"
+      lede="Seven patterns with their decision points, their failure modes, and the conditions under which I would not use them."
+    />
+    <div class="thumb-grid">
+      {
+        featured.map((a) => (
+          <a class="thumb" href={`/architecture/${a.id}/`}>
+            <div class="thumb__frame">
+              <img src={a.data.diagram} alt="" width="2203" height="1325" loading="lazy" decoding="async" />
+            </div>
+            <div class="thumb__label">
+              <span class="thumb__num">{a.data.num}</span>
+              <span class="thumb__title">{a.data.title}</span>
+            </div>
+            <p class="thumb__sub">{a.data.summary}</p>
+          </a>
+        ))
+      }
+    </div>
+    <p style="margin-top:var(--space-8)"><a href="/architecture/">All seven architectures</a></p>
+  </section>
+
+  <!-- 05 · What I write about -->
+  <section class="band band--tint" style="margin-top:var(--space-10)">
+    <div class="container">
+      <SectionHeader
+        num="04"
+        eyebrow="Writing"
+        title="What I write and talk about"
+        lede="A newsletter on Fabric, Power BI and governance, in Portuguese, with a growing set in English. Six themes run through it."
+      />
+      <div class="specs">
+        {
+          writingThemes.map((t) => (
+            <div class="spec-row">
+              <div class="spec-row__meta">
+                <span class="num">{t.num}</span>
+                {t.title}
+              </div>
+              <div class="spec-row__body">
+                <p>{t.line}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+      <p style="margin-top:var(--space-8)"><a href="/writing/">Read the editions</a></p>
+    </div>
+  </section>
+
+  <!-- 06 · Affiliations and contact -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <div class="split">
+      <div>
+        <SectionHeader num="05" eyebrow="Teaching and building" />
+        <div class="affil">
+          {
+            affiliations.map((a) => (
+              <img src={a.src} alt={a.alt} loading="lazy" decoding="async" />
+            ))
+          }
+        </div>
+        <p style="margin-top:var(--space-7);color:var(--ink-secondary);max-width:var(--measure)">
+          Mentor on Generative AI and Azure programmes for Great Learning, and for UT Austin
+          McCombs School of Business. I am also building Klarun, a data catalog product.
+        </p>
+      </div>
+      <div class="split__art">
+        <SectionHeader num="06" eyebrow="Contact" />
+        <p>
+          For a talk, a workshop or a conversation about an estate that is not behaving.
+        </p>
+        <p style="margin-top:var(--space-6)">
+          <a href={`mailto:${contact.email}`}>{contact.email}</a>
+          <span style="color:var(--ink-tertiary)"> · </span>
+          <a href={contact.linkedin}>LinkedIn</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

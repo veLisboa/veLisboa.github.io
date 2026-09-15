@@ -1,0 +1,199 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   Site layer. Everything the design system deliberately leaves to the consumer.
+
+   tokens/base.css ships element resets, link states and exactly two utilities
+   (.eyebrow, .measure). It sets h1–h4 family/weight/tracking/line-height but NO
+   font-size, and p{margin:0} with NO bottom margin — all vertical rhythm is ours.
+
+   Rules obeyed here, from readme.md and the guidelines cards:
+     · 24px within a block · 48px between blocks · 96px to a new section
+     · 12 columns, 24px gutter, 64px page margin; text on 6–8 cols, metadata on 2–3
+     · body measure capped at 34em (~66 characters)
+     · --radius:0 and --shadow:none everywhere; flat fills only
+     · at most ONE accent element per view
+   Tokens only below — no raw hex, and no raw px outside the --space-* scale.
+   ──────────────────────────────────────────────────────────────────────────── */
+
+/* ── Type scale ──────────────────────────────────────────────────────────── */
+
+h1{font-size:var(--step-4)}   /* 46 */
+h2{font-size:var(--step-3)}   /* 34 */
+h3{font-size:var(--step-2)}   /* 26 */
+h4{font-size:var(--step-1)}   /* 21 */
+
+/* Display sizes are opt-in, never a default heading weight. */
+.display{font-family:var(--font-display);font-size:var(--step-5);font-weight:var(--wt-semibold);
+  line-height:var(--lh-display);letter-spacing:var(--ls-display)}
+
+/* ── Prose rhythm ────────────────────────────────────────────────────────── */
+
+.prose{max-width:var(--measure)}
+.prose > p,
+.prose > ul,
+.prose > ol{margin:0 0 var(--space-6)}          /* 24 within a block */
+.prose > h2{margin:var(--space-9) 0 var(--space-5)}  /* 64 above, 16 to its body */
+.prose > h3{margin:var(--space-8) 0 var(--space-5)}
+.prose > :last-child{margin-bottom:0}
+.prose a{overflow-wrap:break-word}
+
+.lead{font-size:var(--step-1);line-height:1.5;color:var(--ink-secondary);max-width:var(--measure)}
+.measure-narrow{max-width:var(--measure-narrow)}
+
+/* "Bold marks a term, italic marks a title." 600 rather than the browser default 700,
+   because 700 is not among the loaded IBM Plex Sans weights and would be synthesised. */
+.prose strong{font-weight:var(--wt-semibold)}
+.prose em{font-style:italic}
+
+/* Syntax highlighting is off (see astro.config.mjs), so code is styled here: mono family
+   inside a hairline box, no fill, no radius. */
+.prose code{font-family:var(--font-mono);font-size:0.9em;
+  border:var(--rule-hairline) solid var(--rule);padding:0 var(--space-2)}
+.prose pre{font-family:var(--font-mono);font-size:var(--step--1);line-height:var(--lh-caption);
+  border:var(--rule-hairline) solid var(--rule);padding:var(--space-5);
+  margin:0 0 var(--space-6);overflow-x:auto}
+.prose pre code{border:0;padding:0;font-size:inherit}
+
+/* Table rows are separated by hairlines, like every other list in this system. */
+.prose table{width:100%;border-collapse:collapse;font-size:var(--step--1);
+  margin:0 0 var(--space-6)}
+.prose th,.prose td{border-top:var(--rule-hairline) solid var(--rule);
+  padding:var(--space-3) var(--gutter) var(--space-3) 0;text-align:left;vertical-align:baseline}
+.prose th{font-weight:var(--wt-medium);letter-spacing:var(--ls-eyebrow);text-transform:uppercase;
+  font-size:var(--step--2);color:var(--ink-secondary)}
+
+/* Bullets are rules or numbers — never glyphs, never emoji. */
+.prose ul{list-style:none;padding:0}
+.prose ul > li{border-top:var(--rule-hairline) solid var(--rule);padding-top:var(--space-3);
+  margin-bottom:var(--space-3)}
+.prose ol{padding-left:1.2em}
+.prose ol > li{margin-bottom:var(--space-4)}
+
+/* ── Page frame ──────────────────────────────────────────────────────────── */
+
+.container{max-width:var(--content-max);margin:0 auto;padding-left:var(--margin-page);
+  padding-right:var(--margin-page)}
+
+.grid12{display:grid;grid-template-columns:repeat(var(--grid-cols),1fr);gap:var(--gutter)}
+
+/* Article body: text column + metadata rail, per ui_kits/newsletter/ArticlePage. */
+.body-grid{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:var(--space-9);
+  align-items:start}
+.rail{display:grid;gap:var(--space-6)}
+
+/* The 6px ink opener that starts a page or a section. */
+.opener{height:var(--rule-heavy);background:var(--ink);margin-bottom:var(--space-6)}
+
+/* 96 to a new section. Applied to every section rather than to `section + section`, because
+   the page opener (ArticleHeader) is a div, so the first section is not an adjacent sibling
+   and would otherwise sit flush against the standfirst. A section that genuinely opens a page
+   overrides this inline. */
+section{margin-top:var(--space-10)}
+.block + .block{margin-top:var(--space-8)}      /* 48 between blocks */
+
+/* StatBlocks go in rows of three or four, never alone, with at most one accent among them.
+   Below phone width they stack — three figures across 390px cramps every label to five lines. */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter)}
+@media (max-width:700px){.stat-row{grid-template-columns:1fr;gap:var(--space-6)}}
+
+/* The universal list-item pattern: a hairline above the item, never a container. */
+.row{border-top:var(--rule-hairline) solid var(--rule);padding-top:var(--space-4)}
+.rows{display:grid;gap:var(--space-5)}
+
+/* ── Header and footer ───────────────────────────────────────────────────── */
+
+/* base.css gives every <a> an accent border-bottom. That is right for prose, but five of
+   them across the nav would blow the one-accent-per-view budget on every page, so
+   navigation links opt out and use ink rules for state instead. */
+
+/* Sticky: a position, not an animation. The design system forbids motion, not placement. */
+.site-header{position:sticky;top:0;z-index:5;background:var(--paper);
+  padding-top:var(--space-6);padding-bottom:var(--space-5)}
+.site-header__inner{display:flex;align-items:flex-end;justify-content:space-between;
+  gap:var(--space-7);flex-wrap:wrap;
+  border-bottom:var(--rule-medium) solid var(--rule-strong);padding-bottom:var(--space-5)}
+.site-header__left{display:flex;align-items:flex-end;gap:var(--space-9);flex-wrap:wrap}
+.site-header__mark{border-bottom:none;display:block}
+
+.site-nav{display:flex;gap:var(--space-6);flex-wrap:wrap}
+.site-nav a{border-bottom:var(--rule-medium) solid transparent;padding-bottom:var(--space-1);
+  font-size:var(--step--1);font-weight:var(--wt-medium)}
+.site-nav a:hover{color:var(--ink);border-bottom-color:var(--rule)}
+.site-nav a[aria-current="page"]{border-bottom-color:var(--rule-strong)}
+
+/* The "where am I" slot. Mono, so it reads as chrome rather than as copy. */
+.site-header__meta{display:flex;gap:var(--space-5);flex-wrap:wrap;
+  font-family:var(--font-mono);font-size:var(--step--2);letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--ink-tertiary)}
+.site-header__section{color:var(--ink-secondary)}
+@media (max-width:760px){.site-header__meta{display:none}}
+
+.site-footer{margin-top:var(--space-11);padding-top:var(--space-8);padding-bottom:var(--space-8);
+  border-top:var(--rule-medium) solid var(--rule-strong)}
+.footer-cols{display:grid;grid-template-columns:2fr 1fr 1.4fr 1.2fr;gap:var(--space-8)}
+.footer-col .eyebrow{display:block;margin-bottom:var(--space-5)}
+.footer-col ul{list-style:none;padding:0;margin:0;display:grid;gap:var(--space-3)}
+.footer-blurb{font-size:var(--step--1);color:var(--ink-secondary);margin-top:var(--space-5);
+  max-width:24em;line-height:var(--lh-caption)}
+.site-footer a{border-bottom:none;color:var(--ink-secondary);font-size:var(--step--1)}
+.site-footer a:hover{color:var(--accent)}
+
+/* The mono identity row that closes every surface. */
+.footer-row{display:flex;justify-content:space-between;gap:var(--space-6);flex-wrap:wrap;
+  margin-top:var(--space-9);padding-top:var(--space-5);border-top:var(--rule-hairline) solid var(--rule);
+  font-family:var(--font-mono);font-size:var(--step--2);letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--ink-tertiary)}
+@media (max-width:900px){.footer-cols{grid-template-columns:1fr 1fr;gap:var(--space-7)}}
+@media (max-width:560px){.footer-cols{grid-template-columns:1fr}}
+
+/* ── Accessibility ───────────────────────────────────────────────────────── */
+
+.skip-link{position:absolute;left:-9999px;top:0;background:var(--ink);color:var(--ink-inverse);
+  padding:var(--space-4) var(--space-5);z-index:10}
+.skip-link:focus{left:0}
+
+/* base.css focuses links only; give every other interactive the same 2px ring. */
+button:focus-visible,[tabindex]:focus-visible,summary:focus-visible{
+  outline:var(--rule-medium) solid var(--focus);outline-offset:var(--space-1)}
+
+/* The only motion in the system is a 140ms colour/border change acknowledging input.
+   Honour a reader who has asked for none. */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:1ms!important;animation:none!important;
+    scroll-behavior:auto!important}
+}
+
+/* ── Media ───────────────────────────────────────────────────────────────── */
+
+img,svg{max-width:100%;height:auto;border-radius:var(--radius);box-shadow:var(--shadow)}
+figure{margin:0 0 var(--space-6)}
+figcaption{font-size:var(--step--1);color:var(--ink-tertiary);line-height:var(--lh-caption);
+  margin-top:var(--space-3)}
+
+/* ── Narrow screens ──────────────────────────────────────────────────────── */
+
+@media (max-width:900px){
+  .body-grid{grid-template-columns:minmax(0,1fr);gap:var(--space-8)}
+  .grid12{grid-template-columns:repeat(6,1fr)}
+}
+@media (max-width:640px){
+  .container{padding-left:var(--margin-page-tight);padding-right:var(--margin-page-tight)}
+  h1{font-size:var(--step-3)}
+  .display{font-size:var(--step-4)}
+  .grid12{grid-template-columns:repeat(2,1fr)}
+  .site-header__inner{align-items:flex-start}
+}
+
+/* ── Print ───────────────────────────────────────────────────────────────── */
+
+@media print{
+  @page{margin:16mm}
+  .site-header,.site-footer,.skip-link,.no-print{display:none!important}
+  .container{max-width:none;padding:0}
+  body{font-size:11pt}
+  a{border-bottom:none;color:var(--ink)}
+  /* A URL the reader cannot click is a URL they need spelled out. */
+  .prose a[href^="http"]::after{content:" (" attr(href) ")";font-size:0.85em;
+    color:var(--ink-tertiary);word-break:break-all}
+  h1,h2,h3{break-after:avoid}
+  .row,.prose li,figure{break-inside:avoid}
+}

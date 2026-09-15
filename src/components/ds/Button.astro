@@ -1,0 +1,75 @@
+---
+/**
+ * Square-cornered editorial button. No shadow, no radius, no gradient.
+ * Port of components/core/Button.jsx.
+ *
+ * Rendered as <a> when `href` is set, so a link that must look like a button does not need a
+ * script to navigate. The site ships no JS, so a bare <button> would do nothing on its own.
+ */
+export interface Props {
+  variant?: "primary" | "secondary" | "ghost" | "accent";
+  size?: "sm" | "md";
+  disabled?: boolean;
+  href?: string;
+  style?: Record<string, string | number>;
+  [key: string]: unknown;
+}
+
+const { variant = "primary", size = "md", disabled = false, href, style, ...rest } = Astro.props;
+
+const pad = size === "sm" ? "8px 14px" : "12px 22px";
+const fs = size === "sm" ? "var(--step--1)" : "var(--step-0)";
+
+const base = {
+  fontFamily: "var(--font-body)",
+  fontSize: fs,
+  fontWeight: 500,
+  lineHeight: 1.2,
+  letterSpacing: "0.01em",
+  padding: pad,
+  borderRadius: 0,
+  cursor: disabled ? "not-allowed" : "pointer",
+  opacity: disabled ? 0.38 : 1,
+  transition:
+    "background var(--dur) var(--ease),color var(--dur) var(--ease),border-color var(--dur) var(--ease)",
+};
+
+const variants = {
+  primary: { background: "var(--ink)", color: "var(--ink-inverse)", border: "1px solid var(--ink)" },
+  secondary: {
+    background: "transparent",
+    color: "var(--ink)",
+    border: "1px solid var(--rule-strong)",
+  },
+  ghost: {
+    background: "transparent",
+    color: "var(--ink-secondary)",
+    border: "1px solid transparent",
+    padding: size === "sm" ? "8px 4px" : "12px 4px",
+  },
+  accent: {
+    background: "var(--accent)",
+    color: "var(--accent-ink)",
+    border: "1px solid var(--accent)",
+  },
+};
+
+// As an <a>, drop base.css's accent border-bottom and centre the label in the box.
+const asLink = href
+  ? { display: "inline-block", textDecoration: "none", borderBottom: "none", textAlign: "center" }
+  : {};
+
+const finalStyle = { ...base, ...variants[variant], ...asLink, ...style };
+---
+
+{
+  href ? (
+    <a {...rest} href={href} style={finalStyle}>
+      <slot />
+    </a>
+  ) : (
+    <button {...rest} disabled={disabled} style={finalStyle}>
+      <slot />
+    </button>
+  )
+}

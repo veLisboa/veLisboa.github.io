@@ -1,0 +1,9 @@
+/* Design system entry point. Import order is load-bearing — base.css consumes the tokens
+   declared by the five files above it. Mirrors vinicius-lisboa-design-system/project/styles.css,
+   which lists the same six files in this same order. */
+@import url("tokens/fonts.css");
+@import url("tokens/colors.css");
+@import url("tokens/typography.css");
+@import url("tokens/spacing.css");
+@import url("tokens/layout.css");
+@import url("tokens/base.css");

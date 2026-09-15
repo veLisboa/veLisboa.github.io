@@ -1,0 +1,45 @@
+Template for a case study. Copy to `<slug>.md` in this folder (drop the `.txt`) and fill in.
+The `.md.txt` extension keeps this file out of the content collection so it never renders.
+
+The five-part skeleton, in order. Section 3 is the entire value of the page.
+
+---
+title: "What the work was, stated flatly"
+organisation: "a Brazilian healthcare cooperative"   # anonymised — never a client name
+summary: "One sentence. The constraint and the outcome."
+order: 1
+status: draft
+---
+
+## Context
+
+The organisation, the users, the volume. Anonymised on the agreed pattern: "a Japanese
+industrial manufacturer, Americas division", "a fuel and energy distribution group". Numbers
+rounded, and framed as ratios wherever the absolute figure is sensitive.
+
+## Constraint
+
+What made it hard. Capacity limits, source system shape, refresh window, a governance rule,
+an SLA. Be specific — "capacity F2 does not sustain incremental refresh above ~50M rows"
+beats "performance could degrade".
+
+## Decision
+
+What you chose, **and what you rejected and why**. This section is why anyone reads the page.
+
+## Result
+
+Measurable. Refresh time, model size, adoption, tickets avoided.
+
+## What I'd do differently
+
+One honest paragraph. This is the credibility multiplier and almost nobody writes it.
+
+---
+
+Before publishing, check:
+- The client has cleared it in writing. No client is named without written permission.
+- Any screenshot uses synthetic or scrambled data. If in doubt, rebuild the visual with fake
+  data rather than blur the real one.
+- 700–1,100 words. One or two visuals.
+- None of: passionate, journey, leverage, cutting-edge, transform, seasoned, enthusiast.

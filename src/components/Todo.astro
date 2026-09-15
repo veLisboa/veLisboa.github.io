@@ -1,0 +1,58 @@
+---
+/**
+ * A visible, unmistakable gap — rendered as composition rather than as absence.
+ *
+ * This site is a credibility artifact: an invented statistic or a plausible-sounding case study
+ * is a worse failure than an empty section. So anything the owner still has to supply renders
+ * through here — never as prose that could be mistaken for a finished claim.
+ *
+ * Built on Frame, following Klarun: "would rather show an honest blank than a dishonest fill",
+ * where the blank is a framed, mono-captioned rectangle on the grid. No emoji, no warning
+ * colour, no tinted box — a gap should look deliberate, not broken.
+ */
+import Frame from "./Frame.astro";
+
+export interface Props {
+  /** What is missing, stated plainly. */
+  what: string;
+  /** Where the content has to come from, if it isn't obvious. */
+  source?: string;
+  /**
+   * The label above the note. "Not written yet" where the content does not exist at all;
+   * "Drafted — needs your review" where it exists but is not yet his words.
+   */
+  label?: string;
+}
+
+const { what, source, label = "Not written yet" } = Astro.props;
+---
+
+{/* data-todo makes every outstanding item greppable in dist/ — see scripts/todos.mjs. */}
+<div data-todo={what} class="todo">
+  <Frame label={label} meta="Awaiting content" sunken>
+    <p class="todo__what">{what}</p>
+    {source && <p class="todo__source">{source}</p>}
+  </Frame>
+</div>
+
+<style>
+  .todo {
+    margin-block: var(--space-7);
+    max-width: var(--measure);
+  }
+  /* Italic signals editorial note rather than copy. */
+  .todo__what {
+    margin: 0;
+    font-style: italic;
+    color: var(--ink-secondary);
+    max-width: var(--measure-narrow);
+  }
+  .todo__source {
+    margin: var(--space-4) 0 0;
+    font-family: var(--font-mono);
+    font-size: var(--step--2);
+    line-height: var(--lh-caption);
+    color: var(--ink-tertiary);
+    max-width: var(--measure-narrow);
+  }
+</style>

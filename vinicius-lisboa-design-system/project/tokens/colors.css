@@ -1,0 +1,70 @@
+/* Neutrals carry a very light blue cast (hue ~215, 3–5% saturation) — cool, calm, and
+   deliberately not the warm paper of Klarun. Ink is graphite, not pure black.
+   Direction B adds exactly one accent: slate, a grey with a light touch of blue. */
+:root{
+  /* base ramp */
+  --white:#ffffff;
+  --grey-50:#f7f8f9;
+  --grey-100:#eef0f2;
+  --grey-200:#dde0e4;
+  --grey-300:#c3c8ce;
+  --grey-400:#8b929b;
+  --grey-500:#6f7680;
+  --grey-600:#5b626c;
+  --grey-700:#3e454e;
+  --grey-800:#2a3038;
+  --grey-900:#1f2227;
+  --graphite:#21252b;   /* the darkest ink. Never #000. */
+  --near-black:#17191d; /* dark-mode ground only */
+
+  --slate:#45617a;      /* accent */
+  --slate-lift:#8fa7bd; /* dark-ground only */
+
+  /* semantic — light (default) */
+  --paper:var(--white);
+  --paper-sunken:var(--grey-50);
+  --paper-inverse:var(--graphite);
+  --ink:var(--graphite);
+  --ink-secondary:var(--grey-600);
+  --ink-tertiary:var(--grey-400);
+  --ink-inverse:var(--white);
+  --rule:var(--grey-200);
+  --rule-strong:var(--graphite);
+  --accent:var(--slate);
+  --accent-ink:var(--white);
+  --focus:var(--slate);
+
+  /* text and rules that sit ON --paper-inverse. These flip with the theme, so an
+     inverted slide stays legible in both modes. Never use raw --grey-* on that ground. */
+  --ink-on-inverse:var(--white);
+  --ink-secondary-inverse:var(--grey-300);
+  --ink-tertiary-inverse:var(--grey-400);
+  --rule-inverse:var(--grey-700);
+
+  /* rule weights */
+  --rule-hairline:1px;
+  --rule-medium:2px;
+  --rule-heavy:6px;
+}
+
+[data-theme="dark"]{
+  --paper:var(--near-black);
+  --paper-sunken:var(--grey-900);
+  --paper-inverse:var(--grey-50);
+  --ink:#f2f4f6;
+  --ink-secondary:#a6adb6;
+  --ink-tertiary:var(--grey-500);
+  --ink-inverse:var(--near-black);
+  --rule:#31353c;
+  --rule-strong:#f2f4f6;
+  --accent:var(--slate-lift);
+  --accent-ink:var(--near-black);
+  --focus:var(--slate-lift);
+  --ink-on-inverse:var(--near-black);
+  --ink-secondary-inverse:var(--grey-700);
+  --ink-tertiary-inverse:var(--grey-500);
+  --rule-inverse:var(--grey-300);
+}
+
+/* Direction A: pure monochrome. Set on any subtree to strip the accent. */
+[data-direction="mono"]{--accent:var(--ink);--accent-ink:var(--paper);--focus:var(--ink);}

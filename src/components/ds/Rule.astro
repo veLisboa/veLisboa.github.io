@@ -1,0 +1,40 @@
+---
+/**
+ * Horizontal rule at one of three system weights.
+ * Port of components/core/Rule.jsx.
+ *
+ * Each weight has exactly one job: 1px between list items and table rows; 2px at section
+ * breaks, pull quotes and callout tops; 6px as a page opener directly above a display heading.
+ */
+export interface Props {
+  weight?: "hairline" | "medium" | "heavy";
+  tone?: "rule" | "strong" | "accent";
+  /** px inset applied as left and right margin. */
+  inset?: number;
+  style?: Record<string, string | number>;
+  [key: string]: unknown;
+}
+
+const { weight = "hairline", tone = "rule", inset = 0, style, ...rest } = Astro.props;
+
+const heights = {
+  hairline: "var(--rule-hairline)",
+  medium: "var(--rule-medium)",
+  heavy: "var(--rule-heavy)",
+};
+const h = heights[weight];
+const bg =
+  tone === "strong" ? "var(--rule-strong)" : tone === "accent" ? "var(--accent)" : "var(--rule)";
+---
+
+<div
+  {...rest}
+  role="separator"
+  style={{
+    height: h,
+    background: bg,
+    marginLeft: `${inset}px`,
+    marginRight: `${inset}px`,
+    ...style,
+  }}
+/>

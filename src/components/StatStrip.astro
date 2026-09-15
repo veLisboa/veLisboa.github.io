@@ -1,0 +1,23 @@
+---
+/**
+ * Figures in a row on an inverted ground.
+ *
+ * Inversion is this site's rhythm device — roughly every fourth or fifth band, never two in a
+ * row. It is also where the accent budget is spent, so nothing else on the page needs colour.
+ */
+export interface Props {
+  stats: ReadonlyArray<{ value: string; label: string }>;
+}
+const { stats } = Astro.props;
+---
+
+<div class="stat-strip">
+  {
+    stats.map((s) => (
+      <div class="stat">
+        <div class="stat__value">{s.value}</div>
+        <div class="stat__label">{s.label}</div>
+      </div>
+    ))
+  }
+</div>

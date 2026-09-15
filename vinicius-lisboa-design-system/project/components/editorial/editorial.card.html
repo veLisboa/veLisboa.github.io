@@ -1,0 +1,19 @@
+<!-- @dsCard group="Components" viewport="700x390" name="Editorial" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:20px 24px;background:var(--paper)}</style></head><body><div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script type="text/babel">
+const { ArticleHeader, PullQuote, StatBlock, Byline } = window.ViniciusLisboaDesignSystem_249f05;
+
+function Card(){return <div style={{display:'grid',gap:28}}>
+<ArticleHeader eyebrow="Edição 041 · Governança" title="Domínios no Fabric não são pastas" standfirst="Quase todo tenant que eu audito trata domínio como organização de arquivos. O custo disso aparece seis meses depois." meta={["12 mar 2026","8 min de leitura","PT-BR"]}/>
+<div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:32,alignItems:'start'}}>
+  <PullQuote attribution="Edição 038">Governança que ninguém consegue operar é documentação.</PullQuote>
+  <div style={{display:'grid',gap:20}}><StatBlock value="~5.000" label="Alunos mentorados em programas de IA nos EUA"/><Byline date="12 mar 2026"/></div>
+</div>
+</div>}
+ReactDOM.createRoot(document.getElementById('root')).render(<Card/>);
+</script></body></html>

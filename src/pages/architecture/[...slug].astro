@@ -1,0 +1,77 @@
+---
+/**
+ * /architecture/<slug> — one reference architecture.
+ *
+ * The diagram leads at full width in a frame that scrolls inside itself, then the written
+ * rationale. That prose is transcribed from the panels already printed on the diagram — when to
+ * choose this pattern, watch-outs, bridge options ranked — so it is his argument, not mine.
+ */
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Figure from "../../components/Figure.astro";
+import PrevNext from "../../components/PrevNext.astro";
+import Rule from "../../components/ds/Rule.astro";
+import { byOrder } from "../../content.config";
+
+export async function getStaticPaths() {
+  const all = (await getCollection("architecture")).sort(byOrder);
+  return all.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      index: i + 1,
+      total: all.length,
+      prev: all[i - 1],
+      next: all[i + 1],
+    },
+  }));
+}
+
+const { entry, index, total, prev, next } = Astro.props;
+const { Content } = await render(entry);
+const groupLabel = entry.data.group === "foundations" ? "Foundations" : "The four hybrids";
+---
+
+<BaseLayout
+  title={entry.data.title}
+  section="Architecture"
+  description={entry.data.summary}>
+  <article>
+    <section class="container" style="margin-top:var(--space-9)">
+      <div class="opener"></div>
+      <span class="eyebrow" style="display:block;margin-bottom:var(--space-5)">
+        <span class="section-num">{entry.data.num} ·</span> {groupLabel}
+      </span>
+      <h1 style="max-width:18em">{entry.data.title}</h1>
+      <p class="lead" style="margin-top:var(--space-6)">{entry.data.subtitle}</p>
+    </section>
+
+    <section class="container" style="margin-top:var(--space-8)">
+      <Figure
+        src={entry.data.diagram}
+        alt={`Reference architecture ${entry.data.num} — ${entry.data.title}`}
+        caption="Scroll the diagram sideways on a narrow screen."
+        meta={`Reference architecture ${entry.data.num}`}
+        loading="eager"
+        wide
+      />
+    </section>
+
+    <section class="container" style="margin-top:var(--space-10)">
+      <Rule weight="medium" tone="strong" />
+      <div class="prose" style="margin-top:var(--space-7)">
+        <Content />
+      </div>
+
+      <PrevNext
+        index={index}
+        total={total}
+        prev={prev && { href: `/architecture/${prev.id}/`, label: prev.data.title }}
+        next={next && { href: `/architecture/${next.id}/`, label: next.data.title }}
+      />
+      <p style="margin-top:var(--space-6);font-size:var(--step--1)">
+        <a href="/architecture/">All architectures</a>
+      </p>
+    </section>
+  </article>
+</BaseLayout>

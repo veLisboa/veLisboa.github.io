@@ -1,0 +1,131 @@
+---
+/**
+ * /architecture — seven reference architectures in two groups.
+ *
+ * The most linkable asset type on the site. Framed as "how I'd architect X, and the trade-offs",
+ * not "a diagram I drew" — each one carries its decision points and its failure modes.
+ */
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import { getCollection } from "astro:content";
+import { byOrder } from "../../content.config";
+import { fabricItems } from "../../config";
+
+const all = (await getCollection("architecture")).sort(byOrder);
+const foundations = all.filter((a) => a.data.group === "foundations");
+const hybrids = all.filter((a) => a.data.group === "hybrids");
+
+const groups = [
+  {
+    num: "01",
+    eyebrow: "Foundations",
+    title: "The three platform patterns",
+    lede: "One vendor-neutral baseline, then the two platforms it maps onto. Every box in the first diagram becomes a concrete service in the other two.",
+    entries: foundations,
+  },
+  {
+    num: "02",
+    eyebrow: "The four hybrids",
+    title: "External lakehouse, Fabric serving",
+    lede: "The same split four ways: another platform owns ingestion, storage and transformation; Fabric owns the semantic and consumption tier. They differ entirely in how the two halves are bridged, and how much that bridge costs.",
+    entries: hybrids,
+  },
+];
+---
+
+<BaseLayout
+  title="Architecture"
+  section="Architecture"
+  description="Seven reference architectures for Microsoft Fabric, Databricks, BigQuery, Snowflake and Redshift — the decision points, the failure modes, and when not to use each pattern.">
+  <section class="container" style="margin-top:var(--space-9)">
+    <div class="opener"></div>
+    <h1 style="max-width:16em">Reference architectures</h1>
+    <p class="lead" style="margin-top:var(--space-6)">
+      Seven patterns, each with its decision points, its failure modes, and the conditions under
+      which I would not use it. A diagram without the argument around it is decoration.
+    </p>
+  </section>
+
+  {
+    groups.map((g, gi) => (
+      <section class={gi === 1 ? "band band--tint" : "container"} style="margin-top:var(--space-10)">
+        <div class={gi === 1 ? "container" : ""}>
+          <SectionHeader num={g.num} eyebrow={g.eyebrow} title={g.title} lede={g.lede} />
+          <div class="thumb-grid">
+            {g.entries.map((a) => (
+              <a class="thumb" href={`/architecture/${a.id}/`}>
+                <div class="thumb__frame">
+                  <img
+                    src={a.data.diagram}
+                    alt=""
+                    width="2203"
+                    height="1325"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div class="thumb__label">
+                  <span class="thumb__num">{a.data.num}</span>
+                  <span class="thumb__title">{a.data.title}</span>
+                </div>
+                <p class="thumb__sub">{a.data.summary}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- 03 · The vocabulary the diagrams are drawn in -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <SectionHeader
+      num="03"
+      eyebrow="Vocabulary"
+      title="The items these diagrams name"
+      lede="Every box in the Fabric diagrams is one of these. The icons are Microsoft's own, used unstyled."
+    />
+    <ul class="items" role="list">
+      {
+        fabricItems.map((i) => (
+          <li class="item">
+            <img src={i.src} alt="" width="40" height="40" loading="lazy" decoding="async" />
+            <span>{i.label}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .items {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--space-6);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: var(--hairline);
+    padding-top: var(--space-6);
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    font-size: var(--step--1);
+    color: var(--ink-secondary);
+  }
+  .item img {
+    width: 24px;
+    height: 24px;
+    display: block;
+    flex: none;
+  }
+  @media (max-width: 900px) {
+    .items { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .items { grid-template-columns: repeat(2, 1fr); gap: var(--space-5); }
+  }
+</style>

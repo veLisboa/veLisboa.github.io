@@ -1,0 +1,59 @@
+---
+/**
+ * Horizontal lock-up: wordmark, hairline, role line. For headers and email signatures.
+ * Port of components/brand/Lockup.jsx.
+ *
+ * The role line is the only text ever locked to the mark — and it is a role, never a promise.
+ */
+import Wordmark from "./Wordmark.astro";
+
+export interface Props {
+  role?: string;
+  /** Wordmark px size; the role line is derived at half of it, floored at 11. */
+  size?: number;
+  tone?: "ink" | "inverse";
+  align?: "row" | "column";
+  style?: Record<string, string | number>;
+  [key: string]: unknown;
+}
+
+const {
+  role = "Data & AI — Governança, Arquitetura, Microsoft Fabric",
+  size = 22,
+  tone = "ink",
+  align = "row",
+  style,
+  ...rest
+} = Astro.props;
+
+const secondary = tone === "inverse" ? "var(--ink-secondary-inverse)" : "var(--ink-secondary)";
+const rule = tone === "inverse" ? "var(--rule-inverse)" : "var(--rule)";
+const row = align === "row";
+const roleSize = Math.max(11, Math.round(size * 0.5));
+---
+
+<div
+  {...rest}
+  style={{
+    display: "flex",
+    flexDirection: row ? "row" : "column",
+    alignItems: row ? "baseline" : "flex-start",
+    gap: row ? "var(--space-5)" : "var(--space-3)",
+    ...style,
+  }}>
+  <Wordmark size={size} tone={tone} />
+  {
+    row && (
+      <span style={{ alignSelf: "stretch", width: "1px", background: rule, marginTop: "2px" }} />
+    )
+  }
+  <span
+    style={{
+      fontFamily: "var(--font-body)",
+      fontSize: `${roleSize}px`,
+      fontWeight: 500,
+      letterSpacing: "var(--ls-eyebrow)",
+      textTransform: "uppercase",
+      color: secondary,
+    }}>{role}</span>
+</div>

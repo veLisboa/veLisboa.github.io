@@ -1,0 +1,22 @@
+import React from "react";
+
+/** Article / newsletter opener: heavy rule, eyebrow, display title, standfirst, byline row. */
+export function ArticleHeader({ eyebrow, title, standfirst, meta = [], style, ...rest }) {
+  return (
+    <header {...rest} style={{ ...style }}>
+      <div style={{ height: "var(--rule-heavy)", background: "var(--rule-strong)", marginBottom: "var(--space-6)" }} />
+      {eyebrow && (
+        <div style={{ fontFamily: "var(--font-body)", fontSize: "var(--step--1)", fontWeight: 500, letterSpacing: "var(--ls-eyebrow)", textTransform: "uppercase", color: "var(--ink-secondary)", marginBottom: "var(--space-5)" }}>{eyebrow}</div>
+      )}
+      <h1 style={{ fontFamily: "var(--font-display)", fontSize: "var(--step-4)", fontWeight: 600, lineHeight: "var(--lh-heading)", letterSpacing: "var(--ls-heading)", color: "var(--ink)", maxWidth: "24em", margin: 0 }}>{title}</h1>
+      {standfirst && (
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "var(--step-1)", lineHeight: 1.5, color: "var(--ink-secondary)", maxWidth: "var(--measure)", marginTop: "var(--space-5)" }}>{standfirst}</p>
+      )}
+      {meta.length > 0 && (
+        <div style={{ display: "flex", gap: "var(--space-5)", alignItems: "center", marginTop: "var(--space-6)", paddingTop: "var(--space-4)", borderTop: "1px solid var(--rule)", fontFamily: "var(--font-body)", fontSize: "var(--step--1)", color: "var(--ink-tertiary)", letterSpacing: "0.04em", textTransform: "uppercase" }}>
+          {meta.map((m, i) => <span key={i}>{m}</span>)}
+        </div>
+      )}
+    </header>
+  );
+}

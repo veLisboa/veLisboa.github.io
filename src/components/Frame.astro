@@ -1,0 +1,30 @@
+---
+/**
+ * A bordered panel whose label row sits above and outside the box.
+ *
+ * Klarun's most-reused structural primitive, and the reason an unfinished section can still
+ * look deliberate: "would rather show an honest blank than a dishonest fill" — but the blank is
+ * a framed, captioned rectangle on the grid, never empty space.
+ */
+export interface Props {
+  /** Left side of the mono label row. */
+  label: string;
+  /** Right side of the label row — a count, a status, a date. */
+  meta?: string;
+  /** Sunken ground, for a panel that should read as recessed rather than raised. */
+  sunken?: boolean;
+  class?: string;
+}
+
+const { label, meta, sunken = false, class: className = "" } = Astro.props;
+---
+
+<div class={`frame ${sunken ? "frame--sunken" : ""} ${className}`}>
+  <div class="frame__label">
+    <span>{label}</span>
+    {meta && <span>{meta}</span>}
+  </div>
+  <div class="frame__box">
+    <slot />
+  </div>
+</div>

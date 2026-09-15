@@ -1,0 +1,39 @@
+---
+/**
+ * Full-name wordmark. The default mark. Set in the display serif, never redrawn.
+ * Port of vinicius-lisboa-design-system/project/components/brand/Wordmark.jsx.
+ *
+ * Use this whenever the mark has >= 96px of width; below that, use <Monogram/>. Never both
+ * in one block.
+ */
+export interface Props {
+  /** px font-size. Floor is 14 (= 96px total width); below that the monogram is the mark. */
+  size?: number;
+  tone?: "ink" | "inverse" | "accent";
+  /** 400 only above 56px. */
+  weight?: 400 | 500 | 600;
+  block?: boolean;
+  style?: Record<string, string | number>;
+  [key: string]: unknown;
+}
+
+const { size = 32, tone = "ink", weight = 600, block = false, style, ...rest } = Astro.props;
+const color =
+  tone === "inverse" ? "var(--ink-inverse)" : tone === "accent" ? "var(--accent)" : "var(--ink)";
+---
+
+<span
+  {...rest}
+  style={{
+    fontFamily: "var(--font-display)",
+    fontWeight: weight,
+    // React appends "px" to bare numbers; Astro does not — it serialises `${kebab(k)}:${v}`.
+    // Leaving this as `size` would emit `font-size:32` and be dropped as invalid.
+    fontSize: `${size}px`,
+    lineHeight: 1,
+    letterSpacing: "-0.014em",
+    color,
+    display: block ? "block" : "inline-block",
+    whiteSpace: "nowrap",
+    ...style,
+  }}>Vinicius Lisboa</span>

@@ -1,0 +1,48 @@
+---
+/**
+ * Author byline: monogram avatar, name, role, optional date.
+ * Port of components/editorial/Byline.jsx.
+ */
+import Monogram from "./Monogram.astro";
+
+export interface Props {
+  name?: string;
+  role?: string;
+  date?: string;
+  tone?: "ink" | "inverse";
+  style?: Record<string, string | number>;
+  [key: string]: unknown;
+}
+
+const {
+  name = "Vinicius Lisboa",
+  role = "Data & AI · Curitiba, BR",
+  date,
+  tone = "ink",
+  style,
+  ...rest
+} = Astro.props;
+
+const inverse = tone === "inverse";
+---
+
+<div
+  {...rest}
+  style={{ display: "flex", alignItems: "center", gap: "var(--space-4)", ...style }}>
+  <Monogram size={40} variant="filled" tone={inverse ? "inverse" : "ink"} />
+  <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
+    <span
+      style={{
+        fontFamily: "var(--font-body)",
+        fontSize: "var(--step-0)",
+        fontWeight: 500,
+        color: inverse ? "var(--ink-inverse)" : "var(--ink)",
+      }}>{name}</span>
+    <span
+      style={{
+        fontFamily: "var(--font-body)",
+        fontSize: "var(--step--1)",
+        color: inverse ? "var(--ink-secondary-inverse)" : "var(--ink-secondary)",
+      }}>{role}{date ? " · " + date : ""}</span>
+  </div>
+</div>

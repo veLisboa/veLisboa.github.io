@@ -1,0 +1,111 @@
+---
+/**
+ * The page shell. Header, footer, metadata, and the one place the stylesheet cascade is built.
+ *
+ * Fonts are imported here rather than through tokens/fonts.css so they are self-hosted and
+ * bundled by Vite — the design system's own fonts.css reaches for the Google CDN, which §3
+ * rules out.
+ *
+ * These are the WEIGHT-level entry points, deliberately. Fontsource's subset-level files
+ * (e.g. ibm-plex-sans/latin-ext-400.css) declare a @font-face with no unicode-range pointing
+ * at a latin-ext-only file, so the browser would find no glyphs for ordinary text and fall
+ * back to Segoe UI. The weight-level files declare one face per subset WITH unicode-range,
+ * so the browser fetches latin and nothing else.
+ *
+ * Portuguese needs the `latin` subset, not `latin-ext`: ã õ ç á é í ó ú â ê ô à ü are all
+ * U+00C0–U+00FF, inside U+0000-00FF. latin-ext is U+0100–U+024F and never downloads here.
+ */
+import "@fontsource-variable/source-serif-4/wght.css";
+import "@fontsource-variable/source-serif-4/wght-italic.css";
+import "@fontsource/ibm-plex-sans/400.css";
+import "@fontsource/ibm-plex-sans/500.css";
+import "@fontsource/ibm-plex-sans/600.css";
+import "@fontsource/ibm-plex-sans/400-italic.css";
+import "@fontsource/ibm-plex-mono/400.css";
+import "@fontsource/petit-formal-script/400.css";
+
+// Tokens first, then the site layer that fills in what base.css deliberately omits,
+// then the layout patterns that carry the composition.
+import "../styles/ds/styles.css";
+import "../styles/site.css";
+import "../styles/patterns.css";
+
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { site, analytics } from "../config";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  /** Set on the print-only one-pager, which carries no site chrome. */
+  bare?: boolean;
+  /** Shown in the masthead's mono metadata slot — the Klarun "where am I" device. */
+  section?: string;
+}
+
+const { title, description = site.description, bare = false, section } = Astro.props;
+
+// "Vinicius Lisboa" alone on the home page; "Speaking · Vinicius Lisboa" elsewhere. The middle
+// dot is the system's metadata separator.
+const pageTitle = title ? `${title} · ${site.title}` : site.title;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url);
+---
+
+<!doctype html>
+<html lang={site.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical.href} />
+    {/*
+      Raster, not the design system's assets/favicon.svg. That file sets "VL" as live <text>
+      in Petit Formal Script, and SVG favicons cannot load webfonts — browsers render them
+      with whatever the OS has, so the monogram comes out as Segoe Script on Windows and
+      Apple Chancery on macOS. The PNG is the mark as drawn.
+    */}
+    <link rel="icon" href="/favicon-512.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/favicon-512.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta name="twitter:card" content="summary" />
+
+    {/* No cookies, so no banner. Injected only once a code is filled in (see src/config.ts). */}
+    {
+      analytics.goatCounterCode && (
+        <script
+          is:inline
+          defer
+          data-goatcounter={`https://${analytics.goatCounterCode}.goatcounter.com/count`}
+          src="//gc.zgo.at/count.js"
+        />
+      )
+    }
+  </head>
+  <body>
+    {
+      bare ? (
+        <slot />
+      ) : (
+        <>
+          <a class="skip-link" href="#main">
+            Skip to content
+          </a>
+          <SiteHeader section={section} />
+          {/* Full width, so a band can bleed edge to edge. Pages wrap their own
+              content in .container, or in .band > .container for a full-bleed section. */}
+          <main id="main">
+            <slot />
+          </main>
+          <SiteFooter />
+        </>
+      )
+    }
+  </body>
+</html>

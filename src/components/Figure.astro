@@ -1,0 +1,58 @@
+---
+/**
+ * A wide image in a frame that scrolls inside itself.
+ *
+ * The architecture diagrams are 2203px wide. They must never widen the page — the frame gets
+ * `overflow-x: auto` and the image a `min-width`, so a narrow screen scrolls the diagram rather
+ * than the document.
+ */
+export interface Props {
+  src: string;
+  alt: string;
+  /** Left side of the caption — what the reader is looking at. */
+  caption?: string;
+  /** Right side, set in mono — provenance, licence, data source. */
+  meta?: string;
+  /** Link through to the full-resolution file. */
+  full?: boolean;
+  width?: number;
+  height?: number;
+  loading?: "lazy" | "eager";
+  /** Very wide artwork: scrolls inside its own frame rather than shrinking to illegibility. */
+  wide?: boolean;
+}
+
+const {
+  src,
+  alt,
+  caption,
+  meta,
+  full = true,
+  width = 2203,
+  height = 1325,
+  loading = "lazy",
+  wide = false,
+} = Astro.props;
+---
+
+<figure class={`figure ${wide ? "figure--wide" : ""}`}>
+  <div class="figure__frame">
+    <img src={src} alt={alt} width={width} height={height} loading={loading} decoding="async" />
+  </div>
+  {
+    (caption || meta) && (
+      <figcaption class="figure__cap">
+        <span>
+          {caption}
+          {full && (
+            <>
+              {caption ? " " : ""}
+              <a href={src}>Open full size</a>
+            </>
+          )}
+        </span>
+        {meta && <span class="mono">{meta}</span>}
+      </figcaption>
+    )
+  }
+</figure>

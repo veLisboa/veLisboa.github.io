@@ -1,0 +1,30 @@
+---
+/**
+ * The eyebrow / title / lede triad, at the same rhythm every time.
+ *
+ * The numbered eyebrow is the cheapest organisation device in the system: it gives a long page
+ * a visible taxonomy so it navigates without a nav. Klarun runs `01 ·` … `06 ·` down every
+ * surface and skips an in-page index entirely.
+ */
+export interface Props {
+  /** Two-digit section number, e.g. "02". Rendered in mono before the label. */
+  num?: string;
+  eyebrow: string;
+  title?: string;
+  lede?: string;
+  /** Heading level — the page's own h1 is the article title, so sections default to h2. */
+  as?: "h2" | "h3";
+}
+
+const { num, eyebrow, title, lede, as = "h2" } = Astro.props;
+const Title = as;
+---
+
+<div class="section-head">
+  <span class="eyebrow">
+    {num && <span class="section-num">{num} ·</span>}
+    {num ? " " : ""}{eyebrow}
+  </span>
+  {title && <Title class="section-head__title">{title}</Title>}
+  {lede && <p class="section-head__lede">{lede}</p>}
+</div>

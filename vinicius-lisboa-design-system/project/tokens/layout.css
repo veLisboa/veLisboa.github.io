@@ -1,0 +1,17 @@
+:root{
+  --grid-cols:12; /* @kind other */
+  --gutter:24px;
+  --margin-page:64px;
+  --margin-page-tight:24px;
+  --content-max:1160px;
+
+  /* slides: 1920x1080 authored, 96px margin, 12 col */
+  --slide-w:1920px;
+  --slide-h:1080px;
+  --slide-margin:96px;
+
+  --radius:0;           /* never round anything */
+  --shadow:none;        /* never shadow anything */
+  --ease:cubic-bezier(.2,0,.2,1); /* @kind other */
+  --dur:140ms; /* @kind other */
+}

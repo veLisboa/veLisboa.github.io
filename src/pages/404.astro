@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ArticleHeader from "../components/ds/ArticleHeader.astro";
+import { nav } from "../config";
+---
+
+<BaseLayout title="Page not found">
+  <div class="container" style="margin-top:var(--space-9)">
+    <ArticleHeader
+      eyebrow="404"
+      title="That page isn't here"
+      standfirst="The link may be old, or I may have moved something. These are the pages that do exist."
+    />
+  </div>
+
+  <section class="container">
+    <div class="rows" style="max-width:var(--measure-narrow)">
+      {
+        nav.map((item) => (
+          <p class="row">
+            <a href={item.href}>{item.label}</a>
+          </p>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,23 @@
+/* Source Serif 4 + IBM Plex Sans/Mono + Petit Formal Script (monogram only) — all OFL, on Google Fonts, Canva, and installable for PowerPoint.
+   Full Latin Extended coverage: ã õ ç á é í ó ú â ê ô à ü all render as true glyphs, never composites. */
+
+/* SELF-HOSTED. The design system's own tokens/fonts.css opens with an @import of
+   fonts.googleapis.com. The site plan (§3) requires the font files to be self-hosted so the
+   page makes no third-party request, so that @import is deliberately absent here and the four
+   families are pulled from Fontsource in src/layouts/BaseLayout.astro instead.
+
+   The --font-* tokens below are byte-identical to the design system's. If the design system is
+   re-exported from Claude Design, copy the :root block only — re-adding the @import would
+   silently restore the Google Fonts request this file exists to remove. The subsets imported in
+   BaseLayout are latin-ext, which is what keeps ã õ ç á é í ó ú â ê ô à ü as true glyphs. */
+
+:root{
+  --font-display:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --font-heading:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --font-body:"IBM Plex Sans","Segoe UI",Helvetica,Arial,sans-serif;
+  --font-script:"Petit Formal Script","Apple Chancery","Segoe Script",cursive;
+  --font-mono:"IBM Plex Mono","Cascadia Mono",Consolas,monospace;
+  /* PowerPoint / Canva fallback chain when IBM Plex is unavailable on the machine */
+  --font-body-office:"IBM Plex Sans","Segoe UI",Arial,sans-serif;
+  --font-display-office:"Source Serif 4",Georgia,serif;
+}

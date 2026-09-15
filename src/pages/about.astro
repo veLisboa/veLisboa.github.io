@@ -1,0 +1,172 @@
+---
+/**
+ * /about — bio, credentials, contact, and the Building line (D1).
+ *
+ * Two bios by design. The long one is first person, because the site's voice is first person
+ * singular. The short one is third person and verbatim from §6.2, because that is the form an
+ * event programme asks for — it sits here so an organizer can copy it without writing to me.
+ *
+ * Credentials list ACTIVE ONLY (§8). The lapsed Fabric Analytics Engineer and Databricks Data
+ * Analyst certifications are deliberately absent: expired certifications read as filler and
+ * invite a subtraction.
+ */
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import LogoWall from "../components/LogoWall.astro";
+import Callout from "../components/ds/Callout.astro";
+import Todo from "../components/Todo.astro";
+import { contact, portrait, platformLogos, affiliations } from "../config";
+
+const credentials = [
+  { num: "01", kind: "Trainer", text: "Microsoft Certified Trainer (2022–2027)" },
+  { num: "02", kind: "Expert", text: "Microsoft Certified: Azure Solutions Architect Expert" },
+  { num: "03", kind: "Associate", text: "Microsoft Certified: Azure Administrator Associate" },
+  {
+    num: "04",
+    kind: "Fundamentals",
+    text: "Microsoft Fundamentals: Azure, Azure AI, Azure Data, Power Platform",
+  },
+  { num: "05", kind: "Practitioner", text: "AWS Certified Cloud Practitioner" },
+];
+
+const shortBio =
+  "Vinicius Lisboa is a data architect and Microsoft Certified Trainer based in Curitiba, Brazil. He leads delivery on Microsoft Fabric, Power BI, Databricks and Azure estates, and has trained roughly 5,000 students worldwide. He mentors Generative AI and Azure programmes for Great Learning and UT Austin's McCombs School of Business.";
+---
+
+<BaseLayout
+  title="About"
+  section="About"
+  description="Vinicius Lisboa — data architect and Microsoft Certified Trainer in Curitiba, Brazil. Governance and architecture for Fabric, Power BI, Databricks and Azure estates.">
+  <!-- Hero -->
+  <section class="container">
+    <div class="hero">
+      <div>
+        <span class="eyebrow" style="display:block;margin-bottom:var(--space-5)">About</span>
+        <h1 class="hero__statement" style="font-size:var(--step-4)">Vinicius Lisboa</h1>
+        <p class="hero__sub">
+          I design and govern data platforms, and I train the people who have to run them after I
+          leave.
+        </p>
+        <div class="hero__meta">
+          <span>Curitiba, Brazil</span>
+          <span>Data architecture · governance</span>
+        </div>
+      </div>
+      <img
+        class="hero__portrait"
+        src={portrait}
+        alt="Vinicius Lisboa"
+        width="1242"
+        height="1242"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <!-- 01 · Bio -->
+  <section class="container" style="margin-top:var(--space-9)">
+    <SectionHeader num="01" eyebrow="Bio" />
+    <div class="prose">
+      <p>
+        Most of the work is on estates that already exist and already hurt: capacity costing more
+        than it should, workspaces nobody owns, a semantic model that was fast a year ago. I came
+        to this through operations leadership rather than through engineering, which is probably
+        why I care more about whether a control can actually be operated than about whether it is
+        theoretically correct. Governance that nobody can operate is documentation.
+      </p>
+      <p>
+        Recently that has included analytics delivered alongside a live SAP cutover for the
+        Americas division of a Japanese industrial manufacturer.
+      </p>
+      <p>
+        I write a weekly newsletter on Fabric, Power BI and governance in Portuguese, with some
+        editions in English, and I publish reference architectures for the platform patterns I
+        keep being asked about.
+      </p>
+    </div>
+
+    <Todo
+      label="Drafted — needs your review"
+      what="I drafted this long bio from your §6.2 notes and the delivery record. Your plan says it should be written last, once the rest of the site exists — read it as a first pass, not as your words yet."
+      source="Edit src/pages/about.astro."
+    />
+  </section>
+
+  <!-- 02 · Platforms -->
+  <section class="band band--tint" style="margin-top:var(--space-10)">
+    <div class="container">
+      <SectionHeader num="02" eyebrow="Platforms" title="What I work on" />
+      <LogoWall logos={platformLogos} />
+    </div>
+  </section>
+
+  <!-- 03 · Credentials -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <SectionHeader
+      num="03"
+      eyebrow="Credentials"
+      title="Active only"
+      lede="Expired certifications read as filler and invite a subtraction, so lapsed ones are not listed."
+    />
+    <div class="specs">
+      {
+        credentials.map((c) => (
+          <div class="spec-row">
+            <div class="spec-row__meta">
+              <span class="num">{c.num}</span>
+              {c.kind}
+            </div>
+            <div class="spec-row__body">
+              <p>{c.text}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 04 · Teaching and building -->
+  <section class="band band--tint" style="margin-top:var(--space-10)">
+    <div class="container">
+      <SectionHeader num="04" eyebrow="Teaching and building" />
+      <div class="affil">
+        {affiliations.map((a) => <img src={a.src} alt={a.alt} loading="lazy" decoding="async" />)}
+      </div>
+      <div class="split" style="margin-top:var(--space-8)">
+        <p style="color:var(--ink-secondary)">
+          Mentor on Generative AI and Azure programmes for Great Learning, and for UT Austin
+          McCombs School of Business on its PGP in AI Agents &amp; Generative AI for Business
+          Applications.
+        </p>
+        <p style="color:var(--ink-secondary)" class="split__art">
+          I am also building Klarun, a data catalog product.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · Short bio -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <SectionHeader
+      num="05"
+      eyebrow="Short bio"
+      title="For event programmes"
+      lede="Fifty words, third person. Copy it as is."
+    />
+    <div style="max-width:var(--measure)">
+      <Callout label="50 words">{shortBio}</Callout>
+    </div>
+  </section>
+
+  <!-- 06 · Contact -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <SectionHeader num="06" eyebrow="Contact" />
+    <p>
+      <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      <span style="color:var(--ink-tertiary)"> · </span>
+      <a href={contact.linkedin}>LinkedIn</a>
+      <span style="color:var(--ink-tertiary)"> · </span>
+      <a href={contact.github}>GitHub</a>
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,88 @@
+---
+/**
+ * Shared detail-page layout for anything with a body: lab write-ups, the maturity model.
+ *
+ * Reproduces the design system's own article structure from ui_kits/newsletter/ArticlePage.jsx —
+ * ArticleHeader, then a text column and a metadata rail at minmax(0,1fr) / 260px with a 64px gap.
+ * Text sits on 6–8 columns, metadata on 2–3, as guidelines/grid.card.html specifies.
+ *
+ * <main> is full width now so bands can bleed, so this layout brings its own .container.
+ */
+import BaseLayout from "./BaseLayout.astro";
+import ArticleHeader from "../components/ds/ArticleHeader.astro";
+import Rule from "../components/ds/Rule.astro";
+import Byline from "../components/ds/Byline.astro";
+import Todo from "../components/Todo.astro";
+
+export interface Props {
+  title: string;
+  eyebrow?: string;
+  standfirst?: string;
+  meta?: string[];
+  status?: "real" | "draft" | "todo";
+  section?: string;
+  backHref?: string;
+  backLabel?: string;
+}
+
+const {
+  title,
+  eyebrow,
+  standfirst,
+  meta = [],
+  status = "real",
+  section,
+  backHref,
+  backLabel = "Back",
+} = Astro.props;
+---
+
+<BaseLayout title={title} description={standfirst} section={section}>
+  <article class="container" style="margin-top:var(--space-9)">
+    <ArticleHeader eyebrow={eyebrow} title={title} standfirst={standfirst} meta={meta} />
+
+    <div class="body-grid">
+      <div class="prose">
+        {
+          status === "todo" ? (
+            <Todo
+              what="This page has a title and a place in the site, and no content yet. It is listed so the structure is visible — not because anything here is finished."
+              source="Write the body into the matching file under src/content/."
+            />
+          ) : (
+            <slot />
+          )
+        }
+        {
+          status === "draft" && (
+            <Todo
+              label="Drafted — needs your review"
+              what="Drafted from your own source material and not yet reviewed by you. Read it before it speaks in your name."
+              source="Set status: real in the frontmatter once it reads the way you want."
+            />
+          )
+        }
+      </div>
+
+      <aside class="rail">
+        <div>
+          <Rule weight="medium" tone="strong" />
+          <div class="eyebrow" style="display:block;margin:var(--space-4) 0 var(--space-5)">
+            Written by
+          </div>
+          <Byline />
+        </div>
+        {
+          backHref && (
+            <div>
+              <Rule />
+              <p style="margin-top:var(--space-4);font-size:var(--step--1)">
+                <a href={backHref}>{backLabel}</a>
+              </p>
+            </div>
+          )
+        }
+      </aside>
+    </div>
+  </article>
+</BaseLayout>

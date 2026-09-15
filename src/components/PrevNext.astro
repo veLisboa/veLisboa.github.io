@@ -1,0 +1,42 @@
+---
+/**
+ * Previous / next within a group, with a position counter.
+ *
+ * Seven architecture pages are a set, not seven separate leaves. The `03 / 07` counter is
+ * Klarun's device — cheap, and it is what makes a collection feel finite and walkable.
+ */
+export interface Props {
+  prev?: { href: string; label: string };
+  next?: { href: string; label: string };
+  /** 1-based position within the collection. */
+  index: number;
+  total: number;
+}
+
+const { prev, next, index, total } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, "0");
+---
+
+<nav class="prevnext" aria-label="Within this set">
+  <div>
+    {
+      prev && (
+        <a href={prev.href}>
+          <span class="prevnext__dir">← Previous</span>
+          {prev.label}
+        </a>
+      )
+    }
+  </div>
+  <div class="prevnext__count">{pad(index)} / {pad(total)}</div>
+  <div class="prevnext__next">
+    {
+      next && (
+        <a href={next.href}>
+          <span class="prevnext__dir">Next →</span>
+          {next.label}
+        </a>
+      )
+    }
+  </div>
+</nav>
