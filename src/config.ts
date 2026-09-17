@@ -1,9 +1,9 @@
 /**
  * Every external fact the site depends on, in one place.
  *
- * Nothing here is a guess. Delivery figures are UPBI's and are labelled as UPBI's wherever they
- * render; teaching figures are the owner's own. A number without a stated scope is a claim the
- * reader will scope for you, usually generously.
+ * Nothing here is a guess. The delivery figures come from UPBI's customer database and the
+ * teaching figures are the owner's own; the site names neither employer, at his request, so the
+ * provenance lives here rather than on the page.
  */
 
 export const site = {
@@ -11,11 +11,11 @@ export const site = {
   title: "Vinicius Lisboa",
   /** The <meta name="description"> default and the / positioning line. */
   description:
-    "Data architecture and governance for Fabric and Databricks estates. Microsoft Certified Trainer. ~5,000 students.",
+    "Architecture, governance and delivery for AI-ready data platforms. Microsoft Certified Trainer. ~5,000 students.",
   locale: "en",
   author: "Vinicius Lisboa",
   /** The role line locked to the wordmark in the Lockup. A role, never a promise. */
-  role: "Data architecture · governance · Microsoft Fabric",
+  role: "Data architecture · governance · training",
 };
 
 export const contact = {
@@ -53,14 +53,13 @@ export const booking = `mailto:${contact.email}?subject=Meeting%20request`;
  * engagements, so the published figure is deliberately "50+" rather than the raw row count.
  *
  * `industries` is "20+" rather than an exact integer because the database has no industry field.
- * The sectors below are a normalisation of 46 free-text descriptors, and a different grouping
+ * The sectors below are a normalization of 46 free-text descriptors, and a different grouping
  * would give a different integer. The names are the proof; the count is just the headline.
  */
 export const delivery = {
   projects: "60+",
   clients: "50+",
   industries: "20+",
-  scope: "UPBI, the consultancy where I lead operations",
 };
 
 export const industries = [
@@ -92,7 +91,7 @@ export const industries = [
  * Certifications, grouped by vendor and ordered by relevance rather than by expiry.
  *
  * No dates beyond the MCT start year, and no claim anywhere that the full set is currently
- * active, and some are lapsed. Breadth is the point; a renewal calendar is not the reader's problem.
+ * active, because some are lapsed. Breadth is the point; a renewal calendar is not the reader's problem.
  */
 export const credentials = [
   {
@@ -137,28 +136,42 @@ export const nav = [
 ] as const;
 
 /**
- * The newsletter's thematic structure, consolidated from six threads to four. One line each.
+ * The five subjects, in the order they build on each other: the platform, how it is governed,
+ * what AI does on top of it, how to read someone else's estate, and where the market is going.
+ *
+ * One source for all three places they appear: /writing, the home teaser, and the speaker
+ * one-pager. `icon` names a glyph in Icon.astro.
  */
 export const writingThemes = [
   {
     num: "01",
-    title: "Why Fabric",
-    line: "Why the platform grew the way it did, and what moving from Power BI to Fabric actually costs.",
+    icon: "layers",
+    title: "Architecture and fundamentals",
+    line: "Data platform architecture from the ground up: capacity and licensing, warehouse and lakehouse, data mesh, pipeline orchestration, and application lifecycle.",
   },
   {
     num: "02",
-    title: "Architecture and fundamentals",
-    line: "Capacity and licensing, data mesh on Fabric, pipelines and connection modes, application lifecycle.",
+    icon: "shield",
+    title: "Governance",
+    line: "Domain-driven workspaces, access and distribution, documentation, catalog and ownership, and the maturity levels an estate climbs through.",
   },
   {
     num: "03",
-    title: "Governance",
-    line: "Domain-driven workspaces, access and distribution, documentation: the parts a team can actually operate.",
+    icon: "chip",
+    title: "AI and agents",
+    line: "Data Agent integrations across AI Search, user-defined functions, Copilot and Foundry, plus LLMs, RAG, and where agentic AI holds up in production.",
   },
   {
     num: "04",
-    title: "AI and agents",
-    line: "Data Agent integrations across AI Search, user-defined functions, Copilot and Foundry.",
+    icon: "briefcase",
+    title: "Consulting",
+    line: "How to read someone else's data environment. Assessment, maturity and cost, and how to get from what they run today to what they should be running.",
+  },
+  {
+    num: "05",
+    icon: "trend",
+    title: "Data and AI strategy",
+    line: "Where the market is moving, on the vendor side and on the adoption side, and what it takes to get an organization ready for it.",
   },
 ] as const;
 

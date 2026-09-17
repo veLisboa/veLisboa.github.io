@@ -4,10 +4,11 @@ import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 
 /**
- * Two collections.
+ * One collection. `architecture` renders the seven detail pages under /work/architecture/.
  *
- * `architecture` renders the seven detail pages under /work/architecture/. `talks` feeds the
- * speaker one-pager and nothing else.
+ * The `talks` collection is gone. It held six abstracts drafted from the owner's talk titles but
+ * never reviewed by him, and the only thing that rendered them was the speaker one-pager, which
+ * now lists the five subjects from `writingThemes` in src/config.ts instead.
  *
  * There is no `status` field any more. It existed to mark unfinished entries and render a visible
  * note in their place, which meant internal review notes shipped to production. Nothing on this
@@ -35,17 +36,4 @@ const architecture = defineCollection({
   }),
 });
 
-const talks = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/talks" }),
-  schema: z.object({
-    title: z.string(),
-    abstract: z.string(),
-    /** Introductory | Intermediate | Advanced. */
-    level: z.string().optional(),
-    /** e.g. "45 min session" or "3 h workshop". */
-    duration: z.string().optional(),
-    order: z.number().default(0),
-  }),
-});
-
-export const collections = { architecture, talks };
+export const collections = { architecture };

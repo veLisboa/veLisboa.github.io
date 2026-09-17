@@ -270,7 +270,7 @@
 .btn--secondary:hover{background:var(--paper-sunken);border-color:var(--ink)}
 
 /* On an inverted ground the primary button is the lifted accent, which is the one
-   colour with enough contrast against graphite to carry dark text. */
+   color with enough contrast against graphite to carry dark text. */
 .band--invert .btn--primary{background:var(--slate-lift);color:var(--graphite);
   border-color:var(--slate-lift)}
 .band--invert .btn--primary:hover{background:transparent;color:var(--slate-lift)}
@@ -355,7 +355,7 @@
 
 /* ── Icon link row ───────────────────────────────────────────────────────────
    The social set, as glyphs rather than a word list. Each carries a visually
-   hidden label, so the meaning does not depend on recognising the mark. */
+   hidden label, so the meaning does not depend on recognizing the mark. */
 
 .icon-links{display:flex;flex-wrap:wrap;gap:var(--space-4);list-style:none;padding:0;margin:0}
 .icon-links a{display:grid;place-items:center;width:44px;height:44px;

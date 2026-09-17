@@ -3,8 +3,12 @@
  * Speaker one-pager: US Letter, print-ready.
  *
  * Port of vinicius-lisboa-design-system/project/ui_kits/speaker/index.html. Organizers ask for a
- * bio, topics and requirements in one file; this is that file, generated from the browser's
+ * bio, topics and a headshot in one file; this is that file, generated from the browser's
  * print stylesheet rather than from a design tool.
+ *
+ * The subjects come from `writingThemes`, the same five that drive /writing and the home teaser,
+ * so the sheet cannot drift from the site. It used to list talk titles from a `talks` collection
+ * that the owner had never reviewed.
  *
  * Renders bare, with no site header or footer, so what is on screen is what prints.
  *
@@ -13,11 +17,7 @@
  * beside it is set type, not the Wordmark component, so no second mark appears in the block.
  */
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
-import { byOrder } from "../../content.config";
-import { contact, portrait } from "../../config";
-
-const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
+import { contact, portrait, writingThemes } from "../../config";
 ---
 
 <BaseLayout title="Speaker one-pager" bare>
@@ -32,7 +32,7 @@ const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
           <div class="sec">Speaker one-pager · 2026</div>
           <div class="name">Vinicius Lisboa</div>
           <div class="strap">
-            Data architecture and governance for Fabric and Databricks estates. Microsoft
+            Architecture, governance and delivery for AI-ready data platforms. Microsoft
             Certified Trainer.
           </div>
         </div>
@@ -44,22 +44,18 @@ const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
       <div class="grid2">
         <div>
           <p class="pos">
-            I design and govern Microsoft Fabric, Power BI and Databricks estates, and train the
-            teams that run them. I speak about what actually holds up in production: governance
+            I design and govern AI-ready data platforms, and train the teams that run them. I speak about what actually holds up in production: governance
             people can operate, capacity decisions made before the invoice, and the delivery
             tooling around both.
           </p>
 
-          <div class="sec mt">Talks</div>
+          <div class="sec mt">Subjects</div>
           <div class="talks">
             {
-              talks.map((t) => (
+              writingThemes.map((t) => (
                 <div class="row">
-                  <div class="t-title">{t.data.title}</div>
-                  <div class="t-meta">
-                    {[t.data.level, t.data.duration].filter(Boolean).join(" · ") ||
-                      "Session, workshop or webinar"}
-                  </div>
+                  <div class="t-title">{t.title}</div>
+                  <div class="t-meta">{t.line}</div>
                 </div>
               ))
             }
@@ -103,10 +99,6 @@ const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
         <div>
           <div class="sec">LinkedIn</div>
           <div class="b">{contact.linkedin.replace(/^https:\/\/www\.|\/$/g, "")}</div>
-        </div>
-        <div>
-          <div class="sec">Requirements</div>
-          <div class="b s">Projector or screen share. Handheld or lapel mic. No other setup.</div>
         </div>
       </div>
     </article>
@@ -200,6 +192,8 @@ const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
     gap: var(--space-8);
     align-items: start;
   }
+  /* Two cells since the requirements block came out, kept on the same rhythm as the 3-up grid
+     above it rather than stretching to half the sheet each. */
   .grid3 {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

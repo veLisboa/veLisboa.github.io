@@ -41,7 +41,7 @@ unstyled, which §1 already permits.
 
 The constraints that keep it from becoming a set: an icon never appears without a label beside
 it, every icon is `aria-hidden`, and the icon row in the contact block carries visually hidden
-text so meaning never depends on recognising a mark.
+text so meaning never depends on recognizing a mark.
 
 ### 2. There are three ground colours, not two
 

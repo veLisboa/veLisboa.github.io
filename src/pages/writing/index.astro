@@ -13,9 +13,6 @@ import SectionHeader from "../../components/SectionHeader.astro";
 import BrandButton from "../../components/BrandButton.astro";
 import Icon from "../../components/Icon.astro";
 import { writingThemes, social } from "../../config";
-
-/** One glyph per thread, in the order the themes are declared. */
-const themeIcons = ["cube", "layers", "shield", "board"];
 ---
 
 <BaseLayout
@@ -39,11 +36,11 @@ const themeIcons = ["cube", "layers", "shield", "board"];
       <SectionHeader num="01" eyebrow="Subjects" title="What I write and talk about" />
       <div class="specs">
         {
-          writingThemes.map((t, i) => (
+          writingThemes.map((t) => (
             <div class="spec-row">
               <div class="spec-row__meta spec-row__meta--icon">
                 <span class="icon-tile">
-                  <Icon name={themeIcons[i] ?? "book"} />
+                  <Icon name={t.icon} />
                 </span>
                 <span>
                   <span class="num">{t.num}</span>
