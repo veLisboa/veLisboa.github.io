@@ -1,0 +1,242 @@
+---
+/**
+ * /work — one page, five sections, deliberately weighted.
+ *
+ * Architecture used to be the whole site. Here it is one small section of five, because seven
+ * diagrams are a part of the practice rather than the practice itself. The AI lab is the longest
+ * section, and even that is mostly its own images.
+ *
+ * No client is named anywhere on this page, and the delivery figures carry their scope with them.
+ */
+import fs from "node:fs";
+import path from "node:path";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SectionHeader from "../../components/SectionHeader.astro";
+import Figure from "../../components/Figure.astro";
+import Callout from "../../components/ds/Callout.astro";
+import { getCollection } from "astro:content";
+import { byOrder } from "../../content.config";
+import {
+  credentials,
+  delivery,
+  industries,
+  social,
+  klarunWordmark,
+  architectureOverview,
+} from "../../config";
+
+const architectures = (await getCollection("architecture")).sort(byOrder);
+
+/**
+ * The overview diagram is being redrawn. Until the file lands in public/, this renders nothing at
+ * all — no placeholder, no broken image, no note about what is missing.
+ */
+const overviewExists = fs.existsSync(
+  path.join(process.cwd(), "public", architectureOverview.src.replace(/^\//, "")),
+);
+---
+
+<BaseLayout
+  title="Work"
+  section="Work"
+  description="Delivery record across 20+ industries, seven reference architectures for Fabric and Databricks, Klarun, and agentic tooling for Power BI delivery.">
+  <section class="container" style="margin-top:var(--space-9)">
+    <div class="opener"></div>
+    <h1 style="max-width:16em">Work</h1>
+  </section>
+
+  <!-- 01 · Background and credentials -->
+  <section class="container" style="margin-top:var(--space-9)">
+    <SectionHeader num="01" eyebrow="Background" />
+    <div class="prose">
+      <p>
+        I came into Data and AI through operations leadership, which is why I care whether a
+        control can actually be operated rather than only whether it is correct. Today I am
+        Operations Lead at UPBI, a Microsoft-partner Data and AI consultancy, where I run delivery
+        and the teams behind it. I am also Data Tech Lead on a client engagement, leading a large
+        SAP S/4HANA migration team for the Americas division of a Japanese industrial manufacturer.
+      </p>
+    </div>
+
+    <div class="specs" style="margin-top:var(--space-8)">
+      {
+        credentials.map((group) => (
+          <div class="spec-row">
+            <div class="spec-row__meta">{group.vendor}</div>
+            <div class="spec-row__body">
+              <ul class="creds" role="list">
+                {group.items.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 02 · Delivery record -->
+  <section class="band band--tint" style="margin-top:var(--space-10)">
+    <div class="container">
+      <SectionHeader
+        num="02"
+        eyebrow="Delivery record"
+        title="Where the work has been"
+        lede={`These are UPBI's figures, the consultancy where I lead operations: ${delivery.projects} projects in the last year, across ${delivery.clients} client accounts and more than 20 industries.`}
+      />
+      <ul class="industries" role="list">
+        {industries.map((i) => <li>{i}</li>)}
+      </ul>
+      <p style="margin-top:var(--space-7);color:var(--ink-secondary);max-width:var(--measure)">
+        No client is named on this site. The delivery work is under client confidentiality.
+      </p>
+    </div>
+  </section>
+
+  <!-- 03 · Klarun -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <SectionHeader num="03" eyebrow="Building" />
+    <div class="affil">
+      <img src={klarunWordmark} alt="Klarun" loading="lazy" decoding="async" />
+    </div>
+    <div class="prose" style="margin-top:var(--space-7)">
+      <p>
+        I am the founder of Klarun, a B2B SaaS data catalog, metadata and lineage platform built on
+        Microsoft Fabric, Power BI and Databricks. It exists because every governance engagement
+        runs into the same wall: nobody can say what a field means or where it came from.
+      </p>
+    </div>
+    <p style="margin-top:var(--space-6)"><a href={social.klarun}>klarun.app</a></p>
+  </section>
+
+  <!-- 04 · Data architecture -->
+  <section class="band band--tint" style="margin-top:var(--space-10)">
+    <div class="container">
+      <SectionHeader
+        num="04"
+        eyebrow="Data architecture"
+        title="Seven reference architectures"
+        lede="Published because I keep being asked the same platform questions. Each covers the decision points, the failure modes, and the conditions under which I would not use the pattern. Three are foundations — lakehouse, Fabric, Databricks. Four are hybrids that hold the lake in one platform and serve from Fabric."
+      />
+
+      {
+        overviewExists && (
+          <div style="margin-top:var(--space-8)">
+            <Figure
+              src={architectureOverview.src}
+              alt="Overview of the seven reference architectures"
+              width={architectureOverview.width}
+              height={architectureOverview.height}
+              caption="The seven patterns and how they relate."
+              meta="Overview"
+            />
+          </div>
+        )
+      }
+
+      <div class="specs" style="margin-top:var(--space-8)">
+        {
+          architectures.map((a) => (
+            <div class="spec-row">
+              <div class="spec-row__meta">
+                <span class="num">{a.data.num}</span>
+                {a.data.group === "foundations" ? "Foundation" : "Hybrid"}
+              </div>
+              <div class="spec-row__body">
+                <h3 style="font-size:var(--step-1)">
+                  <a href={`/work/architecture/${a.id}/`}>{a.data.title}</a>
+                </h3>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 · AI lab -->
+  <section class="container" style="margin-top:var(--space-10)">
+    <SectionHeader
+      num="05"
+      eyebrow="AI lab"
+      title="Agents inside a PBIP workflow, with a gate"
+      lede="A .pbix is a binary and cannot be diffed. A PBIP project is text — TMDL plus PBIR — so it can be read, reviewed and generated. I built an agentic workflow around that, with an approval gate on every change."
+    />
+    <Figure
+      src="/powerbi-dev/powerbi-ai-driven-dev.jpeg"
+      alt="Eight-step agentic PBIP development workflow: understand, improve behind an approval gate, then build and prove"
+      width={1280}
+      height={1080}
+      caption="Read-only review produces evidence-backed plans; nothing is applied until it is approved, per finding."
+      meta="Delivery workflow"
+      loading="eager"
+    />
+
+    <p style="margin-top:var(--space-8);max-width:var(--measure)">
+      Report JSON and TMDL emitted by committed Python. One module holds every visual structure and
+      another holds the Style objects, so re-skinning a report touches no visual code.
+    </p>
+
+    <div class="bento" style="margin-top:var(--space-7)">
+      <Figure
+        src="/powerbi-dev/dashboard-1.jpeg"
+        alt="Performance Overview report — revenue, gross margin and category scorecard"
+        width={1527}
+        height={855}
+        caption="Executive reporting, flat design. Descriptive mode."
+        meta="Synthetic data · seeded generator"
+      />
+      <Figure
+        src="/powerbi-dev/dashboard-2.jpeg"
+        alt="What Lateness Costs report — review score against delivery lag"
+        width={1277}
+        height={716}
+        caption="Delivery diagnostics, neumorphic design. Review score falls monotonically as an order runs later."
+        meta="Olist public dataset · CC BY-NC-SA"
+      />
+    </div>
+
+    <div style="margin-top:var(--space-8);max-width:var(--measure)">
+      <Callout label="Data provenance">
+        Neither report contains client data. The first runs on a seeded synthetic generator; the
+        second on the public Olist Brazilian e-commerce dataset, which is anonymized and licensed
+        CC BY-NC-SA.
+      </Callout>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .creds {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+    color: var(--ink-secondary);
+    font-size: var(--step--1);
+  }
+
+  .industries {
+    list-style: none;
+    padding: var(--space-6) 0 0;
+    margin: var(--space-7) 0 0;
+    border-top: var(--hairline);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4) var(--space-7);
+    font-size: var(--step--1);
+    color: var(--ink-secondary);
+  }
+  @media (max-width: 900px) {
+    .industries {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 520px) {
+    .industries {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

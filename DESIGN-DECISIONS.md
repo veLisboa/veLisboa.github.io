@@ -41,8 +41,8 @@ The fills are still flat; no gradients, no texture, no images behind text.
 **The system says:** photography exists in exactly one place, the profile portrait, *"which is
 black-and-white."*
 
-**The site does:** uses the portrait in colour, on the home page, `/about`, `/speaking` and the
-one-pager, and shows dashboard screenshots and architecture diagrams as figures.
+**The site does:** uses the portrait in colour, on the home page and the speaker one-pager, and
+shows dashboard screenshots and architecture diagrams as figures.
 
 **Why:** the owner's call, made explicitly. The portrait's ground is muted concrete, so it does
 not fight the palette. The dashboards and diagrams are work products, not decoration — they are
@@ -80,7 +80,7 @@ Not negotiable, because these are what make it read as considered rather than ge
 | Fonts self-hosted via Fontsource rather than the CDN `@import` in `tokens/fonts.css` | §3 of the plan requires no third-party request. The `--font-*` tokens are byte-identical; only the `@import` is gone. |
 | Weight-level Fontsource imports, not subset-level | `latin-ext-400.css` declares a face with no `unicode-range` pointing at a latin-ext-only file, so ordinary text finds no glyphs and falls back to Segoe UI. Portuguese accents are U+00C0–U+00FF, inside `latin`. |
 | Favicon is `favicon-512.png`, not `assets/favicon.svg` | That SVG sets "VL" as live `<text>` in Petit Formal Script. SVG favicons cannot load webfonts, so it renders as Segoe Script on Windows and Apple Chancery on macOS. |
-| Nav and footer links drop the accent underline `base.css` gives every `<a>` | Five accent underlines in the header blows the one-accent-per-view budget on every page. Prose links keep it. |
+| Nav and footer links drop the accent underline `base.css` gives every `<a>` | A row of accent underlines in the header blows the one-accent-per-view budget on every page. Prose links keep it. |
 | A composite `--hairline` token was added | Borrowed from the Klarun system. `border: var(--hairline)` at thirty call sites beats three properties each time. |
 | Syntax highlighting off | Shiki's themes are polychrome; this system is monochrome with one accent. |
 | No dark-mode toggle | Rejected in §4 and §11 of the plan. The `[data-theme="dark"]` tokens stay in the sheet, unused. |

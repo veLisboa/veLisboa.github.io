@@ -6,7 +6,6 @@ summary: "Every option is a compromise. Highest network and egress friction of t
 group: hybrids
 diagram: /data-architecture-diagrams/07-redshift-lakehouse-fabric-serving.png
 order: 7
-status: real
 ---
 
 ## The split

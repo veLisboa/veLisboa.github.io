@@ -10,6 +10,25 @@ export default defineConfig({
   site: "https://velisboa.github.io",
   output: "static",
   trailingSlash: "always",
+  // The site dropped from five destinations to three. GitHub Pages serves static files and cannot
+  // issue a real 301, so in `output: "static"` Astro emits an HTML stub per entry carrying a
+  // meta refresh and a <link rel="canonical"> at the new URL. That is the only mechanism
+  // available at zero cost, and it is what keeps the old links working.
+  redirects: {
+    "/about/": "/",
+    "/architecture/": "/work/",
+    "/architecture/data-lakehouse/": "/work/architecture/data-lakehouse/",
+    "/architecture/microsoft-fabric/": "/work/architecture/microsoft-fabric/",
+    "/architecture/databricks/": "/work/architecture/databricks/",
+    "/architecture/databricks-fabric-serving/": "/work/architecture/databricks-fabric-serving/",
+    "/architecture/bigquery-fabric-serving/": "/work/architecture/bigquery-fabric-serving/",
+    "/architecture/snowflake-fabric-serving/": "/work/architecture/snowflake-fabric-serving/",
+    "/architecture/redshift-fabric-serving/": "/work/architecture/redshift-fabric-serving/",
+    "/labs/": "/work/",
+    "/labs/pbip-generated-reports/": "/work/",
+    "/speaking/": "/writing/",
+    "/writing/fabric-maturity-model/": "/writing/",
+  },
   // Prefetch injects a client-side script. The site ships no JS.
   prefetch: false,
   integrations: [

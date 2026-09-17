@@ -10,7 +10,6 @@ npm install
 npm run dev       # http://localhost:4321
 npm run build
 npm run preview
-npm run todos     # what is still outstanding
 npm run assets    # checks every asset in public/ is actually used (run after build)
 ```
 
@@ -18,57 +17,40 @@ npm run assets    # checks every asset in public/ is actually used (run after bu
 
 The primary audience is conference organizers and MVP nominators. That makes it a credibility
 artifact, so **an invented statistic or a plausible-sounding case study is a worse failure than
-an empty page.** Anything not yet written renders a visible "Not written yet" block; anything
-drafted from your material but not yet reviewed by you says so on the page.
+a page that does not exist.** Nothing unfinished is published. There is no mechanism for shipping
+a page with a note explaining what is missing, because that mechanism is how internal review
+notes ended up in production.
 
-`npm run todos` lists all of it. Nothing ships silently.
-
-## Start here
-
-Run `npm run todos`, then work down it. The highest-value items, in order:
-
-1. **`/writing/fabric-maturity-model`** is empty. It is named as the site's strongest structural
-   asset and its five levels have never been written down. Write the five level names and the
-   one-line symptom for each; everything else on the page follows.
-2. **Review the talk abstracts** in `src/content/talks/`. I drafted them from your six titles.
-   They speak in your name and you have not read them yet. Set `status: real` once they do.
-3. **Newsletter URLs** — `writing.linkedinNewsletter` and `writing.medium` in
-   [`src/config.ts`](src/config.ts), then `linkedinUrl` / `mediumUrl` per edition. Right now the
-   index says plainly that it links nowhere.
-4. **Confirm the contact address.** `contact.email` comes from your 2023 CV. Check it is still
-   where you want an organizer to write.
-5. **The 8-minute English proof video.** Still the one asset that cannot be substituted —
-   organizers want to see whether you can hold a room in English before they commit a slot.
+Every number on the site carries its scope. Delivery figures are UPBI's and say so; teaching
+figures are the owner's own. A figure with no stated scope gets scoped by the reader.
 
 ## What's on it
 
+Three destinations. Nav is **Work · Writing & speaking**, plus the wordmark.
+
 | Route | What it holds |
 |---|---|
-| `/` | Portrait hero, platform logo wall, track-record stat band, three featured diagrams, the six writing themes, affiliations |
-| `/architecture` | **Seven reference architectures** in two groups — three foundations, four hybrids — each a full diagram plus its written rationale |
-| `/writing` | The six newsletter themes, the maturity-model page, and four editions with English abstracts |
-| `/speaking` | Portrait, track record, teaching logos, the six subjects, six talks, booking |
-| `/labs` | The agentic PBIP workflow diagram, two dashboard renders, and the write-up. `/work` is merged in here |
-| `/about` | Portrait, bio, platform logos, credentials, teaching and Klarun, short bio, contact |
-| `/speaking/one-pager` | Print-to-PDF US Letter sheet with the portrait |
+| `/` | Hero, proof row, what I do, work teaser, writing teaser, platform logos, contact |
+| `/work` | Background and credentials, delivery record by industry, Klarun, the seven architectures, the AI lab |
+| `/work/architecture/<slug>` | **Seven reference architectures** — three foundations, four hybrids — each a full diagram plus its written rationale |
+| `/writing` | Four subjects, the LinkedIn and Medium buttons, speaking |
+| `/speaking/one-pager` | Print-to-PDF US Letter sheet. Linked from `/writing`, kept out of the sitemap |
 
-`/work` was merged into `/labs` and dropped from the nav — one combined proof page rather than an
-empty index. The case-study skeleton survives at `src/content/work/_template.md.txt`; bringing the
-route back means re-adding the collection in `src/content.config.ts`, a page under
-`src/pages/work/`, and an entry in `nav` in `src/config.ts`.
+`/about`, `/architecture`, `/labs` and `/speaking` are gone. All of their old URLs, including the
+seven `/architecture/<slug>` ones, are redirected in `astro.config.mjs` — see *Redirects* below.
 
 ## Content
 
-Markdown in `src/content/`, one folder per collection. Every entry carries `status`:
+Markdown in `src/content/`, one folder per collection. Two collections:
 
-| `status` | Means | Renders |
-|---|---|---|
-| `real` | Written, checked, true | Ordinary content |
-| `draft` | Drafted from your material, unreviewed | Content plus a "needs your review" note |
-| `todo` | Does not exist yet | A "Not written yet" block, never prose |
+- **`architecture`** — the seven detail pages under `/work/architecture/`.
+- **`talks`** — feeds the speaker one-pager and nothing else.
 
-There is no `work` collection — see below. `src/content/work/_template.md.txt` is the five-part
-case-study skeleton, kept for when a client clears one.
+`src/content/work/_template.md.txt` is a five-part case-study skeleton, kept for when a client
+clears one. It is not a collection and does not render.
+
+There is no `status` field. It existed to mark entries as `draft` or `todo` and render a visible
+note in their place; that note was public copy, which is exactly what it should never have been.
 
 ### House rules for any copy you add
 
@@ -79,20 +61,22 @@ and a condition or they don't get written.
 
 ## Why there are no client case studies
 
-The plan assumed a `/work` page holding three Power BI reports written up as client case
-studies. The source repo is not that: all three projects run on synthetic or public data and
-carry no client context. Writing them up as delivery evidence would misrepresent them, so they
-live on `/labs` described as what they actually are — a generator and the reports it produced.
+No client is named without written permission, so the delivery record on `/work` is industries
+and counts only. The Power BI work shown in the AI lab section is not client work at all — both
+reports run on synthetic or public data, and the page says so.
 
-Real case studies wait for client work cleared in writing under the confidentiality rule (D4):
-no client named without permission, numbers rounded, visuals rebuilt with synthetic data rather
-than blurred. `src/content/work/_template.md.txt` is the five-part skeleton.
+A real case study waits for client work cleared in writing: no client named, numbers rounded,
+visuals rebuilt with synthetic data rather than blurred.
+`src/content/work/_template.md.txt` is the five-part skeleton.
 
-**Before publishing the generator repo** it needs a sanitising pass: it references two other
-local Power BI projects that read as real internal work, bakes absolute Windows user paths into
-every model, carries a DPAPI signature and a 30 MB cache of its source data, and never
-attributes the Olist dataset (CC BY-NC-SA — check whether a portfolio counts as commercial
-use).
+## Redirects
+
+The site went from five destinations to three. GitHub Pages serves static files and cannot issue
+a real 301, so the `redirects` map in [`astro.config.mjs`](astro.config.mjs) has Astro emit an
+HTML stub per old URL carrying a meta refresh and a `<link rel="canonical">` at the new one. That
+is the only mechanism available at zero cost.
+
+Thirteen entries. If a route moves again, add it there — nothing else knows about old URLs.
 
 ## Design system
 
@@ -163,10 +147,22 @@ neither needs a consent banner.
 
 `npm run assets` fails the check if anything in `public/techs-logo`,
 `public/data-architecture-diagrams`, `public/powerbi-dev` or `public/vinicius-lisboa` is not
-referenced by a built page. `fabric-items-logo` and `Klarun logo` are treated as sets where a
-curated subset is expected.
+referenced by a built page. It runs in CI after the build. `fabric-items-logo` and `Klarun logo`
+are treated as sets where a curated subset is expected.
 
-The seven architecture diagrams are PNG exports totalling 3.8 MB. The plan's §3 stack table asks
-for SVG — re-exporting them would cut the page weight and keep them crisp at any zoom. They are
-lazy-loaded as thumbnails on the index and shown full size only on their own page, which scrolls
-the diagram inside its frame rather than widening the document.
+`public/fabric-items-logo/` is currently referenced by nothing — the Fabric item vocabulary row
+lived on the deleted `/architecture` index. The 66 files are kept, not deleted, and the folder is
+in the partial list so the check passes.
+
+### The architecture overview diagram
+
+`/work` has a slot for an overview diagram at **`public/data-architecture-diagrams/00-overview.svg`**
+— SVG, `viewBox="0 0 1600 960"` (5:3, matching the existing set). PNG fallback at 2400×1440.
+
+The page checks whether the file exists and renders nothing until it does, so there is no broken
+image and no placeholder in the meantime. Drop the file in and it appears; the path and
+dimensions live in `architectureOverview` in [`src/config.ts`](src/config.ts).
+
+The seven existing diagrams are PNG exports totalling 3.8 MB. Re-exporting them as SVG would cut
+page weight and keep them crisp at any zoom. They are shown full size only on their own page,
+which scrolls the diagram inside its frame rather than widening the document.

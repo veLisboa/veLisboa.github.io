@@ -6,7 +6,6 @@ summary: "One SaaS platform, one bill, one governance plane. The trade-off is ca
 group: foundations
 diagram: /data-architecture-diagrams/02-microsoft-fabric-reference-architecture.png
 order: 2
-status: real
 ---
 
 ## The shape

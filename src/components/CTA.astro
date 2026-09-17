@@ -1,0 +1,124 @@
+---
+/**
+ * The one contact block. Full on the home page, compact in the footer.
+ *
+ * Every destination comes from `social`, `booking` and `contact` in src/config.ts, so the two
+ * renderings cannot drift apart. "Book a meeting" points at a prefilled mailto until there is a
+ * scheduling tool — swapping `booking` is the whole change, and no markup moves.
+ */
+import { social, contact, booking } from "../config";
+
+export interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+
+const links = [
+  { href: social.instagram, label: "Instagram" },
+  { href: social.linkedin, label: "LinkedIn" },
+  { href: social.newsletter, label: "Newsletter" },
+  { href: social.medium, label: "Medium" },
+  { href: social.klarun, label: "Klarun" },
+];
+---
+
+{
+  compact ? (
+    <ul class="cta-compact">
+      {links.map((l) => (
+        <li>
+          <a href={l.href}>{l.label}</a>
+        </li>
+      ))}
+      <li>
+        <a href={booking}>Book a meeting</a>
+      </li>
+      <li>
+        <a href={`mailto:${contact.email}`}>{contact.email}</a>
+      </li>
+    </ul>
+  ) : (
+    <div class="cta">
+      <p class="cta__lede">Available for consulting engagements, talks and workshops.</p>
+      <div class="cta__actions">
+        <a class="cta__primary" href={booking}>
+          Book a meeting
+        </a>
+        <a class="cta__email" href={`mailto:${contact.email}`}>
+          {contact.email}
+        </a>
+      </div>
+      <ul class="cta__links">
+        {links.map((l) => (
+          <li>
+            <a href={l.href}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+<style>
+  .cta__lede {
+    max-width: var(--measure);
+  }
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6);
+    margin-top: var(--space-7);
+  }
+  .cta__primary {
+    display: inline-block;
+    padding: var(--space-5) var(--space-7);
+    background: var(--ink);
+    color: var(--ink-inverse);
+    border: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    font-weight: var(--wt-medium);
+    text-decoration: none;
+    transition:
+      background var(--dur) var(--ease),
+      color var(--dur) var(--ease);
+  }
+  .cta__primary:hover {
+    background: transparent;
+    color: var(--ink);
+  }
+  .cta__email {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+  }
+
+  .cta__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5) var(--space-7);
+    list-style: none;
+    padding: 0;
+    margin: var(--space-8) 0 0;
+    border-top: var(--hairline);
+    padding-top: var(--space-6);
+    font-size: var(--step--1);
+  }
+
+  .cta-compact {
+    display: grid;
+    gap: var(--space-4);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @media (max-width: 480px) {
+    .cta__actions {
+      gap: var(--space-5);
+    }
+    .cta__primary {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

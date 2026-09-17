@@ -3,14 +3,13 @@
  * Split masthead — wordmark and nav left, mono metadata right.
  *
  * The asymmetric left-heavy / right-metadata split is Klarun's chrome device and does most of
- * the "designed" work for no cost. The right slot answers "where am I", which a flat row of
- * five links cannot.
+ * the "designed" work for no cost. The right slot answers "where am I".
  *
  * The wordmark is a site-header surface per the design system, and at 26px it clears the 96px
  * width floor, so the monogram does not appear here — the two marks never share a block.
  */
 import Wordmark from "./ds/Wordmark.astro";
-import { nav, site } from "../config";
+import { nav } from "../config";
 
 export interface Props {
   section?: string;
@@ -40,7 +39,6 @@ const isCurrent = (href: string) => path === href || path.startsWith(href);
     </div>
 
     <div class="site-header__meta">
-      <span>{site.location}</span>
       {section && <span class="site-header__section">{section}</span>}
     </div>
   </div>

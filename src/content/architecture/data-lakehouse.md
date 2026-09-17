@@ -6,7 +6,6 @@ summary: "The vendor-neutral baseline. One open copy on cheap object storage rep
 group: foundations
 diagram: /data-architecture-diagrams/01-data-lakehouse-reference-architecture.png
 order: 1
-status: real
 ---
 
 ## Why the lakehouse

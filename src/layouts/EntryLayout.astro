@@ -1,6 +1,6 @@
 ---
 /**
- * Shared detail-page layout for anything with a body: lab write-ups, the maturity model.
+ * Shared detail-page layout for anything with a body and a metadata rail.
  *
  * Reproduces the design system's own article structure from ui_kits/newsletter/ArticlePage.jsx —
  * ArticleHeader, then a text column and a metadata rail at minmax(0,1fr) / 260px with a 64px gap.
@@ -12,14 +12,12 @@ import BaseLayout from "./BaseLayout.astro";
 import ArticleHeader from "../components/ds/ArticleHeader.astro";
 import Rule from "../components/ds/Rule.astro";
 import Byline from "../components/ds/Byline.astro";
-import Todo from "../components/Todo.astro";
 
 export interface Props {
   title: string;
   eyebrow?: string;
   standfirst?: string;
   meta?: string[];
-  status?: "real" | "draft" | "todo";
   section?: string;
   backHref?: string;
   backLabel?: string;
@@ -30,7 +28,6 @@ const {
   eyebrow,
   standfirst,
   meta = [],
-  status = "real",
   section,
   backHref,
   backLabel = "Back",
@@ -43,25 +40,7 @@ const {
 
     <div class="body-grid">
       <div class="prose">
-        {
-          status === "todo" ? (
-            <Todo
-              what="This page has a title and a place in the site, and no content yet. It is listed so the structure is visible — not because anything here is finished."
-              source="Write the body into the matching file under src/content/."
-            />
-          ) : (
-            <slot />
-          )
-        }
-        {
-          status === "draft" && (
-            <Todo
-              label="Drafted — needs your review"
-              what="Drafted from your own source material and not yet reviewed by you. Read it before it speaks in your name."
-              source="Set status: real in the frontmatter once it reads the way you want."
-            />
-          )
-        }
+        <slot />
       </div>
 
       <aside class="rail">

@@ -28,6 +28,13 @@ jobs:
           node-version: 24
           package-manager: npm
 
+      # Runs against the dist/ the step above just built. Exits 1 if any asset in a must-use
+      # folder stopped being referenced — the usual cause is a page deleted without its images.
+      # The artifact is already uploaded at this point, but `deploy` needs this job to pass,
+      # so a failure here still stops the deploy.
+      - name: Check every asset is still referenced
+        run: npm run assets
+
   deploy:
     needs: build
     runs-on: ubuntu-latest

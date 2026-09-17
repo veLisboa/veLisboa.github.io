@@ -6,7 +6,6 @@ summary: "Sensible when analytics already lives in BigQuery but the organisation
 group: hybrids
 diagram: /data-architecture-diagrams/05-bigquery-lakehouse-fabric-serving.png
 order: 5
-status: real
 ---
 
 ## The split

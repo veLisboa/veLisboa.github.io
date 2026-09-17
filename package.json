@@ -8,7 +8,6 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "todos": "node scripts/todos.mjs",
     "assets": "node scripts/assets.mjs"
   },
   "dependencies": {

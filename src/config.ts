@@ -1,107 +1,164 @@
 /**
  * Every external fact the site depends on, in one place.
  *
- * Anything not yet known is `TODO(...)` rather than a plausible-looking guess. `npm run todos`
- * reports each one. A wrong-but-believable URL on a credibility site is worse than a visible gap.
+ * Nothing here is a guess. Delivery figures are UPBI's and are labelled as UPBI's wherever they
+ * render; teaching figures are the owner's own. A number without a stated scope is a claim the
+ * reader will scope for you, usually generously.
  */
-
-/** Marks a value the owner still has to supply. Rendered visibly, reported by `npm run todos`. */
-export const TODO = (what: string) => `TODO: ${what}` as const;
-
-export const isTodo = (v: string) => v.startsWith("TODO:");
 
 export const site = {
   url: "https://velisboa.github.io",
   title: "Vinicius Lisboa",
-  /** Used as the <meta name="description"> default and the / positioning line (§6.1). */
+  /** The <meta name="description"> default and the / positioning line. */
   description:
     "Data architecture and governance for Fabric and Databricks estates. Microsoft Certified Trainer. ~5,000 students.",
   locale: "en",
   author: "Vinicius Lisboa",
-  location: "Curitiba, Brazil",
   /** The role line locked to the wordmark in the Lockup. A role, never a promise. */
   role: "Data architecture · governance · Microsoft Fabric",
 };
 
 export const contact = {
-  /**
-   * From the owner's own published CV. That CV is from 2023 — confirm this is still the address
-   * he wants a conference organizer to write to before the site goes public.
-   */
   email: "ve.lisboa@icloud.com",
-  emailNeedsConfirming: true,
-  linkedin: "https://www.linkedin.com/in/vini-lisboa",
+  linkedin: "https://www.linkedin.com/in/vini-lisboa/",
   github: "https://github.com/veLisboa",
 };
 
-export const writing = {
-  /** PT-BR editions live on LinkedIn; English editions live on Medium. */
-  linkedinNewsletter: TODO("LinkedIn newsletter URL (PT-BR editions)"),
-  medium: TODO("Medium profile URL (English editions)"),
-};
-
-export const labs = {
-  /**
-   * The .pbip-authored-as-text portfolio. The repo exists locally but has not been published,
-   * and it needs sanitising first — see the handover notes.
-   */
-  pbipPortfolioRepo: TODO("public GitHub URL for the .pbip generator portfolio, once published"),
+/**
+ * Everywhere the site points outward. One object, so the CTA block and the footer cannot drift
+ * apart.
+ */
+export const social = {
+  instagram: "https://www.instagram.com/vini.elisboa",
+  linkedin: contact.linkedin,
+  newsletter:
+    "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7429275004166361088",
+  medium: "https://medium.com/@velisboa",
+  klarun: "https://klarun.app/",
+  github: contact.github,
 };
 
 /**
- * Cloudflare Web Analytics or GoatCounter (§3) — neither sets cookies, so no banner is needed.
+ * The "Book a meeting" destination. There is no scheduling tool yet, so it is a prefilled mailto.
+ * Swap this one string for a real scheduling URL when there is one — no markup changes.
+ */
+export const booking = `mailto:${contact.email}?subject=Meeting%20request`;
+
+/**
+ * Delivery figures from UPBI's customer database, read 17 Sep 2026.
+ *
+ * Scope matters and is rendered alongside these everywhere they appear: they describe UPBI's
+ * book, the consultancy where the owner leads operations — not work personally delivered by one
+ * person. The database records 53 client accounts, of which 12 are prospects rather than
+ * engagements, so the published figure is deliberately "50+" rather than the raw row count.
+ *
+ * `industries` is "20+" rather than an exact integer because the database has no industry field —
+ * the sectors below are a normalisation of 46 free-text descriptors, and a different grouping
+ * would give a different integer. The names are the proof; the count is just the headline.
+ */
+export const delivery = {
+  projects: "60+",
+  clients: "50+",
+  industries: "20+",
+  scope: "UPBI, the consultancy where I lead operations",
+};
+
+export const industries = [
+  "Public sector and government",
+  "Banking and financial services",
+  "Healthcare cooperatives",
+  "Retail",
+  "Pharmaceutical",
+  "Technology and IT services",
+  "Education",
+  "Food and agribusiness",
+  "Logistics and distribution",
+  "Steel and mining",
+  "Pulp, paper and packaging",
+  "Consumer goods",
+  "Footwear manufacturing",
+  "Industrial manufacturing",
+  "Industrial automation",
+  "Engineering and construction",
+  "Road infrastructure",
+  "Gas distribution and energy",
+  "Legal services",
+  "Trading and conglomerates",
+  "Animal health and nutrition",
+  "Automotive distribution",
+] as const;
+
+/**
+ * Certifications, grouped by vendor and ordered by relevance rather than by expiry.
+ *
+ * No dates beyond the MCT start year, and no claim anywhere that the full set is currently
+ * active — some are lapsed. Breadth is the point; a renewal calendar is not the reader's problem.
+ */
+export const credentials = [
+  {
+    vendor: "Microsoft",
+    items: [
+      "Certified Trainer (since 2022)",
+      "Azure Solutions Architect Expert",
+      "Azure Administrator Associate",
+      "Azure AI Engineer Associate",
+      "Fabric Analytics Engineer Associate",
+      "Azure Data Engineer Associate",
+      "Azure Data Scientist Associate",
+      "Power BI Data Analyst Associate",
+      "Fundamentals: Azure, Azure AI, Azure Data, Power Platform",
+    ],
+  },
+  {
+    vendor: "Databricks",
+    items: [
+      "Certified Data Analyst Associate",
+      "Platform Administrator",
+      "Generative AI Fundamentals",
+      "Lakehouse Fundamentals",
+    ],
+  },
+  { vendor: "AWS", items: ["Certified Cloud Practitioner"] },
+  { vendor: "Education", items: ["UNINTER — Data Science (2021–2025)"] },
+] as const;
+
+/**
+ * Cloudflare Web Analytics or GoatCounter — neither sets cookies, so no banner is needed.
  * Left empty deliberately: no third-party script is injected until a token is filled in.
  */
 export const analytics = {
   goatCounterCode: "",
 };
 
-/**
- * /work is merged into /labs and out of the nav — one combined proof page rather than an
- * empty index. Bringing it back is: re-add the route and put an entry here.
- */
+/** Two destinations. Architecture and the AI lab are sections inside /work, not nav items. */
 export const nav = [
-  { href: "/architecture/", label: "Architecture" },
-  { href: "/writing/", label: "Writing" },
-  { href: "/speaking/", label: "Speaking" },
-  { href: "/labs/", label: "Labs" },
-  { href: "/about/", label: "About" },
+  { href: "/work/", label: "Work" },
+  { href: "/writing/", label: "Writing & speaking" },
 ] as const;
 
 /**
- * The newsletter's own thematic structure, taken from its index in Notion. This is the general
- * answer to "what does he write and talk about" — it feeds both /writing and /speaking.
+ * The newsletter's thematic structure, consolidated from six threads to four. One line each.
  */
 export const writingThemes = [
   {
     num: "01",
     title: "Why Fabric",
-    line: "Why the platform grew the way it did, and what the Power BI to Fabric transition actually costs.",
+    line: "Why the platform grew the way it did, and what moving from Power BI to Fabric actually costs.",
   },
   {
     num: "02",
-    title: "Fundamentals",
-    line: "Data engineering and analytics: pipelines, connection modes, mirroring and shortcuts, report design.",
+    title: "Architecture and fundamentals",
+    line: "Capacity and licensing, data mesh on Fabric, pipelines and connection modes, application lifecycle.",
   },
   {
     num: "03",
-    title: "Architecture",
-    line: "Capacity and licensing, data mesh on Fabric, and application lifecycle management.",
+    title: "Governance",
+    line: "Domain-driven workspaces, access and distribution, documentation — the parts a team can actually operate.",
   },
   {
     num: "04",
-    title: "Governance",
-    line: "Domain-driven workspaces, access and distribution, documentation — the parts people can actually operate.",
-  },
-  {
-    num: "05",
     title: "AI and agents",
     line: "Data Agent integrations across AI Search, user-defined functions, Copilot and Foundry.",
-  },
-  {
-    num: "06",
-    title: "For consultants",
-    line: "The maturity model, a self-assessment, and the road from where an estate is to where it should be.",
   },
 ] as const;
 
@@ -119,30 +176,25 @@ export const platformLogos = [
   { src: "/techs-logo/tableau-logo.png", alt: "Tableau", shape: "mark" },
 ] as const;
 
-/** Programmes he mentors on, and the company he is building. */
+/** Programs he mentors on. */
 export const affiliations = [
   { src: "/vinicius-lisboa/Great-Learning-Logo-e1724927369271-768x300.jpg", alt: "Great Learning" },
   { src: "/vinicius-lisboa/McCombs.jpg", alt: "UT Austin McCombs School of Business" },
-  /* Folder name contains a space, so the path is URL-encoded. Files are left as placed. */
-  { src: "/Klarun%20logo/exports/png/wordmark-light.png", alt: "Klarun" },
 ] as const;
+
+/* Folder name contains a space, so the path is URL-encoded. Files are left as placed. */
+export const klarunWordmark = "/Klarun%20logo/exports/png/wordmark-light.png";
 
 export const portrait = "/vinicius-lisboa/vini.PNG";
 
 /**
- * A curated handful of the official Fabric item icons — the vocabulary the diagrams are drawn
- * in. The folder holds ~70; a wall of seventy icons would be noise rather than richness, and
- * the design system's "no icon set" rule is only relaxed far enough to name real products.
+ * The slot for the architecture overview diagram on /work. The file does not exist yet — the page
+ * checks for it and renders nothing until it does, so no broken image or placeholder ever ships.
+ *
+ * Wanted: SVG, viewBox 0 0 1600 960 (5:3, matching the existing set). PNG fallback at 2400×1440.
  */
-export const fabricItems = [
-  { src: "/fabric-items-logo/lakehouse_40_item.png", label: "Lakehouse" },
-  { src: "/fabric-items-logo/data_warehouse_40_item.png", label: "Warehouse" },
-  { src: "/fabric-items-logo/semantic_model_40_item.png", label: "Semantic model" },
-  { src: "/fabric-items-logo/notebook_40_item.png", label: "Notebook" },
-  { src: "/fabric-items-logo/pipeline_40_item.png", label: "Pipeline" },
-  { src: "/fabric-items-logo/eventstream_40_item.png", label: "Eventstream" },
-  { src: "/fabric-items-logo/event_house_40_item.png", label: "Eventhouse" },
-  { src: "/fabric-items-logo/report_40_item.png", label: "Report" },
-  { src: "/fabric-items-logo/sql_database_40_item.png", label: "SQL database" },
-  { src: "/fabric-items-logo/reflex_40_item.png", label: "Data Activator" },
-] as const;
+export const architectureOverview = {
+  src: "/data-architecture-diagrams/00-overview.svg",
+  width: 1600,
+  height: 960,
+};

@@ -6,7 +6,6 @@ summary: "Heavy engineering, streaming and production ML on one platform, with m
 group: foundations
 diagram: /data-architecture-diagrams/03-databricks-reference-architecture.png
 order: 3
-status: real
 ---
 
 ## The shape

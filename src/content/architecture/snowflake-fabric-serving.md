@@ -6,7 +6,6 @@ summary: "The strongest of the four when the estate is already Iceberg-first: no
 group: hybrids
 diagram: /data-architecture-diagrams/06-snowflake-lakehouse-fabric-serving.png
 order: 6
-status: real
 ---
 
 ## The split

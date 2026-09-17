@@ -6,7 +6,6 @@ summary: "The lowest-friction hybrid available today, and the only one where bot
 group: hybrids
 diagram: /data-architecture-diagrams/04-databricks-lakehouse-fabric-serving.png
 order: 4
-status: real
 ---
 
 ## The split

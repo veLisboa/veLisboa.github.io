@@ -3,10 +3,14 @@
  * Multi-column footer with a mono identity row beneath it.
  *
  * Klarun brackets every surface: chrome at the top, a mono row at the bottom carrying identity
- * on the left and metadata on the right. The columns replace round 1's single link row.
+ * on the left and metadata on the right.
+ *
+ * The contact column is the same <CTA> the home page renders, in its compact form, so the two
+ * cannot drift apart.
  */
 import Lockup from "./ds/Lockup.astro";
-import { contact, site, nav, writingThemes } from "../config";
+import CTA from "./CTA.astro";
+import { site, nav } from "../config";
 
 const year = 2026;
 ---
@@ -30,31 +34,14 @@ const year = 2026;
         </ul>
       </div>
 
-      <div class="footer-col">
-        <span class="eyebrow">Writing</span>
-        <ul>
-          {
-            writingThemes.slice(0, 5).map((t) => (
-              <li>
-                <a href="/writing/">{t.title}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <div class="footer-col">
+      <div class="footer-col footer-col--contact">
         <span class="eyebrow">Elsewhere</span>
-        <ul>
-          <li><a href={contact.linkedin} rel="me">LinkedIn</a></li>
-          <li><a href={contact.github} rel="me">GitHub</a></li>
-          <li><a href={`mailto:${contact.email}`}>{contact.email}</a></li>
-        </ul>
+        <CTA compact />
       </div>
     </div>
 
     <div class="footer-row">
-      <span>Vinicius Lisboa · {site.location}</span>
+      <span>Vinicius Lisboa</span>
       <span>{year}</span>
     </div>
   </div>
