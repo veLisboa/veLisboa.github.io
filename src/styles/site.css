@@ -155,7 +155,7 @@ section{margin-top:var(--space-10)}
 button:focus-visible,[tabindex]:focus-visible,summary:focus-visible{
   outline:var(--rule-medium) solid var(--focus);outline-offset:var(--space-1)}
 
-/* The only motion in the system is a 140ms colour/border change acknowledging input.
+/* The only motion in the system is a 140ms color/border change acknowledging input.
    Honour a reader who has asked for none. */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:1ms!important;animation:none!important;

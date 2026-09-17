@@ -2,7 +2,7 @@
 title: "BigQuery + Fabric serving"
 num: "05"
 subtitle: "Google Cloud owns the lakehouse on BigLake Iceberg; Fabric serves. Cross-cloud egress, latency and CDC cost are the defining constraints."
-summary: "Sensible when analytics already lives in BigQuery but the organisation is standardised on Power BI and Microsoft 365. The economics decide the bridge choice on their own."
+summary: "Sensible when analytics already lives in BigQuery but the organization is standardized on Power BI and Microsoft 365. The economics decide the bridge choice on their own."
 group: hybrids
 diagram: /data-architecture-diagrams/05-bigquery-lakehouse-fabric-serving.png
 order: 5
@@ -28,7 +28,7 @@ serving: OneLake, Direct Lake, the SQL analytics endpoint and the M365 distribut
 ## When to choose this pattern
 
 Analytics data already lives in BigQuery — often because the wider business runs on Google Cloud
-— but the organisation is standardised on Power BI and Microsoft 365 for distribution.
+— but the organization is standardized on Power BI and Microsoft 365 for distribution.
 
 Also a sensible interim state during a cloud migration in either direction: serving can move to
 Fabric long before the lakehouse does.

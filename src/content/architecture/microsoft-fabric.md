@@ -36,7 +36,7 @@ unlocks at F64 and above.
 
 ## When to choose this pattern
 
-Organisations standardised on Microsoft 365 and Power BI that want one SaaS platform, one bill
+Organizations standardized on Microsoft 365 and Power BI that want one SaaS platform, one bill
 and one governance plane.
 
 The trade-off is capacity-based sizing and a younger engineering surface than a dedicated Spark

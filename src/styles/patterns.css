@@ -41,7 +41,7 @@
 
 /* ── Section header triad ────────────────────────────────────────────────────
    eyebrow / title / lede, at the same rhythm every time. The numbered eyebrow is
-   the cheapest organisation device in the system: it gives a page a visible
+   the cheapest organization device in the system: it gives a page a visible
    taxonomy without adding a nav. */
 
 .section-head{margin-bottom:var(--space-8)}
@@ -71,7 +71,7 @@
 /* ── Spec row ────────────────────────────────────────────────────────────────
    A 200px mono metadata gutter beside the content, hairline-separated. Reads as a
    table without table chrome. This is the device that makes a long page feel
-   organised rather than merely long. */
+   organized rather than merely long. */
 
 .specs{border-top:var(--hairline)}
 .spec-row{display:grid;grid-template-columns:var(--gutter-meta) 1fr;gap:var(--space-7);
@@ -105,7 +105,7 @@
 .hero__statement{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,2.75rem);
   font-weight:var(--wt-semibold);line-height:var(--lh-display);letter-spacing:var(--ls-display);
   margin:0}
-/* Serif italic, exactly once per surface — used the way an accent colour is used. */
+/* Serif italic, exactly once per surface — used the way an accent color is used. */
 .hero__sub{font-family:var(--font-display);font-style:italic;font-size:var(--step-1);
   line-height:1.45;color:var(--ink-secondary);margin-top:var(--space-6);max-width:30em}
 .hero__portrait{width:200px;height:auto;display:block;border:var(--hairline)}

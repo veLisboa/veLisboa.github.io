@@ -27,7 +27,7 @@ Databricks side; the OneLake catalog and Purview govern the Fabric side.
 
 ## When to choose this pattern
 
-The organisation already runs Azure Databricks for data engineering, streaming and production
+The organization already runs Azure Databricks for data engineering, streaming and production
 ML, and wants best-in-class Power BI serving without rebuilding a second ETL stack inside Fabric.
 
 You keep Databricks' engineering depth and Unity Catalog lineage, and gain Direct Lake
@@ -42,5 +42,5 @@ Direct Lake needs well-maintained Delta tables and an F-SKU capacity. It falls b
 DirectQuery when capacity guardrails are exceeded or unsupported features are used; tables built
 on T-SQL views always fall back.
 
-Identity and passthrough behaviour differs across the four bridge options — validate before
+Identity and passthrough behavior differs across the four bridge options — validate before
 committing.

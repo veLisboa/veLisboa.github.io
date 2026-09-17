@@ -26,7 +26,7 @@ sits in the Databricks account and the compute plane in the customer's VPC or VN
 ## The well-architected framework
 
 Seven pillars: five shared with the cloud frameworks — operational excellence; security, privacy
-and compliance; reliability; performance efficiency; cost optimisation — plus two
+and compliance; reliability; performance efficiency; cost optimization — plus two
 lakehouse-specific pillars: data and AI governance, and interoperability and usability.
 
 ## When to choose this pattern

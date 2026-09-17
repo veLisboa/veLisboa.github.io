@@ -84,7 +84,7 @@ Thirteen entries. If a route moves again, add it there — nothing else knows ab
 
 **Read [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md) before changing anything visual.** The site
 deliberately breaks three of the system's written rules — it uses vendor logos, a third ground
-colour for tinted bands, and photography in more than one place. Those are recorded so a
+color for tinted bands, and photography in more than one place. Those are recorded so a
 re-export does not silently undo them.
 
 Layout composition lives in [`src/styles/patterns.css`](src/styles/patterns.css): bands,
@@ -120,7 +120,7 @@ Push to `main` → GitHub Actions builds and deploys. `gh` is not installed here
 setup is manual:
 
 1. Create a **public** repo named exactly **`veLisboa.github.io`** — no README, no `.gitignore`,
-   no licence.
+   no license.
 2. ```
    git init && git branch -M main
    git add -A && git commit -m "Initial site"
