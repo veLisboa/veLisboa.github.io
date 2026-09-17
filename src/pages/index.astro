@@ -3,23 +3,20 @@
  * Home — the whole site in one page.
  *
  * The test this page has to pass: someone should be able to learn everything they need here, and
- * open /work or /writing only if they want depth. So it carries the positioning, the proof, what
- * the work is, and how to make contact — and nothing that only exists to fill a band.
+ * open /work or /writing only if they want depth.
  *
- * Inversion appears exactly once, on the proof row, which is also where the accent goes.
+ * Band rhythm: inverted hero, tint, paper, tint, paper, accent. The accent ground appears once,
+ * at the contact block, which is where the page wants the reader to end up.
  */
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import LogoWall from "../components/LogoWall.astro";
 import StatStrip from "../components/StatStrip.astro";
 import BrandButton from "../components/BrandButton.astro";
-import CTA from "../components/CTA.astro";
+import Icon from "../components/Icon.astro";
 import { platformLogos, affiliations, portrait, delivery, social } from "../config";
 
-/**
- * Delivery figures are UPBI's; teaching figures are his own. The lede above the strip says which
- * is which — a number with no stated scope gets scoped by the reader, usually generously.
- */
+/** Scope is stated in the lede above the strip rather than repeated in five labels. */
 const stats = [
   { value: delivery.projects, label: "Projects delivered in the last year" },
   { value: delivery.clients, label: "Client accounts" },
@@ -28,79 +25,134 @@ const stats = [
   { value: "2022", label: "Microsoft Certified Trainer since" },
 ];
 
+const roles = [
+  { icon: "briefcase", label: "Operations Lead", value: "Data and AI consultancy" },
+  { icon: "cube", label: "Founder", value: "Klarun" },
+  { icon: "award", label: "Certified", value: "Microsoft Trainer, Data and AI" },
+  { icon: "cap", label: "Mentor", value: "UT Austin McCombs · Great Learning" },
+];
+
 const whatIDo = [
   {
     num: "01",
+    icon: "briefcase",
     title: "Delivery",
-    line: "I run Data and AI delivery and operations at UPBI: assessments, migrations and platform builds, and the teams and process behind them. I am also Data Tech Lead on a client engagement, leading a large SAP S/4HANA migration team for the Americas division of a Japanese industrial manufacturer.",
+    line: "I run Data and AI delivery and operations: assessments, migrations and platform builds, and the teams and process behind them. I am also Data Tech Lead on a client engagement, leading a large SAP S/4HANA migration team for the Americas division of a Japanese industrial manufacturer.",
   },
   {
     num: "02",
+    icon: "layers",
     title: "Architecture and governance",
-    line: "Reference architectures and governance models for Microsoft Fabric, Databricks and Azure — capacity and licensing, domain-driven workspaces, access and distribution. The test I apply is whether a team can still operate the controls after I leave.",
+    line: "Reference architectures and governance models for modern data platforms. Capacity and licensing, domain-driven workspaces, access and distribution. The test I apply is whether a team can still operate the controls after I leave.",
   },
   {
     num: "03",
+    icon: "cap",
     title: "Training",
     line: "Microsoft Certified Trainer since 2022, with roughly 5,000 students trained worldwide. I mentor Generative AI and Azure programs for Great Learning and for UT Austin's McCombs School of Business, including AI-900, PL-300 and Generative AI for Business.",
   },
   {
     num: "04",
+    icon: "cube",
     title: "Klarun",
-    line: "I am the founder of Klarun, a B2B data catalog, metadata and lineage platform built on Microsoft Fabric, Power BI and Databricks. Every governance engagement I run hits the same wall, and Klarun is the attempt to remove it.",
+    line: "I am the founder of Klarun, a data ecosystem operations tool. It covers governance, architecture, projects, FinOps and more, so a team can run its estate from one place instead of six.",
   },
 ];
 ---
 
 <BaseLayout section="Home">
-  <!-- 01 · Hero -->
-  <section class="container">
-    <div class="hero">
-      <div>
-        <span class="eyebrow" style="display:block;margin-bottom:var(--space-5)">
-          Vinicius Lisboa
-        </span>
-        <h1 class="hero__statement">
-          I design and govern Fabric, Databricks and Azure estates, and train the teams that run
-          them.
-        </h1>
-        <p class="hero__sub">
-          I lead Data and AI delivery and operations at UPBI, a Microsoft-partner consultancy.
-        </p>
+  <!-- 01 · Hero and proof, on the one inverted ground -->
+  <section class="band band--invert hero-band">
+    <div class="container">
+      <div class="hero">
+        <div>
+          <span class="badge">
+            <span class="badge__dot"></span>
+            Operations Lead · Founder · Microsoft Certified Trainer
+          </span>
+
+          <span class="kicker" style="margin-top:var(--space-7)"></span>
+
+          <h1 class="hero__statement">
+            I design and govern AI-ready data platforms, <span class="tail"
+              >and train the teams that run them.</span
+            >
+          </h1>
+
+          <p class="hero__sub">
+            I lead Data and AI delivery and operations. Architecture, governance, and the training
+            that makes them stick.
+          </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="/work/">
+              See the work
+              <Icon name="arrow-right" size={18} />
+            </a>
+            <a class="btn btn--secondary" href={social.newsletter}>
+              <Icon name="pen" size={18} />
+              Read the newsletter
+            </a>
+          </div>
+        </div>
+
+        <div class="shot hero__shot">
+          <img
+            src={portrait}
+            alt="Vinicius Lisboa"
+            width="1242"
+            height="1242"
+            fetchpriority="high"
+          />
+        </div>
       </div>
-      <img
-        class="hero__portrait"
-        src={portrait}
-        alt="Vinicius Lisboa"
-        width="1242"
-        height="1242"
-        fetchpriority="high"
-      />
+
+      <div class="cred-strip">
+        {
+          roles.map((r) => (
+            <div class="cred">
+              <span class="icon-tile">
+                <Icon name={r.icon} />
+              </span>
+              <span>
+                <span class="cred__label">{r.label}</span>
+                <span class="cred__value">{r.value}</span>
+              </span>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="proof">
+        <SectionHeader num="01" eyebrow="Track record" lede="Delivery and teaching figures." />
+        <StatStrip stats={stats} />
+      </div>
     </div>
   </section>
 
-  <!-- 02 · Proof. The one inverted band on the page. -->
-  <section class="band band--invert">
+  <!-- 02 · Platforms -->
+  <section class="band band--tint">
     <div class="container">
-      <SectionHeader
-        num="01"
-        eyebrow="Track record"
-        lede="Delivery figures are UPBI's, the consultancy where I lead operations. Teaching figures are my own."
-      />
-      <StatStrip stats={stats} />
+      <SectionHeader num="02" eyebrow="The stack I work in" />
+      <LogoWall logos={platformLogos} />
     </div>
   </section>
 
   <!-- 03 · What I do -->
   <section class="container" style="margin-top:var(--space-10)">
-    <SectionHeader num="02" eyebrow="What I do" />
+    <SectionHeader num="03" eyebrow="What I do" />
     <div class="specs">
       {
         whatIDo.map((w) => (
           <div class="spec-row">
-            <div class="spec-row__meta">
-              <span class="num">{w.num}</span>
-              {w.title}
+            <div class="spec-row__meta spec-row__meta--icon">
+              <span class="icon-tile">
+                <Icon name={w.icon} />
+              </span>
+              <span>
+                <span class="num">{w.num}</span>
+                {w.title}
+              </span>
             </div>
             <div class="spec-row__body">
               <p>{w.line}</p>
@@ -118,21 +170,24 @@ const whatIDo = [
   <section class="band band--tint" style="margin-top:var(--space-10)">
     <div class="container">
       <SectionHeader
-        num="03"
+        num="04"
         eyebrow="Work"
         title="What the delivery looks like"
-        lede="Professional background, the Microsoft and Databricks certifications, the delivery record broken out by industry, Klarun, seven reference architectures for Fabric and Databricks estates, and the agentic tooling I have been building around Power BI delivery. Client work is described by industry and never by name."
+        lede="Professional background, the certifications, the delivery record broken out by industry, Klarun, seven reference architectures, and the agentic tooling I have been building around Power BI delivery. Client work is described by industry and never by name."
       />
-      <p style="margin-top:var(--space-8)"><a href="/work/">Open Work</a></p>
+      <a class="btn btn--primary" href="/work/">
+        Open Work
+        <Icon name="arrow-right" size={18} />
+      </a>
     </div>
   </section>
 
   <!-- 05 · Writing and speaking -->
   <section class="container" style="margin-top:var(--space-10)">
     <SectionHeader
-      num="04"
+      num="05"
       eyebrow="Writing and speaking"
-      lede="I write about Fabric, Power BI and governance most weeks — in Portuguese on LinkedIn, in English on Medium. Four threads run through it: why Fabric, architecture and fundamentals, governance, and AI agents. The same four are what I speak and run workshops on."
+      lede="I write about data platform architecture and governance most weeks, in Portuguese on LinkedIn and in English on Medium. Four threads run through it: why Fabric, architecture and fundamentals, governance, and AI agents. The same four are what I speak and run workshops on."
     />
     <div class="brand-row">
       <BrandButton
@@ -153,31 +208,57 @@ const whatIDo = [
     <p style="margin-top:var(--space-8)"><a href="/writing/">Writing and speaking</a></p>
   </section>
 
-  <!-- 06 · Platforms -->
-  <section class="band band--tint" style="margin-top:var(--space-10)">
-    <div class="container">
-      <SectionHeader num="05" eyebrow="Platforms" />
-      <LogoWall logos={platformLogos} />
-    </div>
-  </section>
-
-  <!-- 07 · Contact -->
-  <section class="container" style="margin-top:var(--space-10)">
-    <SectionHeader num="06" eyebrow="Contact" />
-    <CTA />
-  </section>
+  <!-- 06 · Contact is rendered by BaseLayout, on the one accent ground. -->
 </BaseLayout>
 
 <style>
+  /* The hero band runs to the top of the page, under the sticky header. */
+  .hero-band {
+    padding-top: var(--space-9);
+  }
+  /* Wider than the shared 200px portrait column: this one carries the offset plate behind it. */
+  .hero-band :global(.hero) {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+  @media (max-width: 900px) {
+    .hero-band :global(.hero) {
+      grid-template-columns: 1fr;
+    }
+  }
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    margin-top: var(--space-8);
+  }
+  /* The portrait column is wider here than elsewhere — it is carrying the offset plate. */
+  .hero__shot {
+    width: 100%;
+    max-width: 300px;
+    justify-self: end;
+  }
+  .proof {
+    margin-top: var(--space-10);
+    border-top: var(--rule-hairline) solid var(--rule-inverse);
+    padding-top: var(--space-9);
+  }
   .brand-row {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-6);
     margin-top: var(--space-7);
   }
+  @media (max-width: 900px) {
+    .hero__shot {
+      max-width: 220px;
+      justify-self: start;
+    }
+  }
   @media (max-width: 480px) {
-    .brand-row a {
+    .brand-row a,
+    .hero__actions .btn {
       width: 100%;
+      justify-content: center;
     }
   }
 </style>

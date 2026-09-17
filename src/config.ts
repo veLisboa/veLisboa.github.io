@@ -182,8 +182,18 @@ export const affiliations = [
   { src: "/vinicius-lisboa/McCombs.jpg", alt: "UT Austin McCombs School of Business" },
 ] as const;
 
-/* Folder name contains a space, so the path is URL-encoded. Files are left as placed. */
-export const klarunWordmark = "/Klarun%20logo/exports/png/wordmark-light.png";
+/**
+ * The Klarun lockup — the mark and the wordmark together. The earlier `wordmark-light.png` was
+ * the wordmark alone, so the logo itself was missing.
+ *
+ * Both exports ship with a baked-in ground rather than transparency: `light` is cream with dark
+ * type, `dark` is graphite with light type. Pick by the ground it is being placed on.
+ * Folder name contains a space, so the path is URL-encoded.
+ */
+export const klarunLogo = {
+  onLight: "/Klarun%20logo/exports/png/lockup-horizontal-point-light.png",
+  onDark: "/Klarun%20logo/exports/png/lockup-horizontal-point-dark.png",
+};
 
 export const portrait = "/vinicius-lisboa/vini.PNG";
 

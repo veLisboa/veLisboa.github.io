@@ -32,6 +32,7 @@ import "../styles/patterns.css";
 
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import CTA from "../components/CTA.astro";
 import { site, analytics } from "../config";
 
 export interface Props {
@@ -102,6 +103,13 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url);
               content in .container, or in .band > .container for a full-bleed section. */}
           <main id="main">
             <slot />
+            {/* The contact block closes every page. The footer carries no links any more,
+                so this is the only route out of the site and it cannot be optional. */}
+            <section class="band band--accent" style="margin-top:var(--space-10)">
+              <div class="container">
+                <CTA />
+              </div>
+            </section>
           </main>
           <SiteFooter />
         </>

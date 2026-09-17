@@ -1,43 +1,26 @@
 ---
 /**
- * Multi-column footer with a mono identity row beneath it.
+ * The footer is now just identity.
  *
- * Klarun brackets every surface: chrome at the top, a mono row at the bottom carrying identity
- * on the left and metadata on the right.
- *
- * The contact column is the same <CTA> the home page renders, in its compact form, so the two
- * cannot drift apart.
+ * The link columns are gone: "Pages" duplicated the nav two rules above it, and "Elsewhere"
+ * belongs in the contact block on the page, as marks rather than as a second list of words.
+ * What is left is the lockup, one line of what the site is, and the mono identity row Klarun
+ * brackets every surface with.
  */
 import Lockup from "./ds/Lockup.astro";
-import CTA from "./CTA.astro";
-import { site, nav } from "../config";
+import { site } from "../config";
 
 const year = 2026;
 ---
 
 <footer class="site-footer">
   <div class="container">
-    <div class="footer-cols">
-      <div class="footer-col footer-col--brand">
-        <Lockup size={20} align="column" role={site.role} />
-        <p class="footer-blurb">
-          Data architecture and governance for Microsoft Fabric and Databricks estates, and the
-          training to keep them running.
-        </p>
-      </div>
-
-      <div class="footer-col">
-        <span class="eyebrow">Pages</span>
-        <ul>
-          {nav.map((i) => <li><a href={i.href}>{i.label}</a></li>)}
-          <li><a href="/speaking/one-pager/">Speaker one-pager</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col footer-col--contact">
-        <span class="eyebrow">Elsewhere</span>
-        <CTA compact />
-      </div>
+    <div class="footer-brand">
+      <Lockup size={20} align="column" role={site.role} />
+      <p class="footer-blurb">
+        Architecture, governance and delivery for data platforms, and the training that keeps them
+        running.
+      </p>
     </div>
 
     <div class="footer-row">
@@ -46,3 +29,18 @@ const year = 2026;
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-brand {
+    display: grid;
+    grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+    gap: var(--space-9);
+    align-items: end;
+  }
+  @media (max-width: 720px) {
+    .footer-brand {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+</style>

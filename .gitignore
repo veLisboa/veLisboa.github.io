@@ -21,9 +21,13 @@ pnpm-debug.log*
 .DS_Store
 Thumbs.db
 
-# Klarun brand assets: only the one wordmark the site uses is committed.
+# Klarun brand assets: only the exports the site actually renders are committed.
 # The full set is company brand material and stays out of a public repo.
 public/Klarun logo/**
 !public/Klarun logo/exports/
 !public/Klarun logo/exports/png/
-!public/Klarun logo/exports/png/wordmark-light.png
+!public/Klarun logo/exports/png/lockup-horizontal-point-light.png
+!public/Klarun logo/exports/png/lockup-horizontal-point-dark.png
+
+# Visual reference bundles dropped in the project root for review. Not part of the site.
+/Portfolio.html

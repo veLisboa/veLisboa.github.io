@@ -235,3 +235,174 @@
 .portrait-inline{border:var(--hairline);display:block;width:100%;height:auto}
 .affil{display:flex;align-items:center;gap:var(--space-6);flex-wrap:wrap}
 .affil img{display:block;height:34px;width:auto;background:var(--paper)}
+
+/* ── Accent ground ───────────────────────────────────────────────────────────
+   A third band tone beside paper and inverted paper: the accent itself, used as
+   a ground exactly once per page. DESIGN-DECISIONS.md records this — the system
+   holds the accent under ~2% of a surface, and a whole band is not that. The
+   budget is spent deliberately rather than sprinkled. */
+
+.band--accent{background:var(--accent);color:var(--accent-ink)}
+.band--accent h1,.band--accent h2,.band--accent h3{color:var(--accent-ink)}
+.band--accent .eyebrow,.band--accent .section-num{color:rgb(255 255 255 / 0.62)}
+.band--accent .section-head__lede{color:rgb(255 255 255 / 0.82)}
+.band--accent a{color:var(--accent-ink);border-bottom-color:rgb(255 255 255 / 0.4)}
+.band--accent a:hover{color:var(--accent-ink);border-bottom-color:var(--accent-ink)}
+
+/* The display tail set in accent italic. On a dark ground the lifted slate is the
+   only readable version of the accent, so the token flips with the ground. */
+.tail{font-style:italic;color:var(--accent)}
+.band--invert .tail{color:var(--slate-lift)}
+.band--accent .tail{color:rgb(255 255 255 / 0.66)}
+
+/* ── Buttons ─────────────────────────────────────────────────────────────────
+   Square, no radius, no shadow. The label and the icon sit on one baseline. */
+
+.btn{display:inline-flex;align-items:center;gap:var(--space-4);
+  padding:var(--space-5) var(--space-6);border:1px solid transparent;
+  font-family:var(--font-body);font-size:var(--step-0);font-weight:var(--wt-medium);
+  line-height:1.2;text-decoration:none;border-bottom:1px solid transparent;
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease)}
+.btn--primary{background:var(--ink);color:var(--ink-inverse);border-color:var(--ink)}
+.btn--primary:hover{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn--secondary{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.btn--secondary:hover{background:var(--paper-sunken);border-color:var(--ink)}
+
+/* On an inverted ground the primary button is the lifted accent, which is the one
+   colour with enough contrast against graphite to carry dark text. */
+.band--invert .btn--primary{background:var(--slate-lift);color:var(--graphite);
+  border-color:var(--slate-lift)}
+.band--invert .btn--primary:hover{background:transparent;color:var(--slate-lift)}
+.band--invert .btn--secondary{color:var(--ink-on-inverse);border-color:var(--rule-inverse)}
+.band--invert .btn--secondary:hover{background:rgb(255 255 255 / 0.06);
+  border-color:var(--ink-on-inverse)}
+
+/* ── Offset shot ─────────────────────────────────────────────────────────────
+   An image with an accent rectangle offset behind it. Flat fill, no shadow and no
+   blur — it reads as a second sheet of paper, not as elevation. */
+
+.shot{position:relative;display:block}
+.shot::after{content:"";position:absolute;inset:auto -14px -14px auto;
+  width:100%;height:100%;background:var(--accent);z-index:0}
+.shot > *{position:relative;z-index:1;display:block;width:100%;height:auto}
+.shot img{border:var(--hairline)}
+.band--invert .shot img{border-color:var(--rule-inverse)}
+@media (max-width:640px){.shot::after{inset:auto -8px -8px auto}}
+
+/* ── Icon tile ───────────────────────────────────────────────────────────────
+   A hairline square holding one glyph. The only place an icon is allowed to sit
+   on its own, and it always has a label beside it. */
+
+.icon-tile{display:grid;place-items:center;width:44px;height:44px;flex:none;
+  border:var(--hairline);color:var(--ink-secondary)}
+.band--invert .icon-tile{border-color:var(--rule-inverse);color:var(--slate-lift)}
+.band--accent .icon-tile{border-color:rgb(255 255 255 / 0.32);color:var(--accent-ink)}
+
+/* ── Credential strip ────────────────────────────────────────────────────────
+   Four facts under the hero, rule-separated, each an icon tile beside a mono
+   label and one line of value. */
+
+.cred-strip{display:grid;grid-template-columns:repeat(4,1fr);border-top:var(--hairline);
+  margin-top:var(--space-9)}
+.band--invert .cred-strip{border-top-color:var(--rule-inverse)}
+.cred{display:flex;align-items:flex-start;gap:var(--space-5);padding:var(--space-7) var(--space-6);
+  border-left:var(--hairline)}
+.band--invert .cred{border-left-color:var(--rule-inverse)}
+.cred:first-child{border-left:0;padding-left:0}
+.cred__label{font-family:var(--font-mono);font-size:var(--step--2);letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--ink-tertiary);display:block;margin-bottom:var(--space-2)}
+.band--invert .cred__label{color:var(--ink-tertiary-inverse)}
+.cred__value{font-size:var(--step--1);line-height:1.4}
+@media (max-width:900px){
+  .cred-strip{grid-template-columns:repeat(2,1fr)}
+  .cred:nth-child(3){border-left:0;padding-left:0}
+  .cred{padding-inline:var(--space-5)}
+  .cred:first-child,.cred:nth-child(3){padding-left:0}
+}
+@media (max-width:560px){
+  .cred-strip{grid-template-columns:1fr}
+  .cred{border-left:0;padding-left:0;border-top:var(--hairline)}
+  .cred:first-child{border-top:0}
+  .band--invert .cred{border-top-color:var(--rule-inverse)}
+}
+
+/* ── Feature rows ────────────────────────────────────────────────────────────
+   Icon tile + label, hairline-separated. A rule with a label, never a card. */
+
+.feature-rows{display:grid;border-top:var(--hairline)}
+.band--invert .feature-rows{border-top-color:var(--rule-inverse)}
+.feature-row{display:flex;align-items:center;gap:var(--space-5);
+  padding:var(--space-5) 0;border-bottom:var(--hairline)}
+.band--invert .feature-row{border-bottom-color:var(--rule-inverse)}
+.feature-row .icon-tile{width:38px;height:38px}
+
+/* ── Link cards ──────────────────────────────────────────────────────────────
+   The contact destinations. A bordered row per link: leading brand glyph, label,
+   trailing direction arrow. Icons replace the text list the footer used to hold. */
+
+.link-cards{display:grid;gap:var(--space-4);list-style:none;padding:0;margin:0}
+.link-card{display:flex;align-items:center;gap:var(--space-5);
+  padding:var(--space-5) var(--space-6);border:var(--hairline);
+  color:var(--ink);text-decoration:none;border-bottom:var(--hairline);
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.link-card:hover{background:var(--paper-sunken);border-color:var(--ink)}
+.link-card__label{flex:1;font-weight:var(--wt-medium)}
+.link-card .icon{color:var(--ink-secondary)}
+.band--accent .link-card{border-color:rgb(255 255 255 / 0.34);color:var(--accent-ink)}
+.band--accent .link-card:hover{background:rgb(255 255 255 / 0.1);border-color:var(--accent-ink)}
+.band--accent .link-card .icon{color:rgb(255 255 255 / 0.8)}
+
+/* ── Icon link row ───────────────────────────────────────────────────────────
+   The social set, as glyphs rather than a word list. Each carries a visually
+   hidden label, so the meaning does not depend on recognising the mark. */
+
+.icon-links{display:flex;flex-wrap:wrap;gap:var(--space-4);list-style:none;padding:0;margin:0}
+.icon-links a{display:grid;place-items:center;width:44px;height:44px;
+  border:var(--hairline);color:var(--ink-secondary);border-bottom:var(--hairline);
+  transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease),
+    background var(--dur) var(--ease)}
+.icon-links a:hover{color:var(--ink);border-color:var(--ink);background:var(--paper-sunken)}
+.band--accent .icon-links a{border-color:rgb(255 255 255 / 0.34);color:rgb(255 255 255 / 0.85)}
+.band--accent .icon-links a:hover{color:var(--accent-ink);border-color:var(--accent-ink);
+  background:rgb(255 255 255 / 0.1)}
+
+/* ── Panel ───────────────────────────────────────────────────────────────────
+   A pale sheet used to carry a logo that ships with its own light ground. */
+
+.panel{display:grid;place-items:center;background:var(--grey-50);padding:var(--space-9)}
+.panel img{display:block;width:100%;max-width:340px;height:auto}
+
+/* ── Badge ───────────────────────────────────────────────────────────────────*/
+
+.badge{display:inline-flex;align-items:center;gap:var(--space-3);
+  padding:var(--space-3) var(--space-5);border:var(--hairline);
+  font-family:var(--font-mono);font-size:var(--step--2);letter-spacing:0.06em;
+  color:var(--ink-secondary)}
+.band--invert .badge{border-color:var(--rule-inverse);color:var(--ink-secondary-inverse)}
+.badge__dot{width:6px;height:6px;background:var(--accent);flex:none}
+.band--invert .badge__dot{background:var(--slate-lift)}
+
+/* ── Accent kicker ───────────────────────────────────────────────────────────
+   The short bar above a display headline. Replaces the 6px full-width opener in
+   places where the page wants emphasis without another full rule. */
+
+.kicker{display:block;width:88px;height:var(--rule-medium);background:var(--accent);
+  margin-bottom:var(--space-6)}
+.band--invert .kicker{background:var(--slate-lift)}
+
+/* An icon tile in the metadata gutter, beside the number and label. */
+.spec-row__meta--icon{display:flex;align-items:flex-start;gap:var(--space-5)}
+@media (max-width:820px){
+  .spec-row__meta--icon{align-items:center}
+}
+
+/* ── Inverted-ground text overrides ──────────────────────────────────────────
+   Several patterns set --ink-secondary, which is grey-600 and disappears against
+   graphite. On an inverted band they take the inverse ramp instead. */
+
+.band--invert .hero__sub,
+.band--invert .lead,
+.band--invert .prose{color:var(--ink-secondary-inverse)}
+.band--invert .figure__cap{color:var(--ink-tertiary-inverse)}
+.band--invert .creds{color:var(--ink-secondary-inverse)}

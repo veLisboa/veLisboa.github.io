@@ -11,7 +11,11 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 import BrandButton from "../../components/BrandButton.astro";
+import Icon from "../../components/Icon.astro";
 import { writingThemes, social } from "../../config";
+
+/** One glyph per thread, in the order the themes are declared. */
+const themeIcons = ["cube", "layers", "shield", "board"];
 ---
 
 <BaseLayout
@@ -19,10 +23,12 @@ import { writingThemes, social } from "../../config";
   section="Writing"
   description="A newsletter on Microsoft Fabric, Power BI and governance — Portuguese on LinkedIn, English on Medium — plus training, webinars and talks.">
   <section class="container" style="margin-top:var(--space-9)">
-    <div class="opener"></div>
-    <h1 style="max-width:16em">Writing and speaking</h1>
+    <span class="kicker"></span>
+    <h1 style="max-width:16em">
+      Writing and <span class="tail">speaking.</span>
+    </h1>
     <p class="lead" style="margin-top:var(--space-6)">
-      I write about Microsoft Fabric, Power BI and governance most weeks. I write, teach and speak
+      I write about data platform architecture and governance most weeks. I write, teach and speak
       in English, Portuguese and Spanish.
     </p>
   </section>
@@ -33,11 +39,16 @@ import { writingThemes, social } from "../../config";
       <SectionHeader num="01" eyebrow="Subjects" title="What I write and talk about" />
       <div class="specs">
         {
-          writingThemes.map((t) => (
+          writingThemes.map((t, i) => (
             <div class="spec-row">
-              <div class="spec-row__meta">
-                <span class="num">{t.num}</span>
-                {t.title}
+              <div class="spec-row__meta spec-row__meta--icon">
+                <span class="icon-tile">
+                  <Icon name={themeIcons[i] ?? "book"} />
+                </span>
+                <span>
+                  <span class="num">{t.num}</span>
+                  {t.title}
+                </span>
               </div>
               <div class="spec-row__body">
                 <p>{t.line}</p>
@@ -80,9 +91,10 @@ import { writingThemes, social } from "../../config";
           languages. I am available for conference talks, workshops and corporate sessions.
         </p>
       </div>
-      <p style="margin-top:var(--space-7)">
-        <a href="/speaking/one-pager/">Speaker one-pager</a>
-      </p>
+      <a class="btn btn--secondary" style="margin-top:var(--space-7)" href="/speaking/one-pager/">
+        <Icon name="mic" size={18} />
+        Speaker one-pager
+      </a>
     </div>
   </section>
 </BaseLayout>

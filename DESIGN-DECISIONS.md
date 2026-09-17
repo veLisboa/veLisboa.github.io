@@ -25,6 +25,24 @@ The Fabric item icons stretch further, and are deliberately limited to ten of th
 used once, as the vocabulary the architecture diagrams are drawn in. A wall of seventy icons is
 noise, not richness.
 
+### 1b. The icon set is now a real, small one
+
+**The system says:** *"There is deliberately no icon set, and none should be added. No icon font,
+no sprite sheet, no SVG library, no CDN set."*
+
+**The site does:** ships [`src/components/Icon.astro`](src/components/Icon.astro) — around twenty
+glyphs, inline, hand-written.
+
+**Why:** the owner asked for icons directly, against a reference design that uses them throughout.
+The rule's real target is a dependency and a thousand-glyph vocabulary, so the departure is kept
+to what avoids both: no font, no sprite sheet, no package, no CDN. Every glyph is either a
+geometric primitive drawn on a 24-grid at 1.5 stroke, or a platform's own brand mark used
+unstyled, which §1 already permits.
+
+The constraints that keep it from becoming a set: an icon never appears without a label beside
+it, every icon is `aria-hidden`, and the icon row in the contact block carries visually hidden
+text so meaning never depends on recognising a mark.
+
 ### 2. There are three ground colours, not two
 
 **The system says:** *"Maximum two ground colours in any one artifact — paper and inverted paper;
@@ -48,15 +66,25 @@ shows dashboard screenshots and architecture diagrams as figures.
 not fight the palette. The dashboards and diagrams are work products, not decoration — they are
 the proof the site exists to show.
 
-### 4. The accent is used more freely
+### 4. The accent is a ground, not a 2% highlight
 
 **The system says:** one accent, slate, *"held under ~2% of any surface."*
 
-**The site does:** keeps roughly that budget per view, but spends it deliberately — one inverted
-band per page, at most one accent figure in a stat row.
+**The site does:** uses slate as a full band ground for the contact block, as the plate offset
+behind portraits and logos, as the italic tail on a display headline, and as the primary button
+fill on dark ground.
 
-**Why:** unchanged in spirit. The rule is still one accent element per view; the site just uses
-inversion as the rhythm device rather than avoiding emphasis altogether.
+**Why:** the owner asked for more accent after a reference design that leans on it hard. A whole
+band is plainly not 2%, so this is a real departure rather than a reinterpretation.
+
+What replaces the old budget, so it does not become decoration:
+
+- **One accent ground per page**, always the contact block, always last.
+- **One inverted ground per page**, always the hero on `/`.
+- The offset plate is a flat fill with no shadow, blur or gradient — a second sheet of paper,
+  never elevation.
+- On an inverted ground the accent is unreadable at full saturation, so it flips to `--slate-lift`.
+  `--accent` is never painted directly onto graphite.
 
 ## The floor that still holds
 
