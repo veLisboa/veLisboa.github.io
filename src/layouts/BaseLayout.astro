@@ -3,7 +3,7 @@
  * The page shell. Header, footer, metadata, and the one place the stylesheet cascade is built.
  *
  * Fonts are imported here rather than through tokens/fonts.css so they are self-hosted and
- * bundled by Vite — the design system's own fonts.css reaches for the Google CDN, which §3
+ * bundled by Vite. The design system's own fonts.css reaches for the Google CDN, which §3
  * rules out.
  *
  * These are the WEIGHT-level entry points, deliberately. Fontsource's subset-level files
@@ -40,7 +40,7 @@ export interface Props {
   description?: string;
   /** Set on the print-only one-pager, which carries no site chrome. */
   bare?: boolean;
-  /** Shown in the masthead's mono metadata slot — the Klarun "where am I" device. */
+  /** Shown in the masthead's mono metadata slot: the Klarun "where am I" device. */
   section?: string;
 }
 
@@ -62,7 +62,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url);
     <link rel="canonical" href={canonical.href} />
     {/*
       Raster, not the design system's assets/favicon.svg. That file sets "VL" as live <text>
-      in Petit Formal Script, and SVG favicons cannot load webfonts — browsers render them
+      in Petit Formal Script, and SVG favicons cannot load webfonts, so browsers render them
       with whatever the OS has, so the monogram comes out as Segoe Script on Windows and
       Apple Chancery on macOS. The PNG is the mark as drawn.
     */}

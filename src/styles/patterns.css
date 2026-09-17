@@ -2,7 +2,7 @@
    Layout patterns.
 
    Round 1 was austere because the design system is austere. The fix is not
-   decoration — it is structure. Every device below is borrowed from the Klarun
+   decoration. It is structure. Every device below is borrowed from the Klarun
    system, whose design-system page contains zero photographs and still reads as
    designed. They all survive a monochrome palette.
 
@@ -12,7 +12,7 @@
    ──────────────────────────────────────────────────────────────────────────── */
 
 :root{
-  /* Composite border. Klarun's single most-reused token — it is why its markup can
+  /* Composite border. Klarun's single most-reused token. It is why its markup can
      write `border: var(--hairline)` thirty times and stay readable. */
   --hairline:var(--rule-hairline) solid var(--rule);
   --hairline-strong:var(--rule-hairline) solid var(--rule-strong);
@@ -23,11 +23,11 @@
 
 /* ── Bands ───────────────────────────────────────────────────────────────────
    A band is a full-width section. Its inner .container keeps content on the same
-   12-column grid, so nothing drifts off the measure. No 100vw anywhere — that
+   12-column grid, so nothing drifts off the measure. No 100vw anywhere, because that
    overflows by the scrollbar width on Windows. */
 
 /* site.css gives every <section> a 96px top margin for the rhythm inside a .container page.
-   A band carries its own padding and should meet its neighbour, so it opts out — a page that
+   A band carries its own padding and should meet its neighbour, so it opts out. A page that
    genuinely wants air before a band sets margin-top inline, which still wins. */
 .band{padding-block:var(--space-10);margin-top:0}
 .band--tint{background:var(--paper-sunken)}
@@ -96,7 +96,7 @@
 /* ── Hero ────────────────────────────────────────────────────────────────────
    Split: statement left, portrait right. The single biggest fix for "too plain". */
 
-/* The portrait is a fixed 200px column, not a fraction — at 1.45fr/1fr it grew to ~400px on a
+/* The portrait is a fixed 200px column, not a fraction. At 1.45fr/1fr it grew to ~400px on a
    wide screen and the page read as a headshot with some text beside it. */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) 200px;
   gap:var(--space-9);align-items:center;padding-block:var(--space-9)}
@@ -105,7 +105,7 @@
 .hero__statement{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,2.75rem);
   font-weight:var(--wt-semibold);line-height:var(--lh-display);letter-spacing:var(--ls-display);
   margin:0}
-/* Serif italic, exactly once per surface — used the way an accent color is used. */
+/* Serif italic, exactly once per surface, used the way an accent color is used. */
 .hero__sub{font-family:var(--font-display);font-style:italic;font-size:var(--step-1);
   line-height:1.45;color:var(--ink-secondary);margin-top:var(--space-6);max-width:30em}
 .hero__portrait{width:200px;height:auto;display:block;border:var(--hairline)}
@@ -116,7 +116,7 @@
 
 /* ── Logo wall ───────────────────────────────────────────────────────────────
    Vendor marks, unstyled, at their own proportions. The design system permits an
-   external platform's own glyph — what it forbids is commissioning a matching set. */
+   external platform's own glyph. What it forbids is commissioning a matching set. */
 
 /* role="list" keeps the semantics; list-style:none removes the markers Safari and Chrome
    would otherwise draw beside each logo. */
@@ -137,7 +137,7 @@
 
 /* ── Stat strip ──────────────────────────────────────────────────────────────
    Figures in a row, hairline-separated, on an inverted ground. Inversion is the
-   rhythm device — roughly every fourth or fifth band, never two in a row. */
+   rhythm device, roughly every fourth or fifth band, never two in a row. */
 
 .stat-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-7) var(--space-8)}
 .stat{border-top:var(--hairline-inverse);padding-top:var(--space-5)}
@@ -186,7 +186,7 @@
 @media (max-width:900px){.bento{grid-template-columns:1fr}}
 
 /* ── Split ───────────────────────────────────────────────────────────────────
-   50/50 text and art. Mirrored on the next instance — the pair is the device. */
+   50/50 text and art. Mirrored on the next instance. The pair is the device. */
 
 .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--space-9);
   align-items:center}
@@ -202,7 +202,7 @@
 .figure{margin:0}
 .figure__frame{border:var(--hairline);background:var(--paper);overflow-x:auto}
 /* By default a figure fits its column. Only the very wide architecture diagrams opt in to
-   scrolling inside their frame — applying min-width to every figure forces any multi-column
+   scrolling inside their frame. Applying min-width to every figure forces any multi-column
    grid containing one to overflow the page. */
 .figure__frame img{display:block;width:100%;height:auto}
 .figure--wide .figure__frame img{min-width:720px}
@@ -238,7 +238,7 @@
 
 /* ── Accent ground ───────────────────────────────────────────────────────────
    A third band tone beside paper and inverted paper: the accent itself, used as
-   a ground exactly once per page. DESIGN-DECISIONS.md records this — the system
+   a ground exactly once per page. DESIGN-DECISIONS.md records this. The system
    holds the accent under ~2% of a surface, and a whole band is not that. The
    budget is spent deliberately rather than sprinkled. */
 
@@ -280,7 +280,7 @@
 
 /* ── Offset shot ─────────────────────────────────────────────────────────────
    An image with an accent rectangle offset behind it. Flat fill, no shadow and no
-   blur — it reads as a second sheet of paper, not as elevation. */
+   blur. It reads as a second sheet of paper, not as elevation. */
 
 .shot{position:relative;display:block}
 .shot::after{content:"";position:absolute;inset:auto -14px -14px auto;

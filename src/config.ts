@@ -40,7 +40,7 @@ export const social = {
 
 /**
  * The "Book a meeting" destination. There is no scheduling tool yet, so it is a prefilled mailto.
- * Swap this one string for a real scheduling URL when there is one — no markup changes.
+ * Swap this one string for a real scheduling URL when there is one, with no markup changes.
  */
 export const booking = `mailto:${contact.email}?subject=Meeting%20request`;
 
@@ -48,12 +48,12 @@ export const booking = `mailto:${contact.email}?subject=Meeting%20request`;
  * Delivery figures from UPBI's customer database, read 17 Sep 2026.
  *
  * Scope matters and is rendered alongside these everywhere they appear: they describe UPBI's
- * book, the consultancy where the owner leads operations — not work personally delivered by one
+ * book, the consultancy where the owner leads operations, not work personally delivered by one
  * person. The database records 53 client accounts, of which 12 are prospects rather than
  * engagements, so the published figure is deliberately "50+" rather than the raw row count.
  *
- * `industries` is "20+" rather than an exact integer because the database has no industry field —
- * the sectors below are a normalisation of 46 free-text descriptors, and a different grouping
+ * `industries` is "20+" rather than an exact integer because the database has no industry field.
+ * The sectors below are a normalisation of 46 free-text descriptors, and a different grouping
  * would give a different integer. The names are the proof; the count is just the headline.
  */
 export const delivery = {
@@ -92,7 +92,7 @@ export const industries = [
  * Certifications, grouped by vendor and ordered by relevance rather than by expiry.
  *
  * No dates beyond the MCT start year, and no claim anywhere that the full set is currently
- * active — some are lapsed. Breadth is the point; a renewal calendar is not the reader's problem.
+ * active, and some are lapsed. Breadth is the point; a renewal calendar is not the reader's problem.
  */
 export const credentials = [
   {
@@ -119,11 +119,11 @@ export const credentials = [
     ],
   },
   { vendor: "AWS", items: ["Certified Cloud Practitioner"] },
-  { vendor: "Education", items: ["UNINTER — Data Science (2021–2025)"] },
+  { vendor: "Education", items: ["UNINTER, Data Science (2021–2025)"] },
 ] as const;
 
 /**
- * Cloudflare Web Analytics or GoatCounter — neither sets cookies, so no banner is needed.
+ * Cloudflare Web Analytics or GoatCounter. Neither sets cookies, so no banner is needed.
  * Left empty deliberately: no third-party script is injected until a token is filled in.
  */
 export const analytics = {
@@ -153,7 +153,7 @@ export const writingThemes = [
   {
     num: "03",
     title: "Governance",
-    line: "Domain-driven workspaces, access and distribution, documentation — the parts a team can actually operate.",
+    line: "Domain-driven workspaces, access and distribution, documentation: the parts a team can actually operate.",
   },
   {
     num: "04",
@@ -183,7 +183,7 @@ export const affiliations = [
 ] as const;
 
 /**
- * The Klarun lockup — the mark and the wordmark together. The earlier `wordmark-light.png` was
+ * The Klarun lockup: the mark and the wordmark together. The earlier `wordmark-light.png` was
  * the wordmark alone, so the logo itself was missing.
  *
  * Both exports ship with a baked-in ground rather than transparency: `light` is cream with dark
@@ -198,7 +198,7 @@ export const klarunLogo = {
 export const portrait = "/vinicius-lisboa/vini.PNG";
 
 /**
- * The slot for the architecture overview diagram on /work. The file does not exist yet — the page
+ * The slot for the architecture overview diagram on /work. The file does not exist yet, so the page
  * checks for it and renders nothing until it does, so no broken image or placeholder ever ships.
  *
  * Wanted: SVG, viewBox 0 0 1600 960 (5:3, matching the existing set). PNG fallback at 2400×1440.

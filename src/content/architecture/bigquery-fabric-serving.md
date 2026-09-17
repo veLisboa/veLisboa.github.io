@@ -10,15 +10,15 @@ order: 5
 
 ## The split
 
-Google Cloud keeps the lakehouse — BigQuery ELT, Dataproc or serverless Spark, Cloud Composer,
-Vertex AI, over BigLake Iceberg on GCS, governed by the Dataplex Universal Catalog. Fabric takes
+Google Cloud keeps the lakehouse (BigQuery ELT, Dataproc or serverless Spark, Cloud Composer,
+Vertex AI) over BigLake Iceberg on GCS, governed by the Dataplex Universal Catalog. Fabric takes
 serving: OneLake, Direct Lake, the SQL analytics endpoint and the M365 distribution surface.
 
 ## Bridge options, ranked
 
 1. **Mirroring for BigQuery** gives Direct Lake performance but duplicates data into OneLake and
    incurs BigQuery CDC, Storage Write and compute cost. It needs a GCS staging bucket in the same
-   region. Fabric charges no ingress. Status is documented inconsistently by Microsoft — treat as
+   region. Fabric charges no ingress. Status is documented inconsistently by Microsoft, so treat as
    Preview until the dedicated Learn page drops the label.
 2. **A OneLake shortcut to GCS** avoids duplication and reads Iceberg in place. File caching
    materially reduces repeated egress.
@@ -27,8 +27,8 @@ serving: OneLake, Direct Lake, the SQL analytics endpoint and the M365 distribut
 
 ## When to choose this pattern
 
-Analytics data already lives in BigQuery — often because the wider business runs on Google Cloud
-— but the organization is standardized on Power BI and Microsoft 365 for distribution.
+Analytics data already lives in BigQuery, often because the wider business runs on Google Cloud,
+but the organization is standardized on Power BI and Microsoft 365 for distribution.
 
 Also a sensible interim state during a cloud migration in either direction: serving can move to
 Fabric long before the lakehouse does.
@@ -45,4 +45,4 @@ Governance duplicates: Dataplex governs the GCP side, OneLake and Purview govern
 Neither propagates to the other.
 
 Verify current mirroring status and regional constraints on Microsoft Learn at the time you
-design — this integration is moving fast.
+design, because this integration is moving fast.

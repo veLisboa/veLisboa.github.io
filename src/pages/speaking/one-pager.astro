@@ -1,14 +1,14 @@
 ---
 /**
- * Speaker one-pager — US Letter, print-ready.
+ * Speaker one-pager: US Letter, print-ready.
  *
  * Port of vinicius-lisboa-design-system/project/ui_kits/speaker/index.html. Organizers ask for a
  * bio, topics and requirements in one file; this is that file, generated from the browser's
  * print stylesheet rather than from a design tool.
  *
- * Renders bare — no site header or footer — so what is on screen is what prints.
+ * Renders bare, with no site header or footer, so what is on screen is what prints.
  *
- * The header carries the portrait rather than a mark — organizers ask for a headshot, and a
+ * The header carries the portrait rather than a mark. Organizers ask for a headshot, and a
  * photograph is not a mark, so it does not collide with the wordmark/monogram rule. The name
  * beside it is set type, not the Wordmark component, so no second mark appears in the block.
  */
@@ -45,7 +45,7 @@ const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
         <div>
           <p class="pos">
             I design and govern Microsoft Fabric, Power BI and Databricks estates, and train the
-            teams that run them. I speak about what actually holds up in production — governance
+            teams that run them. I speak about what actually holds up in production: governance
             people can operate, capacity decisions made before the invoice, and the delivery
             tooling around both.
           </p>
@@ -70,9 +70,9 @@ const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
           <div>
             <div class="sec">Roles</div>
             <div class="row sm">Microsoft Certified Trainer, since 2022</div>
-            <div class="row sm">Mentor — Great Learning, Generative AI and Azure</div>
-            <div class="row sm">Mentor — UT Austin McCombs, PGP in AI Agents &amp; GenAI</div>
-            <div class="row sm">Operations Lead — UPBI, Data and AI consultancy</div>
+            <div class="row sm">Mentor · Great Learning, Generative AI and Azure</div>
+            <div class="row sm">Mentor · UT Austin McCombs, PGP in AI Agents &amp; GenAI</div>
+            <div class="row sm">Operations Lead · Data and AI consultancy</div>
           </div>
 
           <div>
@@ -181,7 +181,7 @@ const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
     max-width: 30em;
   }
 
-  /* A hand-rolled .eyebrow at 12px — the section label used throughout the sheet. */
+  /* A hand-rolled .eyebrow at 12px: the section label used throughout the sheet. */
   .sec {
     font-family: var(--font-body);
     font-size: var(--step--2);
@@ -272,7 +272,7 @@ const talks = (await getCollection("talks")).sort(byOrder).slice(0, 4);
       margin: 0;
     }
     /* Without this Chrome drops the 6px ink opener and the filled monogram square from the
-       PDF — it strips backgrounds by default, and both of those ARE backgrounds. */
+       PDF. It strips backgrounds by default, and both of those ARE backgrounds. */
     * {
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;

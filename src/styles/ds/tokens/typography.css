@@ -1,5 +1,5 @@
 :root{
-  /* scale — 1.28 ratio, 17px body root */
+  /* scale: 1.28 ratio, 17px body root */
   --step--2:0.75rem;   /* 12 micro caption */
   --step--1:0.8125rem; /* 13 caption / eyebrow */
   --step-0:1.0625rem;  /* 17 body */

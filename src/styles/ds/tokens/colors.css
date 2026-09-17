@@ -1,4 +1,4 @@
-/* Neutrals carry a very light blue cast (hue ~215, 3–5% saturation) — cool, calm, and
+/* Neutrals carry a very light blue cast (hue ~215, 3–5% saturation), cool, calm, and
    deliberately not the warm paper of Klarun. Ink is graphite, not pure black.
    Direction B adds exactly one accent: slate, a grey with a light touch of blue. */
 :root{
@@ -20,7 +20,7 @@
   --slate:#45617a;      /* accent */
   --slate-lift:#8fa7bd; /* dark-ground only */
 
-  /* semantic — light (default) */
+  /* semantic: light (default) */
   --paper:var(--white);
   --paper-sunken:var(--grey-50);
   --paper-inverse:var(--graphite);

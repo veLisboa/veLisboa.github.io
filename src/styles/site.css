@@ -3,7 +3,7 @@
 
    tokens/base.css ships element resets, link states and exactly two utilities
    (.eyebrow, .measure). It sets h1–h4 family/weight/tracking/line-height but NO
-   font-size, and p{margin:0} with NO bottom margin — all vertical rhythm is ours.
+   font-size, and p{margin:0} with NO bottom margin. All vertical rhythm is ours.
 
    Rules obeyed here, from readme.md and the guidelines cards:
      · 24px within a block · 48px between blocks · 96px to a new section
@@ -11,7 +11,7 @@
      · body measure capped at 34em (~66 characters)
      · --radius:0 and --shadow:none everywhere; flat fills only
      · at most ONE accent element per view
-   Tokens only below — no raw hex, and no raw px outside the --space-* scale.
+   Tokens only below: no raw hex, and no raw px outside the --space-* scale.
    ──────────────────────────────────────────────────────────────────────────── */
 
 /* ── Type scale ──────────────────────────────────────────────────────────── */
@@ -61,7 +61,7 @@ h4{font-size:var(--step-1)}   /* 21 */
 .prose th{font-weight:var(--wt-medium);letter-spacing:var(--ls-eyebrow);text-transform:uppercase;
   font-size:var(--step--2);color:var(--ink-secondary)}
 
-/* Bullets are rules or numbers — never glyphs, never emoji. */
+/* Bullets are rules or numbers, never glyphs, never emoji. */
 .prose ul{list-style:none;padding:0}
 .prose ul > li{border-top:var(--rule-hairline) solid var(--rule);padding-top:var(--space-3);
   margin-bottom:var(--space-3)}
@@ -91,7 +91,7 @@ section{margin-top:var(--space-10)}
 .block + .block{margin-top:var(--space-8)}      /* 48 between blocks */
 
 /* StatBlocks go in rows of three or four, never alone, with at most one accent among them.
-   Below phone width they stack — three figures across 390px cramps every label to five lines. */
+   Below phone width they stack. Three figures across 390px cramps every label to five lines. */
 .stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--gutter)}
 @media (max-width:700px){.stat-row{grid-template-columns:1fr;gap:var(--space-6)}}
 

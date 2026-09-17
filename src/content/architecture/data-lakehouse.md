@@ -2,7 +2,7 @@
 title: "Data lakehouse"
 num: "01"
 subtitle: "Vendor-neutral pattern: open table format on object storage, ACID transactions, medallion zoning, one copy for BI and AI."
-summary: "The vendor-neutral baseline. One open copy on cheap object storage replaces the two-tier lake plus warehouse stack — and every box here maps to a concrete service in the six architectures that follow."
+summary: "The vendor-neutral baseline. One open copy on cheap object storage replaces the two-tier lake plus warehouse stack, and every box here maps to a concrete service in the six architectures that follow."
 group: foundations
 diagram: /data-architecture-diagrams/01-data-lakehouse-reference-architecture.png
 order: 1
@@ -11,7 +11,7 @@ order: 1
 ## Why the lakehouse
 
 One open copy of data on cheap object storage replaces the two-tier lake + warehouse stack.
-Open table formats — Delta Lake, Apache Iceberg, Apache Hudi — add ACID transactions, schema
+Open table formats (Delta Lake, Apache Iceberg, Apache Hudi) add ACID transactions, schema
 enforcement and time travel on top of Parquet, so BI and ML read the same governed tables
 without a second copy.
 

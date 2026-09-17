@@ -4,8 +4,8 @@ Where this site deliberately departs from
 [`vinicius-lisboa-design-system`](vinicius-lisboa-design-system/), and why.
 
 These are recorded rather than left as drift. A re-export from Claude Design will restore the
-original rules, and without this file the next person to touch the site — including a future
-agent — will "fix" these back and quietly undo them.
+original rules, and without this file the next person to touch the site, including a future
+agent, will "fix" these back and quietly undo them.
 
 ## The departures
 
@@ -16,8 +16,8 @@ no sprite sheet, no SVG library, no CDN set."*
 
 **The site does:** uses nine vendor logos and ten official Microsoft Fabric item icons.
 
-**Why:** the system's own escape hatch covers most of this — *"If an external platform forces an
-icon, use that platform's own native glyph unstyled — do not commission a matching set."* These
+**Why:** the system's own escape hatch covers most of this. *"If an external platform forces an
+icon, use that platform's own native glyph unstyled, do not commission a matching set."* These
 are exactly that: Microsoft's, Databricks', Google's and Snowflake's own marks, unstyled, at
 their own proportions. Nothing was drawn to match them.
 
@@ -30,7 +30,7 @@ noise, not richness.
 **The system says:** *"There is deliberately no icon set, and none should be added. No icon font,
 no sprite sheet, no SVG library, no CDN set."*
 
-**The site does:** ships [`src/components/Icon.astro`](src/components/Icon.astro) — around twenty
+**The site does:** ships [`src/components/Icon.astro`](src/components/Icon.astro): around twenty
 glyphs, inline, hand-written.
 
 **Why:** the owner asked for icons directly, against a reference design that uses them throughout.
@@ -45,13 +45,13 @@ text so meaning never depends on recognising a mark.
 
 ### 2. There are three ground colours, not two
 
-**The system says:** *"Maximum two ground colours in any one artifact — paper and inverted paper;
+**The system says:** *"Maximum two ground colours in any one artifact, paper and inverted paper;
 nothing else is ever a background."* And *"flat fills only."*
 
 **The site does:** adds `--paper-sunken` as a third ground for tinted section bands.
 
 **Why:** the pages needed rhythm. Alternating paper / sunken / inverted bands is what stops a long
-page reading as one undifferentiated column — the problem the owner described as "way too plain."
+page reading as one undifferentiated column, the problem the owner described as "way too plain."
 The fills are still flat; no gradients, no texture, no images behind text.
 
 ### 3. Photography appears in more than one place
@@ -63,7 +63,7 @@ black-and-white."*
 shows dashboard screenshots and architecture diagrams as figures.
 
 **Why:** the owner's call, made explicitly. The portrait's ground is muted concrete, so it does
-not fight the palette. The dashboards and diagrams are work products, not decoration — they are
+not fight the palette. The dashboards and diagrams are work products, not decoration. They are
 the proof the site exists to show.
 
 ### 4. The accent is a ground, not a 2% highlight
@@ -81,7 +81,7 @@ What replaces the old budget, so it does not become decoration:
 
 - **One accent ground per page**, always the contact block, always last.
 - **One inverted ground per page**, always the hero on `/`.
-- The offset plate is a flat fill with no shadow, blur or gradient — a second sheet of paper,
+- The offset plate is a flat fill with no shadow, blur or gradient. A second sheet of paper,
   never elevation.
 - On an inverted ground the accent is unreadable at full saturation, so it flips to `--slate-lift`.
   `--accent` is never painted directly onto graphite.
@@ -96,7 +96,8 @@ Not negotiable, because these are what make it read as considered rather than ge
 - Sentence case. Uppercase only in 13px eyebrows and tags at `0.16em`.
 - The type scale, the 34em measure, and the two families plus mono.
 - Grouping is a rule with a label above it, never a card.
-- `·` as the metadata separator, em dash for the aside, no exclamation marks.
+- `·` as the metadata separator. No em dashes anywhere, and no exclamation marks.
+  An aside takes a comma, a colon, or its own sentence.
 - Motion is 140ms on colour and border only, and is disabled under `prefers-reduced-motion`.
 - The wordmark where the mark has ≥96px of width, the monogram below that, never both in one
   block.
@@ -115,7 +116,7 @@ Not negotiable, because these are what make it read as considered rather than ge
 
 ## If the design system is re-exported
 
-1. Copy `tokens/*.css` **except** `fonts.css`, where only the `:root` block should be taken — the
+1. Copy `tokens/*.css` **except** `fonts.css`, where only the `:root` block should be taken, because the
    Google Fonts `@import` must not come back.
 2. Re-port any changed component in `src/components/ds/`, remembering that React appends `px` to
    numeric style values and Astro does not.

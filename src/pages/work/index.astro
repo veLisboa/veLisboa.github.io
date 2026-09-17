@@ -1,6 +1,6 @@
 ---
 /**
- * /work — one page, five sections, deliberately weighted.
+ * /work: one page, five sections, deliberately weighted.
  *
  * Architecture used to be the whole site. Here it is one small section of five, because seven
  * diagrams are a part of the practice rather than the practice itself. The AI lab is the longest
@@ -29,7 +29,7 @@ const architectures = (await getCollection("architecture")).sort(byOrder);
 
 /**
  * The overview diagram is being redrawn. Until the file lands in public/, this renders nothing at
- * all — no placeholder, no broken image, no note about what is missing.
+ * all: no placeholder, no broken image, no note about what is missing.
  */
 const overviewExists = fs.existsSync(
   path.join(process.cwd(), "public", architectureOverview.src.replace(/^\//, "")),
@@ -217,7 +217,7 @@ const klarunCovers = [
       <div class="bento" style="margin-top:var(--space-7)">
         <Figure
           src="/powerbi-dev/dashboard-1.jpeg"
-          alt="Performance Overview report — revenue, gross margin and category scorecard"
+          alt="Performance Overview report: revenue, gross margin and category scorecard"
           width={1527}
           height={855}
           caption="Executive reporting, flat design. Descriptive mode."
@@ -225,7 +225,7 @@ const klarunCovers = [
         />
         <Figure
           src="/powerbi-dev/dashboard-2.jpeg"
-          alt="What Lateness Costs report — review score against delivery lag"
+          alt="What Lateness Costs report: review score against delivery lag"
           width={1277}
           height={716}
           caption="Delivery diagnostics, neumorphic design. Review score falls monotonically as an order runs later."

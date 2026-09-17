@@ -29,7 +29,7 @@ const architecture = defineCollection({
     summary: z.string(),
     /** Which half of the set: the three foundations, or the four hybrids. */
     group: z.enum(["foundations", "hybrids"]),
-    /** Path under /public. PNG exports for now — see README. */
+    /** Path under /public. PNG exports for now. See README. */
     diagram: z.string(),
     order: z.number().default(0),
   }),

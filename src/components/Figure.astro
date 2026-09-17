@@ -2,16 +2,16 @@
 /**
  * A wide image in a frame that scrolls inside itself.
  *
- * The architecture diagrams are 2203px wide. They must never widen the page — the frame gets
+ * The architecture diagrams are 2203px wide. They must never widen the page. The frame gets
  * `overflow-x: auto` and the image a `min-width`, so a narrow screen scrolls the diagram rather
  * than the document.
  */
 export interface Props {
   src: string;
   alt: string;
-  /** Left side of the caption — what the reader is looking at. */
+  /** Left side of the caption: what the reader is looking at. */
   caption?: string;
-  /** Right side, set in mono — provenance, license, data source. */
+  /** Right side, set in mono: provenance, license, data source. */
   meta?: string;
   /** Link through to the full-resolution file. */
   full?: boolean;

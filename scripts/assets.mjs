@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * "Use all the assets" — checked, not assumed.
+ * "Use all the assets": checked, not assumed.
  *
  * The owner dropped a folder of material in and asked for every piece of it to be used. That is
  * the kind of requirement that quietly rots, so it gets a script rather than a manual scan:
@@ -24,7 +24,7 @@ const REQUIRED = [
   "powerbi-dev",
   "vinicius-lisboa",
 ];
-/** Large vendor icon sets — a curated subset is expected, not the whole folder. */
+/** Large vendor icon sets: a curated subset is expected, not the whole folder. */
 const PARTIAL = ["fabric-items-logo", "Klarun logo"];
 
 if (!existsSync(dist)) {

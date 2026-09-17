@@ -27,7 +27,7 @@ const color =
   style={{
     fontFamily: "var(--font-display)",
     fontWeight: weight,
-    // React appends "px" to bare numbers; Astro does not — it serialises `${kebab(k)}:${v}`.
+    // React appends "px" to bare numbers; Astro does not. It serialises `${kebab(k)}:${v}`.
     // Leaving this as `size` would emit `font-size:32` and be dropped as invalid.
     fontSize: `${size}px`,
     lineHeight: 1,

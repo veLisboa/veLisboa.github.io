@@ -20,14 +20,14 @@ processors. Serving is the Direct Lake semantic model reading Delta with no impo
 analytics endpoint, Data Activator and a GraphQL API. Consumption runs out to Power BI,
 real-time dashboards, Copilot and data agents, Excel, Teams and M365, and data science notebooks.
 
-Governance is the OneLake catalog plus Microsoft Purview — domains, workspaces, endorsements,
+Governance is the OneLake catalog plus Microsoft Purview: domains, workspaces, endorsements,
 lineage, sensitivity labels, DLP and OneLake security at table, column and row level. The
 platform band underneath is capacities, Git integration and deployment pipelines, with the
 workspace as the primary access boundary.
 
 ## The topology Microsoft recommends
 
-Lakehouse for bronze and silver, Warehouse for gold — so row-level security can be applied at the
+Lakehouse for bronze and silver, Warehouse for gold, so row-level security can be applied at the
 serving layer. Separate Dev, Test and Prod workspaces promoted through deployment pipelines with
 Git.
 

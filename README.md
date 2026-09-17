@@ -32,19 +32,19 @@ Three destinations. Nav is **Work · Writing & speaking**, plus the wordmark.
 |---|---|
 | `/` | Hero, proof row, what I do, work teaser, writing teaser, platform logos, contact |
 | `/work` | Background and credentials, delivery record by industry, Klarun, the seven architectures, the AI lab |
-| `/work/architecture/<slug>` | **Seven reference architectures** — three foundations, four hybrids — each a full diagram plus its written rationale |
+| `/work/architecture/<slug>` | **Seven reference architectures**, three foundations and four hybrids, each a full diagram plus its written rationale |
 | `/writing` | Four subjects, the LinkedIn and Medium buttons, speaking |
 | `/speaking/one-pager` | Print-to-PDF US Letter sheet. Linked from `/writing`, kept out of the sitemap |
 
 `/about`, `/architecture`, `/labs` and `/speaking` are gone. All of their old URLs, including the
-seven `/architecture/<slug>` ones, are redirected in `astro.config.mjs` — see *Redirects* below.
+seven `/architecture/<slug>` ones, are redirected in `astro.config.mjs`. See *Redirects* below.
 
 ## Content
 
 Markdown in `src/content/`, one folder per collection. Two collections:
 
-- **`architecture`** — the seven detail pages under `/work/architecture/`.
-- **`talks`** — feeds the speaker one-pager and nothing else.
+- **`architecture`**: the seven detail pages under `/work/architecture/`.
+- **`talks`**: feeds the speaker one-pager and nothing else.
 
 `src/content/work/_template.md.txt` is a five-part case-study skeleton, kept for when a client
 clears one. It is not a collection and does not render.
@@ -56,13 +56,13 @@ note in their place; that note was public copy, which is exactly what it should 
 
 Banned words: *passionate, journey, leverage, cutting-edge, transform, seasoned, enthusiast*.
 No emoji anywhere. Sentence case; uppercase only in 13px eyebrows and tags. `·` separates
-metadata, em dash marks an aside. Bold marks a term, italic marks a title. Numbers carry a unit
+metadata. No em dashes anywhere; an aside takes a comma, a colon, or its own sentence. Bold marks a term, italic marks a title. Numbers carry a unit
 and a condition or they don't get written.
 
 ## Why there are no client case studies
 
 No client is named without written permission, so the delivery record on `/work` is industries
-and counts only. The Power BI work shown in the AI lab section is not client work at all — both
+and counts only. The Power BI work shown in the AI lab section is not client work at all. Both
 reports run on synthetic or public data, and the page says so.
 
 A real case study waits for client work cleared in writing: no client named, numbers rounded,
@@ -76,21 +76,21 @@ a real 301, so the `redirects` map in [`astro.config.mjs`](astro.config.mjs) has
 HTML stub per old URL carrying a meta refresh and a `<link rel="canonical">` at the new one. That
 is the only mechanism available at zero cost.
 
-Thirteen entries. If a route moves again, add it there — nothing else knows about old URLs.
+Thirteen entries. If a route moves again, add it there. Nothing else knows about old URLs.
 
 ## Design system
 
 `vinicius-lisboa-design-system/` is the source of truth and is not edited here.
 
 **Read [DESIGN-DECISIONS.md](DESIGN-DECISIONS.md) before changing anything visual.** The site
-deliberately breaks three of the system's written rules — it uses vendor logos, a third ground
+deliberately breaks three of the system's written rules: it uses vendor logos, a third ground
 color for tinted bands, and photography in more than one place. Those are recorded so a
 re-export does not silently undo them.
 
 Layout composition lives in [`src/styles/patterns.css`](src/styles/patterns.css): bands,
 section-header triads, framed panels, spec rows, the hero, logo walls, stat strips, thumbnail
 grids and prev/next. The devices are borrowed from the Klarun design system, whose own pages
-carry zero photographs and still read as designed — the richness is structural, not decorative.
+carry zero photographs and still read as designed. The richness is structural, not decorative.
 
 The 11 React components are ported to `.astro` in `src/components/ds/`, one file each, markup
 and inline styles preserved verbatim. This ships zero JavaScript, which the React renderer
@@ -119,7 +119,7 @@ Two things to know if you re-port after a design-system re-export:
 Push to `main` → GitHub Actions builds and deploys. `gh` is not installed here, so the repo
 setup is manual:
 
-1. Create a **public** repo named exactly **`veLisboa.github.io`** — no README, no `.gitignore`,
+1. Create a **public** repo named exactly **`veLisboa.github.io`**, with no README, no `.gitignore`,
    no license.
 2. ```
    git init && git branch -M main
@@ -128,7 +128,7 @@ setup is manual:
    git push -u origin main
    ```
 3. Settings → Pages → Source: **GitHub Actions** (not "Deploy from a branch"). The first deploy
-   fails until this is set — that is expected.
+   fails until this is set. That is expected.
 4. Re-run the workflow from the Actions tab.
 
 If your GitHub username is not `veLisboa`, the repo name and `site:` in
@@ -150,14 +150,14 @@ neither needs a consent banner.
 referenced by a built page. It runs in CI after the build. `fabric-items-logo` and `Klarun logo`
 are treated as sets where a curated subset is expected.
 
-`public/fabric-items-logo/` is currently referenced by nothing — the Fabric item vocabulary row
+`public/fabric-items-logo/` is currently referenced by nothing. The Fabric item vocabulary row
 lived on the deleted `/architecture` index. The 66 files are kept, not deleted, and the folder is
 in the partial list so the check passes.
 
 ### The architecture overview diagram
 
-`/work` has a slot for an overview diagram at **`public/data-architecture-diagrams/00-overview.svg`**
-— SVG, `viewBox="0 0 1600 960"` (5:3, matching the existing set). PNG fallback at 2400×1440.
+`/work` has a slot for an overview diagram at **`public/data-architecture-diagrams/00-overview.svg`**:
+SVG, `viewBox="0 0 1600 960"` (5:3, matching the existing set). PNG fallback at 2400×1440.
 
 The page checks whether the file exists and renders nothing until it does, so there is no broken
 image and no placeholder in the meantime. Drop the file in and it appears; the path and

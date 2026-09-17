@@ -1,7 +1,7 @@
 ---
 title: "Redshift + Fabric serving"
 num: "07"
-subtitle: "The loosest-coupled of the four. There is no native Fabric mirroring for Amazon Redshift — integration runs through S3 shortcuts or the Power BI connector."
+subtitle: "The loosest-coupled of the four. There is no native Fabric mirroring for Amazon Redshift. Integration runs through S3 shortcuts or the Power BI connector."
 summary: "Every option is a compromise. Highest network and egress friction of the four hybrids, and the weakest long-term case if a migration is on the table."
 group: hybrids
 diagram: /data-architecture-diagrams/07-redshift-lakehouse-fabric-serving.png
@@ -10,8 +10,8 @@ order: 7
 
 ## The split
 
-AWS keeps the lakehouse — Zero-ETL integrations, Glue ETL, EMR, and Redshift with Spectrum
-querying S3 in place — over S3 Tables and SageMaker Lakehouse, governed by the Glue Data Catalog
+AWS keeps the lakehouse (Zero-ETL integrations, Glue ETL, EMR, and Redshift with Spectrum
+querying S3 in place) over S3 Tables and SageMaker Lakehouse, governed by the Glue Data Catalog
 and Lake Formation. Fabric serves.
 
 ## Bridge options, ranked
@@ -19,7 +19,7 @@ and Lake Formation. Fabric serves.
 There is no CDC mirroring for Redshift, so every option is a compromise. Choose deliberately.
 
 1–2. **OneLake shortcuts to S3 or S3 Tables** give you OneLake and Direct Lake benefits, but only
-for open-format data actually landed in S3 — not for live Redshift internal tables. Confirm
+for open-format data actually landed in S3, not for live Redshift internal tables. Confirm
 current support level for the S3 Tables catalog specifically.
 
 3. **The Power BI Redshift connector** gives live access but no OneLake single-copy benefit. In a
@@ -47,5 +47,5 @@ Budget for both explicitly.
 Lake Formation permissions do not propagate to Fabric. Access control must be rebuilt with
 OneLake security on the serving side.
 
-Gateway or PrivateLink configuration is a real project dependency, not a detail — involve the
+Gateway or PrivateLink configuration is a real project dependency, not a detail. Involve the
 network team at design time rather than at deployment.

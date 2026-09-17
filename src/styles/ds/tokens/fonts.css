@@ -1,4 +1,4 @@
-/* Source Serif 4 + IBM Plex Sans/Mono + Petit Formal Script (monogram only) — all OFL, on Google Fonts, Canva, and installable for PowerPoint.
+/* Source Serif 4 + IBM Plex Sans/Mono + Petit Formal Script (monogram only). All OFL, on Google Fonts, Canva, and installable for PowerPoint.
    Full Latin Extended coverage: ã õ ç á é í ó ú â ê ô à ü all render as true glyphs, never composites. */
 
 /* SELF-HOSTED. The design system's own tokens/fonts.css opens with an @import of
@@ -7,7 +7,7 @@
    families are pulled from Fontsource in src/layouts/BaseLayout.astro instead.
 
    The --font-* tokens below are byte-identical to the design system's. If the design system is
-   re-exported from Claude Design, copy the :root block only — re-adding the @import would
+   re-exported from Claude Design, copy the :root block only, because re-adding the @import would
    silently restore the Google Fonts request this file exists to remove. The subsets imported in
    BaseLayout are latin-ext, which is what keeps ã õ ç á é í ó ú â ê ô à ü as true glyphs. */
 

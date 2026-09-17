@@ -5,7 +5,7 @@ The five-part skeleton, in order. Section 3 is the entire value of the page.
 
 ---
 title: "What the work was, stated flatly"
-organization: "a Brazilian healthcare cooperative"   # anonymized — never a client name
+organization: "a Brazilian healthcare cooperative"   # anonymized, never a client name
 summary: "One sentence. The constraint and the outcome."
 order: 1
 status: draft
@@ -20,7 +20,7 @@ rounded, and framed as ratios wherever the absolute figure is sensitive.
 ## Constraint
 
 What made it hard. Capacity limits, source system shape, refresh window, a governance rule,
-an SLA. Be specific — "capacity F2 does not sustain incremental refresh above ~50M rows"
+an SLA. Be specific: "capacity F2 does not sustain incremental refresh above ~50M rows"
 beats "performance could degrade".
 
 ## Decision

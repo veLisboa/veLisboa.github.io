@@ -1,13 +1,13 @@
 ---
 /**
- * /work/architecture/<slug> — one reference architecture.
+ * /work/architecture/<slug>: one reference architecture.
  *
  * These are children of /work rather than a top-level section: seven diagrams are part of the
  * practice, not the whole of it. The old /architecture/<slug> URLs redirect here.
  *
  * The diagram leads at full width in a frame that scrolls inside itself, then the written
- * rationale. That prose is transcribed from the panels already printed on the diagram — when to
- * choose this pattern, watch-outs, bridge options ranked — so it is his argument, not mine.
+ * rationale. That prose is transcribed from the panels already printed on the diagram: when to
+ * choose this pattern, watch-outs, bridge options ranked, so it is his argument, not mine.
  */
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
@@ -52,7 +52,7 @@ const groupLabel = entry.data.group === "foundations" ? "Foundations" : "The fou
     <section class="container" style="margin-top:var(--space-8)">
       <Figure
         src={entry.data.diagram}
-        alt={`Reference architecture ${entry.data.num} — ${entry.data.title}`}
+        alt={`Reference architecture ${entry.data.num}: ${entry.data.title}`}
         caption="Scroll the diagram sideways on a narrow screen."
         meta={`Reference architecture ${entry.data.num}`}
         loading="eager"
