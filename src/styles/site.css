@@ -111,7 +111,12 @@ section{margin-top:var(--space-10)}
 .site-header__inner{display:flex;align-items:flex-end;justify-content:space-between;
   gap:var(--space-7);flex-wrap:wrap;
   border-bottom:var(--rule-medium) solid var(--rule-strong);padding-bottom:var(--space-5)}
-.site-header__left{display:flex;align-items:flex-end;gap:var(--space-9);flex-wrap:wrap}
+/* column-gap and row-gap are set separately on purpose. As a single `gap:var(--space-9)` the
+   64px applied to both axes, and since the wordmark (200px) plus this gap plus the nav (167px)
+   needs 431px, the block wrapped below ~760px and that 64px became vertical space: the sticky
+   header measured 178px on every phone, 23% of a 375px-tall viewport, permanently. */
+.site-header__left{display:flex;align-items:flex-end;flex-wrap:wrap;
+  column-gap:var(--space-9);row-gap:var(--space-4)}
 .site-header__mark{border-bottom:none;display:block}
 
 .site-nav{display:flex;gap:var(--space-6);flex-wrap:wrap}
@@ -170,9 +175,25 @@ figcaption{font-size:var(--step--1);color:var(--ink-tertiary);line-height:var(--
   .body-grid{grid-template-columns:minmax(0,1fr);gap:var(--space-8)}
   .grid12{grid-template-columns:repeat(6,1fr)}
 }
+/* The sticky header measured 178px on a phone. The wordmark and the nav cannot share a row below
+   ~760px (200px + 167px will not fit 272px of content box), so it wraps either way. The fix is to
+   stop paying 64px for the wrap and to tighten the chrome around it. The nav's own vertical
+   padding provides the 44px tap target, so the row gap goes to zero rather than adding to it. */
+@media (max-width:900px), (pointer:coarse){
+  .site-header{padding-top:var(--space-2);padding-bottom:var(--space-2)}
+  .site-header__inner{gap:var(--space-3);padding-bottom:var(--space-3)}
+  .site-header__left{column-gap:var(--space-6);row-gap:0}
+}
+
 @media (max-width:640px){
   .container{padding-left:var(--margin-page-tight);padding-right:var(--margin-page-tight)}
+  /* The whole scale steps down together. Previously only h1 moved, so at this width h1, h2 and
+     .section-head__title were all --step-3 and the hierarchy flattened; on / the hero h1 clamp
+     bottomed out at 30.4px while the section h2 stayed 34px, rendering headings larger than the
+     page title. */
   h1{font-size:var(--step-3)}
+  h2{font-size:var(--step-2)}
+  h3{font-size:var(--step-1)}
   .display{font-size:var(--step-4)}
   .grid12{grid-template-columns:repeat(2,1fr)}
   .site-header__inner{align-items:flex-start}
@@ -192,3 +213,18 @@ figcaption{font-size:var(--step--1);color:var(--ink-tertiary);line-height:var(--
   h1,h2,h3{break-after:avoid}
   .row,.prose li,figure{break-inside:avoid}
 }
+
+/* ── Anchor offset under the sticky header ───────────────────────────────────
+   Without this, the skip link scrolls #main to y=0, directly beneath an opaque
+   sticky header, hiding the first screenful from the keyboard user who just used
+   it. Same for the ids the architecture markdown generates. The value tracks the
+   header height at each breakpoint. */
+html{scroll-padding-top:120px}
+@media (min-width:761px){html{scroll-padding-top:100px}}
+#main{scroll-margin-top:0}
+/* The programmatic focus target must not draw a focus ring; it is not interactive. */
+#main:focus{outline:none}
+
+/* The frame is focusable when it scrolls, so it needs a visible focus state. */
+.figure__frame:focus-visible{outline:var(--rule-medium) solid var(--accent);outline-offset:2px}
+.figure__frame{overscroll-behavior-x:contain}

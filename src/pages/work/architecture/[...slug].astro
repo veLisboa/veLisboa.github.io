@@ -53,6 +53,8 @@ const groupLabel = entry.data.group === "foundations" ? "Foundations" : "The fou
       <Figure
         src={entry.data.diagram}
         alt={`Reference architecture ${entry.data.num}: ${entry.data.title}`}
+        width={entry.data.diagramWidth}
+        height={entry.data.diagramHeight}
         caption="Scroll the diagram sideways on a narrow screen."
         meta={`Reference architecture ${entry.data.num}`}
         loading="eager"

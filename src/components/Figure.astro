@@ -5,6 +5,11 @@
  * The architecture diagrams are 2203px wide. They must never widen the page. The frame gets
  * `overflow-x: auto` and the image a `min-width`, so a narrow screen scrolls the diagram rather
  * than the document.
+ *
+ * A scroll container with no tabindex is not reachable by keyboard in Safari, which does not
+ * auto-focus childless scrollers the way Chrome and Firefox now do. Measured at 375px, the
+ * frame is 325px wide around 720px of diagram, so a third of the artwork had no keyboard path
+ * to it at all. When `wide`, the frame becomes a labeled, focusable region.
  */
 export interface Props {
   src: string;
@@ -36,7 +41,11 @@ const {
 ---
 
 <figure class={`figure ${wide ? "figure--wide" : ""}`}>
-  <div class="figure__frame">
+  <div
+    class="figure__frame"
+    tabindex={wide ? 0 : undefined}
+    role={wide ? "region" : undefined}
+    aria-label={wide ? `${alt}. Scrollable horizontally.` : undefined}>
     <img src={src} alt={alt} width={width} height={height} loading={loading} decoding="async" />
   </div>
   {
@@ -47,7 +56,9 @@ const {
           {full && (
             <>
               {caption ? " " : ""}
-              <a href={src}>Open full size</a>
+              <a href={src} aria-label={`Open full size: ${alt}`}>
+                Open full size
+              </a>
             </>
           )}
         </span>

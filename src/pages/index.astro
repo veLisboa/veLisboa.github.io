@@ -100,8 +100,9 @@ const whatIDo = [
           <img
             src={portrait}
             alt="Vinicius Lisboa"
-            width="1242"
-            height="1242"
+            width="1254"
+            height="1254"
+            decoding="async"
             fetchpriority="high"
           />
         </div>
@@ -162,7 +163,11 @@ const whatIDo = [
       }
     </div>
     <div class="affil" style="margin-top:var(--space-8)">
-      {affiliations.map((a) => <img src={a.src} alt={a.alt} loading="lazy" decoding="async" />)}
+      {
+        affiliations.map((a) => (
+          <img src={a.src} alt={a.alt} width={a.w} height={a.h} loading="lazy" decoding="async" />
+        ))
+      }
     </div>
   </section>
 
@@ -196,6 +201,7 @@ const whatIDo = [
         href={social.newsletter}
         label="Newsletter on LinkedIn"
         language="Português"
+        langTag="pt"
       />
       <BrandButton
         brand="medium"
@@ -203,6 +209,7 @@ const whatIDo = [
         href={social.medium}
         label="Articles on Medium"
         language="English"
+        langTag="en"
       />
     </div>
     <p style="margin-top:var(--space-8)"><a href="/writing/">Writing and speaking</a></p>

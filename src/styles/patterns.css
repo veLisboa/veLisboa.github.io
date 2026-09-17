@@ -74,7 +74,7 @@
    organized rather than merely long. */
 
 .specs{border-top:var(--hairline)}
-.spec-row{display:grid;grid-template-columns:var(--gutter-meta) 1fr;gap:var(--space-7);
+.spec-row{display:grid;grid-template-columns:var(--gutter-meta) minmax(0,1fr);gap:var(--space-7);
   padding-block:var(--space-7);border-bottom:var(--hairline);align-items:start}
 .spec-row__meta{font-family:var(--font-mono);font-size:var(--step--2);letter-spacing:0.08em;
   text-transform:uppercase;line-height:1.7;color:var(--ink-tertiary)}
@@ -406,3 +406,93 @@
 .band--invert .prose{color:var(--ink-secondary-inverse)}
 .band--invert .figure__cap{color:var(--ink-tertiary-inverse)}
 .band--invert .creds{color:var(--ink-secondary-inverse)}
+
+/* ── Mobile tap targets ──────────────────────────────────────────────────────
+   Applied below 760px only, so the editorial density of the desktop layout is
+   untouched. Measured before this block: nav links 31x25 and 112x25, the figure's
+   "Open full size" 79x18, architecture title links ~24px tall, the 404 link rows
+   23px. WCAG 2.5.5 asks for 44x44.
+
+   These use padding rather than min-height so the text stays on its own baseline
+   and the hit area grows around it. .icon-links is deliberately absent: it is
+   already 44x44 and has only 4px of slack across a 320px content box. */
+
+@media (max-width:900px), (pointer:coarse){
+  .site-nav a{padding-block:11px}
+
+  /* The caption's utility link, and the back-link at the foot of a detail page. */
+  .figure__cap a,
+  .prevnext a,
+  .prose a{display:inline-block;padding-block:var(--space-4)}
+
+  /* Section link lists: the seven architectures, and the 404's route list. */
+  .spec-row__body h3 a{display:inline-block;padding-block:var(--space-3)}
+
+  .link-card{padding-block:var(--space-6)}
+}
+
+/* ── Fixes found by measuring the built pages ────────────────────────────────*/
+
+/* The kicker painted --accent onto .band--accent, whose ground is also --accent:
+   measured rgb(69,97,122) on rgb(69,97,122), 1.00:1. The bar was invisible on
+   every page, since BaseLayout renders the contact block site-wide. */
+.band--accent .kicker{background:var(--accent-ink)}
+
+/* These borders are the only visual boundary of the eight contact targets, so
+   they are a 1.4.11 non-text-contrast case and need 3:1, not decoration. At 0.34
+   over slate they measured 2.15:1. */
+.band--accent .link-card{border-color:rgb(255 255 255 / 0.62)}
+.band--accent .icon-links a{border-color:rgb(255 255 255 / 0.62)}
+.band--accent .icon-tile{border-color:rgb(255 255 255 / 0.62)}
+.band--accent a{border-bottom-color:rgb(255 255 255 / 0.66)}
+
+/* The longest prose on the site had no measure: ~110 characters per line at
+   1160px, against the 34em this system sets everywhere else. */
+.spec-row__body p{max-width:var(--measure)}
+
+/* A display line-height tuned for one line collides descenders once the same
+   headline wraps to four or five lines on a phone. */
+@media (max-width:640px){
+  .hero__statement{line-height:1.12}
+}
+
+/* Long tokens cannot break the layout today, because none exist in the content.
+   This is the safety net for the ones that arrive later. */
+.spec-row__body,
+.creds li,
+.industries li,
+.cred__value{overflow-wrap:anywhere}
+
+/* ── Second pass, from re-measuring ──────────────────────────────────────────
+   Everything below fixes something the first pass left failing. */
+
+/* .section-num sets its own color, so it overrode the .band--invert .eyebrow
+   inheritance and painted tertiary ink straight onto graphite: 2.95:1. */
+.band--invert .section-num{color:var(--ink-tertiary-inverse)}
+/* white@0.62 on slate measured 3.61:1, below AA for 13px. */
+.band--accent .eyebrow,
+.band--accent .section-num{color:rgb(255 255 255 / 0.85)}
+
+/* .section-head__title is a class on an h2, so it beat the element-level step-down
+   in site.css and stayed 34px on a phone, level with or above the page h1. */
+@media (max-width:900px){
+  .section-head__title{font-size:var(--step-2)}
+}
+@media (max-width:640px){
+  .section-head__lede{font-size:var(--step-0)}
+}
+
+@media (max-width:900px), (pointer:coarse){
+  /* The wordmark link was 200x31. The padding here is paid for by trimming the
+     header's own padding in site.css, so the bar does not grow. */
+  .site-header__mark{padding-block:7px}
+  /* "Work" is only 31px wide. The negative margin keeps the text where it was and
+     lets the hit area grow into the 24px gap, leaving 10px between targets. */
+  .site-nav a{padding-inline:7px;margin-inline:-7px}
+  /* A paragraph whose only content is a link is a standalone control: the "Open Work"
+     and "Back to Work" style links, and the 404 route list. Scoped to :only-child so
+     links inside a sentence keep their normal line box. */
+  main p > a:only-child{display:inline-block;padding-block:var(--space-4);min-width:44px}
+  /* Was 41px with --space-3. */
+  .spec-row__body h3 a{padding-block:var(--space-4)}
+}

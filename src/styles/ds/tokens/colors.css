@@ -26,7 +26,12 @@
   --paper-inverse:var(--graphite);
   --ink:var(--graphite);
   --ink-secondary:var(--grey-600);
-  --ink-tertiary:var(--grey-400);
+  /* Not --grey-400. That is #8b929b, which is 3.14:1 on paper and 2.96:1 on --paper-sunken, and
+     every one of its ~15 call sites is 12-13px metadata with no large-text exemption, so all of
+     them failed WCAG AA. This value clears 4.5:1 on both grounds while staying visibly lighter
+     than --ink-secondary. --grey-400 is still the right tone on the inverted ground, where it
+     already measures 4.90:1. See --ink-tertiary-inverse below, which must NOT follow this. */
+  --ink-tertiary:#666d78;
   --ink-inverse:var(--white);
   --rule:var(--grey-200);
   --rule-strong:var(--graphite);

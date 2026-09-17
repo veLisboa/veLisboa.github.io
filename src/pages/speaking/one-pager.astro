@@ -21,7 +21,7 @@ import { contact, portrait, writingThemes } from "../../config";
 ---
 
 <BaseLayout title="Speaker one-pager" bare>
-  <div class="desk">
+  <main class="desk">
     <a class="back no-print" href="/writing/">Back to writing and speaking</a>
 
     <article class="sheet">
@@ -30,13 +30,20 @@ import { contact, portrait, writingThemes } from "../../config";
       <header class="head">
         <div>
           <div class="sec">Speaker one-pager · 2026</div>
-          <div class="name">Vinicius Lisboa</div>
+          <h1 class="name">Vinicius Lisboa</h1>
           <div class="strap">
             Architecture, governance and delivery for AI-ready data platforms. Microsoft
             Certified Trainer.
           </div>
         </div>
-        <img class="sheet-portrait" src={portrait} alt="Vinicius Lisboa" width="1242" height="1242" />
+        <img
+          class="sheet-portrait"
+          src={portrait}
+          alt="Vinicius Lisboa"
+          width="1254"
+          height="1254"
+          decoding="async"
+        />
       </header>
 
       <div class="rule2"></div>
@@ -49,7 +56,7 @@ import { contact, portrait, writingThemes } from "../../config";
             tooling around both.
           </p>
 
-          <div class="sec mt">Subjects</div>
+          <h2 class="sec mt">Subjects</h2>
           <div class="talks">
             {
               writingThemes.map((t) => (
@@ -64,7 +71,7 @@ import { contact, portrait, writingThemes } from "../../config";
 
         <aside class="aside">
           <div>
-            <div class="sec">Roles</div>
+            <h2 class="sec">Roles</h2>
             <div class="row sm">Microsoft Certified Trainer, since 2022</div>
             <div class="row sm">Mentor · Great Learning, Generative AI and Azure</div>
             <div class="row sm">Mentor · UT Austin McCombs, PGP in AI Agents &amp; GenAI</div>
@@ -72,7 +79,7 @@ import { contact, portrait, writingThemes } from "../../config";
           </div>
 
           <div>
-            <div class="sec">Reach</div>
+            <h2 class="sec">Reach</h2>
             <div class="row">
               <div class="fig accent">~5,000</div>
               <div class="fig-label">Students trained worldwide</div>
@@ -93,27 +100,28 @@ import { contact, portrait, writingThemes } from "../../config";
 
       <div class="grid3">
         <div>
-          <div class="sec">Contact</div>
+          <h2 class="sec">Contact</h2>
           <div class="b">{contact.email}</div>
         </div>
         <div>
-          <div class="sec">LinkedIn</div>
+          <h2 class="sec">LinkedIn</h2>
           <div class="b">{contact.linkedin.replace(/^https:\/\/www\.|\/$/g, "")}</div>
         </div>
       </div>
     </article>
-  </div>
+  </main>
 </BaseLayout>
 
 <style>
   /* Grey desk on screen; the sheet itself is what prints. */
   .desk {
     background: var(--paper-sunken);
-    min-height: 100vh;
+    min-height: 100dvh;
     padding: var(--space-8) var(--space-5);
   }
   .back {
     display: block;
+    padding-block: var(--space-4);
     max-width: 816px;
     margin: 0 auto var(--space-5);
     font-size: var(--step--1);
@@ -159,12 +167,12 @@ import { contact, portrait, writingThemes } from "../../config";
     flex: none;
   }
   .name {
+    margin: var(--space-3) 0 0;
     font-family: var(--font-display);
     font-size: 52px;
     font-weight: var(--wt-semibold);
     letter-spacing: -0.02em;
     line-height: 1;
-    margin-top: var(--space-3);
   }
   .strap {
     font-size: 15px;
@@ -175,6 +183,7 @@ import { contact, portrait, writingThemes } from "../../config";
 
   /* A hand-rolled .eyebrow at 12px: the section label used throughout the sheet. */
   .sec {
+    margin: 0;
     font-family: var(--font-body);
     font-size: var(--step--2);
     font-weight: var(--wt-medium);
@@ -291,6 +300,7 @@ import { contact, portrait, writingThemes } from "../../config";
   @media (max-width: 880px) {
     .sheet {
       width: 100%;
+      min-height: 0;
       padding: var(--margin-page-tight);
     }
     .grid2,

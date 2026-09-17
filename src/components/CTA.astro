@@ -32,7 +32,7 @@ const elsewhere = [
     <h2 class="cta__title">Let's talk about your data platform.</h2>
     <p class="cta__lede">Available for consulting engagements, talks and workshops.</p>
 
-    <ul class="icon-links" aria-label="Elsewhere">
+    <ul class="icon-links" role="list" aria-label="Elsewhere">
       {
         elsewhere.map((l) => (
           <li>
@@ -46,7 +46,7 @@ const elsewhere = [
     </ul>
   </div>
 
-  <ul class="link-cards">
+  <ul class="link-cards" role="list">
     {
       primary.map((l) => (
         <li>
@@ -69,13 +69,20 @@ const elsewhere = [
     gap: var(--space-9);
     align-items: start;
   }
+  /* Smaller than the hero's clamp on purpose: this is an h2, and at the hero's floor of 1.9rem
+     the two were both 30.4px on a phone, which reads as two competing page titles. */
   .cta__title {
     font-family: var(--font-display);
-    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    font-size: clamp(1.5rem, 3.2vw, 2.2rem);
     line-height: var(--lh-display);
     letter-spacing: var(--ls-display);
     margin: 0;
     max-width: 14em;
+  }
+  @media (max-width: 640px) {
+    .cta__title {
+      line-height: 1.15;
+    }
   }
   .cta__lede {
     margin-top: var(--space-6);

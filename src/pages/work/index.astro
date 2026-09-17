@@ -139,7 +139,14 @@ const klarunCovers = [
         {/* The cream export, not the dark one: its own ground is warmer than this band's
             graphite and read as a mismatched rectangle. Here that ground is the plate. */}
         <div class="shot klarun__shot">
-          <img src={klarunLogo.onLight} alt="Klarun" width="2400" height="800" loading="lazy" />
+          <img
+            src={klarunLogo.onLight}
+            alt="Klarun"
+            width="2400"
+            height="800"
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
@@ -202,7 +209,7 @@ const klarunCovers = [
           src="/powerbi-dev/powerbi-ai-driven-dev.jpeg"
           alt="Eight-step agentic PBIP development workflow: understand, improve behind an approval gate, then build and prove"
           width={1280}
-          height={1080}
+          height={1075}
           caption="Read-only review produces evidence-backed plans; nothing is applied until it is approved, per finding."
           meta="Delivery workflow"
           loading="eager"
@@ -255,7 +262,7 @@ const klarunCovers = [
     margin: var(--space-7) 0 0;
     border-top: var(--hairline);
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-4) var(--space-7);
     font-size: var(--step--1);
     color: var(--ink-secondary);

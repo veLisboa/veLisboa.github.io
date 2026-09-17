@@ -175,24 +175,28 @@ export const writingThemes = [
   },
 ] as const;
 
-/** Vendor marks, used unstyled at their own proportions. `shape` drives optical sizing. */
+/**
+ * Vendor marks, used unstyled at their own proportions. `shape` drives optical sizing.
+ * `w`/`h` are the real file dimensions, needed so the row reserves its space instead of
+ * collapsing nine images to zero width until each one decodes.
+ */
 export const platformLogos = [
-  { src: "/techs-logo/microsoft-logo.png", alt: "Microsoft", shape: "word" },
-  { src: "/techs-logo/fabric-logo.png", alt: "Microsoft Fabric", shape: "mark" },
-  { src: "/techs-logo/powerbi-logo.png", alt: "Power BI", shape: "mark" },
-  { src: "/techs-logo/databricks-logo.png", alt: "Databricks", shape: "mark" },
-  { src: "/techs-logo/azure-logo.png", alt: "Microsoft Azure", shape: "mark" },
-  { src: "/techs-logo/copilot-logo.png", alt: "Microsoft Copilot", shape: "mark" },
-  { src: "/techs-logo/foundry-logo.png", alt: "Azure AI Foundry", shape: "mark" },
-  { src: "/techs-logo/bigquery-logo.png", alt: "Google BigQuery", shape: "mark" },
+  { src: "/techs-logo/microsoft-logo.png", alt: "Microsoft", shape: "word" , w: 381, h: 93 },
+  { src: "/techs-logo/fabric-logo.png", alt: "Microsoft Fabric", shape: "mark" , w: 100, h: 100 },
+  { src: "/techs-logo/powerbi-logo.png", alt: "Power BI", shape: "mark" , w: 83, h: 100 },
+  { src: "/techs-logo/databricks-logo.png", alt: "Databricks", shape: "mark" , w: 83, h: 90 },
+  { src: "/techs-logo/azure-logo.png", alt: "Microsoft Azure", shape: "mark" , w: 95, h: 85 },
+  { src: "/techs-logo/copilot-logo.png", alt: "Microsoft Copilot", shape: "mark" , w: 100, h: 100 },
+  { src: "/techs-logo/foundry-logo.png", alt: "Azure AI Foundry", shape: "mark" , w: 100, h: 100 },
+  { src: "/techs-logo/bigquery-logo.png", alt: "Google BigQuery", shape: "mark" , w: 300, h: 300 },
   /* Tableau's PNG is palette-indexed with no alpha, so it only sits on a light ground. */
-  { src: "/techs-logo/tableau-logo.png", alt: "Tableau", shape: "mark" },
+  { src: "/techs-logo/tableau-logo.png", alt: "Tableau", shape: "mark" , w: 900, h: 887 },
 ] as const;
 
 /** Programs he mentors on. */
 export const affiliations = [
-  { src: "/vinicius-lisboa/Great-Learning-Logo-e1724927369271-768x300.jpg", alt: "Great Learning" },
-  { src: "/vinicius-lisboa/McCombs.jpg", alt: "UT Austin McCombs School of Business" },
+  { src: "/vinicius-lisboa/Great-Learning-Logo-e1724927369271-768x300.jpg", alt: "Great Learning", w: 768, h: 300 },
+  { src: "/vinicius-lisboa/McCombs.jpg", alt: "UT Austin McCombs School of Business", w: 900, h: 900 },
 ] as const;
 
 /**

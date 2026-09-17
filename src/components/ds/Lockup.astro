@@ -29,7 +29,9 @@ const {
 const secondary = tone === "inverse" ? "var(--ink-secondary-inverse)" : "var(--ink-secondary)";
 const rule = tone === "inverse" ? "var(--rule-inverse)" : "var(--rule)";
 const row = align === "row";
-const roleSize = Math.max(11, Math.round(size * 0.5));
+// Floor raised from 11. At size=20 this rounded to 10 and floored to 11px, uppercase at 0.16em
+// tracking, which rendered in the footer of every page as the least legible text on the site.
+const roleSize = Math.max(13, Math.round(size * 0.5));
 ---
 
 <div

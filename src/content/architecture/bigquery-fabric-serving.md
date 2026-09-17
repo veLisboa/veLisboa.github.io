@@ -5,6 +5,8 @@ subtitle: "Google Cloud owns the lakehouse on BigLake Iceberg; Fabric serves. Cr
 summary: "Sensible when analytics already lives in BigQuery but the organization is standardized on Power BI and Microsoft 365. The economics decide the bridge choice on their own."
 group: hybrids
 diagram: /data-architecture-diagrams/05-bigquery-lakehouse-fabric-serving.png
+# This export is 2214px wide; the other six are 2203.
+diagramWidth: 2214
 order: 5
 ---
 

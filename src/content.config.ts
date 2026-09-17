@@ -32,6 +32,9 @@ const architecture = defineCollection({
     group: z.enum(["foundations", "hybrids"]),
     /** Path under /public. PNG exports for now. See README. */
     diagram: z.string(),
+    /** Real pixel size of that export. Six are 2203x1325; 05-bigquery is 2214 wide. */
+    diagramWidth: z.number().default(2203),
+    diagramHeight: z.number().default(1325),
     order: z.number().default(0),
   }),
 });
